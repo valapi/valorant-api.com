@@ -11,6 +11,6 @@
   - [Play Valorant](https://playvalorant.com/) (VALORANT)
   - [developer.riotgames.com](https://developer.riotgames.com/) (Official Api From Riot Games)
 - *Legal*
-  - >**@val-api** isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.
-  - **@val-api** was created under [Riot Games' "Legal Jibber Jabber"](https://www.riotgames.com/en/legal)
-  - [MIT License](https://github.com/Ing-Valorant-API/valorant-api.com/blob/main/LICENSE)
+  - >**@valapi** isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.
+  - **@valapi** was created under [Riot Games' "Legal Jibber Jabber"](https://www.riotgames.com/en/legal)
+  - [MIT License](https://github.com/valapi/valorant-api.com/blob/main/LICENSE)

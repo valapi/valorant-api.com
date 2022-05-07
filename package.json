@@ -1,5 +1,5 @@
 {
-  "name": "@val-api/valorant-api.com",
+  "name": "@valapi/valorant-api.com",
   "version": "1.0.0",
   "description": "Valorant API - valorant-api.com",
   "main": "dist/index.js",
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/Ing-Valorant-API/valorant-api.com.git"
+    "url": "git+ssh://git@github.com/valapi/valorant-api.com.git"
   },
   "keywords": [
     "valorant",
     "riot",
     "node",
     "api",
-    "val-api",
+    "valapi",
     "val",
     "mfa",
     "2fa",
@@ -39,9 +39,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Ing-Valorant-API/valorant-api.com/issues"
+    "url": "https://github.com/valapi/valorant-api.com/issues"
   },
-  "homepage": "https://github.com/Ing-Valorant-API/valorant-api.com#readme",
+  "homepage": "https://github.com/valapi/valorant-api.com#readme",
   "dependencies": {
     "axios": "^0.27.2"
   },
