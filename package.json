@@ -1,0 +1,52 @@
+{
+  "name": "@val-api/valorant-api.com",
+  "version": "1.0.0",
+  "description": "Valorant API - valorant-api.com",
+  "main": "dist/index.js",
+  "types": "./dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "typescript": "npx tsc --project tsconfig.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Ing-Valorant-API/valorant-api.com.git"
+  },
+  "keywords": [
+    "valorant",
+    "riot",
+    "node",
+    "api",
+    "val-api",
+    "val",
+    "mfa",
+    "2fa",
+    "multifactor",
+    "twofactor"
+  ],
+  "author": {
+    "name": "ing3kth",
+    "url": "https://github.com/KTNG-3/"
+  },
+  "contributors": [
+    {
+      "name": "ING3_",
+      "url": "https://github.com/KTNG-3/"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ing-Valorant-API/valorant-api.com/issues"
+  },
+  "homepage": "https://github.com/Ing-Valorant-API/valorant-api.com#readme",
+  "dependencies": {
+    "axios": "^0.27.2"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.25",
+    "typescript": "^4.6.3"
+  }
+}
