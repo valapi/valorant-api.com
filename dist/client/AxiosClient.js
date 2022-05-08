@@ -23,19 +23,10 @@ class AxiosClient extends lib_1.CustomEvent {
     */
     constructor(config = {}) {
         super();
-        if (!config.protocol) {
-            config.protocol = 'https';
-        }
         if (!config.baseURL) {
-            config.baseURL = 'valorant-api.com';
-        }
-        if (!config.apiVersion) {
-            config.apiVersion = 1;
+            config.baseURL = 'https://valorant-api.com/v1';
         }
         this.config = config;
-        delete config.protocol;
-        delete config.baseURL;
-        delete config.apiVersion;
         this.axiosClient = axios_1.default.create(config);
         //event
         this.emit('ready');
@@ -78,16 +69,6 @@ class AxiosClient extends lib_1.CustomEvent {
         };
     }
     /**
-     * @param {Number} apiVersion API Version
-     * @returns {String}
-     */
-    getURL(apiVersion) {
-        if (!apiVersion) {
-            apiVersion = 1;
-        }
-        return `${this.config.protocol}://${this.config.baseURL}/v${String(apiVersion)}`;
-    }
-    /**
     * @param {string} endpoint API Endpoint
     * @returns {Promise<ValAPIAxios<any>>}
     */
@@ -98,10 +79,9 @@ class AxiosClient extends lib_1.CustomEvent {
             if (!endpoint.startsWith('/')) {
                 endpoint = `/${endpoint}`;
             }
-            const _URL = this.getURL(this.config.apiVersion) + endpoint;
-            this.emit('request', _URL);
+            this.emit('request', endpoint);
             //request
-            const _request = yield this.axiosClient.get(_URL, config).catch((error) => {
+            const _request = yield this.axiosClient.get(endpoint, config).catch((error) => {
                 return this.errorHandler(error);
             }).then((response) => {
                 if (_error) {

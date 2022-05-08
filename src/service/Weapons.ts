@@ -116,11 +116,11 @@ class Weapons {
     }
 
     public async getSkinChromas(): Promise<ValAPIClientService<ValAPIServiceWeaponSkinChromas[]>> {
-        return await this.AxiosClient.request('/weapons/skinschromas');
+        return await this.AxiosClient.request('/weapons/skinchromas');
     }
 
     public async getSkinLevels(): Promise<ValAPIClientService<ValAPIServiceWeaponSkinLevels[]>> {
-        return await this.AxiosClient.request('/weapons/skinslevels');
+        return await this.AxiosClient.request('/weapons/skinlevels');
     }
 
     public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceWeapons>> {
@@ -132,11 +132,11 @@ class Weapons {
     }
 
     public async getSkinChromaByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceWeaponSkinChromas>> {
-        return await this.AxiosClient.request(`/weapons/skinschromas/${uuid}`);
+        return await this.AxiosClient.request(`/weapons/skinchromas/${uuid}`);
     }
 
     public async getSkinLevelByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceWeaponSkinLevels>> {
-        return await this.AxiosClient.request(`/weapons/skinslevels/${uuid}`);
+        return await this.AxiosClient.request(`/weapons/skinlevels/${uuid}`);
     }
 }
 

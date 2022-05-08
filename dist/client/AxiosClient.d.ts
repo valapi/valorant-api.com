@@ -5,11 +5,6 @@ interface ValAPIAxios<ValAPIAxiosReturn> {
     data: ValAPIAxiosReturn;
 }
 declare type ValAPIAxiosProtocal = 'http' | 'https';
-interface ValAPIAxiosConfig {
-    protocol?: ValAPIAxiosProtocal;
-    baseURL?: string;
-    apiVersion?: number;
-}
 interface ValAPIAxiosError {
     errorCode: string;
     message: string;
@@ -17,22 +12,17 @@ interface ValAPIAxiosError {
 }
 declare class AxiosClient extends CustomEvent {
     axiosClient: Axios;
-    protected config: ValAPIAxiosConfig;
+    protected config: AxiosRequestConfig;
     /**
     * @param {ValApiAxiosConfig} config Config
     */
-    constructor(config?: ValAPIAxiosConfig & AxiosRequestConfig);
+    constructor(config?: AxiosRequestConfig);
     /**
      *
      * @param {AxiosError} error Axios Error
      * @returns
      */
     private errorHandler;
-    /**
-     * @param {Number} apiVersion API Version
-     * @returns {String}
-     */
-    protected getURL(apiVersion?: number): string;
     /**
     * @param {string} endpoint API Endpoint
     * @returns {Promise<ValAPIAxios<any>>}
@@ -51,5 +41,5 @@ declare interface AxiosClient {
     off<EventName extends keyof ValAPIAxiosEvent>(name: EventName, callback?: ValAPIAxiosEvent[EventName]): void;
 }
 export { AxiosClient };
-export type { ValAPIAxios, ValAPIAxiosProtocal, ValAPIAxiosConfig, ValAPIAxiosError, ValAPIAxiosEvent };
+export type { ValAPIAxios, ValAPIAxiosProtocal, ValAPIAxiosError, ValAPIAxiosEvent };
 //# sourceMappingURL=AxiosClient.d.ts.map

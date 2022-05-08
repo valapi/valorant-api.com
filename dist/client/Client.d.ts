@@ -1,7 +1,26 @@
 import { CustomEvent } from "@valapi/lib";
 import { Locale } from "@valapi/lib";
 import type { AxiosRequestConfig } from "axios";
-import { type ValAPIAxios, type ValAPIAxiosConfig } from "./AxiosClient";
+import { type ValAPIAxios } from "./AxiosClient";
+import { Agents } from "../service/Agents";
+import { Buddies } from "../service/Buddies";
+import { Bundles } from "../service/Bundles";
+import { Ceremonies } from "../service/Ceremonies";
+import { CompetitiveTiers } from "../service/CompetitiveTiers";
+import { ContentTiers } from "../service/ContentTiers";
+import { Contracts } from "../service/Contracts";
+import { Currencies } from "../service/Currencies";
+import { Events } from "../service/Events";
+import { Gamemodes } from "../service/Gamemodes";
+import { Gear } from "../service/Gear";
+import { Maps } from "../service/Maps";
+import { PlayerCards } from "../service/PlayerCards";
+import { PlayerTitles } from "../service/PlayerTitles";
+import { Seasons } from "../service/Seasons";
+import { Sprays } from "../service/Sprays";
+import { Themes } from "../service/Themes";
+import { Version } from "../service/Version";
+import { Weapons } from "../service/Weapons";
 declare type ValAPIClientService<ValAPIClientServiceReturn> = ValAPIAxios<{
     status: number;
     error?: string;
@@ -15,14 +34,35 @@ interface ValAPIClientError {
 declare type ValAPIConfigLanguage = keyof typeof Locale;
 interface ValAPIConfig {
     language?: ValAPIConfigLanguage;
+    axiosConfig?: AxiosRequestConfig;
 }
 declare class APIClient extends CustomEvent {
-    protected config: ValAPIConfig & ValAPIAxiosConfig;
+    protected config: ValAPIConfig;
     private AxiosClient;
-    constructor(config?: ValAPIConfig & ValAPIAxiosConfig & AxiosRequestConfig);
+    Agents: Agents;
+    Buddies: Buddies;
+    Bundles: Bundles;
+    Ceremonies: Ceremonies;
+    CompetitiveTiers: CompetitiveTiers;
+    ContentTiers: ContentTiers;
+    Contracts: Contracts;
+    Currencies: Currencies;
+    Events: Events;
+    Gamemodes: Gamemodes;
+    Gear: Gear;
+    Maps: Maps;
+    PlayerCards: PlayerCards;
+    PlayerTitles: PlayerTitles;
+    Seasons: Seasons;
+    Sprays: Sprays;
+    Themes: Themes;
+    Version: Version;
+    Weapons: Weapons;
+    constructor(config?: ValAPIConfig);
     private reload;
     toJSON(): ValAPIConfig;
     fromJSON(data: ValAPIConfig): void;
+    setLanguage(language: ValAPIConfigLanguage): void;
 }
 interface ValAPIClientEvent {
     'ready': () => void;

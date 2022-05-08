@@ -5,9 +5,29 @@ import { Locale } from "@valapi/lib";
 import { Region as _Region } from "@valapi/lib";
 
 import type { AxiosRequestConfig } from "axios";
-import { AxiosClient, type ValAPIAxios, type ValAPIAxiosConfig, type ValAPIAxiosError } from "./AxiosClient";
+import { AxiosClient, type ValAPIAxios, type ValAPIAxiosError } from "./AxiosClient";
 
 //service
+
+import { Agents } from "../service/Agents";
+import { Buddies } from "../service/Buddies";
+import { Bundles } from "../service/Bundles";
+import { Ceremonies } from "../service/Ceremonies";
+import { CompetitiveTiers } from "../service/CompetitiveTiers";
+import { ContentTiers } from "../service/ContentTiers";
+import { Contracts } from "../service/Contracts";
+import { Currencies } from "../service/Currencies";
+import { Events } from "../service/Events";
+import { Gamemodes } from "../service/Gamemodes";
+import { Gear } from "../service/Gear";
+import { Maps } from "../service/Maps";
+import { PlayerCards } from "../service/PlayerCards";
+import { PlayerTitles } from "../service/PlayerTitles";
+import { Seasons } from "../service/Seasons";
+import { Sprays } from "../service/Sprays";
+import { Themes } from "../service/Themes";
+import { Version } from "../service/Version";
+import { Weapons } from "../service/Weapons";
 
 
 //interface
@@ -28,33 +48,73 @@ type ValAPIConfigLanguage = keyof typeof Locale
 
 interface ValAPIConfig {
     language?: ValAPIConfigLanguage; //can use 'all' but not supported yet
+    axiosConfig?: AxiosRequestConfig;
 }
 
 //class
 class APIClient extends CustomEvent {
-    protected config: ValAPIConfig & ValAPIAxiosConfig;
+    protected config: ValAPIConfig;
     private AxiosClient: AxiosClient;
 
     //service
-    //wait me please
 
-    constructor(config: ValAPIConfig & ValAPIAxiosConfig & AxiosRequestConfig = {}) {
+    public Agents: Agents;
+    public Buddies: Buddies;
+    public Bundles: Bundles;
+    public Ceremonies: Ceremonies;
+    public CompetitiveTiers: CompetitiveTiers;
+    public ContentTiers: ContentTiers;
+    public Contracts: Contracts;
+    public Currencies: Currencies;
+    public Events: Events;
+    public Gamemodes: Gamemodes;
+    public Gear: Gear;
+    public Maps: Maps;
+    public PlayerCards: PlayerCards;
+    public PlayerTitles: PlayerTitles;
+    public Seasons: Seasons;
+    public Sprays: Sprays;
+    public Themes: Themes;
+    public Version: Version;
+    public Weapons: Weapons;
+
+    constructor(config: ValAPIConfig = {}) {
         super();
 
         //config
-        if(!config.language){
+        if (!config.language) {
             config.language = 'en-US';
-        } else if (config.language = 'data' || config.language == 'en-GB'){
+        } else if (config.language = 'data' || config.language == 'en-GB') {
             throw new Error("Language '" + config.language + "' is not supported");
         }
 
         this.config = config;
 
-        delete config.language;
-
         //first reload
-        this.AxiosClient = new AxiosClient(this.config);
-        this.AxiosClient.on('error', ((data:ValAPIAxiosError) => { this.emit('error', data); }));
+        this.AxiosClient = new AxiosClient(this.config.axiosConfig);
+        this.AxiosClient.on('error', ((data: ValAPIAxiosError) => { this.emit('error', data); }));
+
+        //service
+        
+        this.Agents = new Agents(this.AxiosClient);
+        this.Buddies = new Buddies(this.AxiosClient);
+        this.Bundles = new Bundles(this.AxiosClient);
+        this.Ceremonies = new Ceremonies(this.AxiosClient);
+        this.CompetitiveTiers = new CompetitiveTiers(this.AxiosClient);
+        this.ContentTiers = new ContentTiers(this.AxiosClient);
+        this.Contracts = new Contracts(this.AxiosClient);
+        this.Currencies = new Currencies(this.AxiosClient);
+        this.Events = new Events(this.AxiosClient);
+        this.Gamemodes = new Gamemodes(this.AxiosClient);
+        this.Gear = new Gear(this.AxiosClient);
+        this.Maps = new Maps(this.AxiosClient);
+        this.PlayerCards = new PlayerCards(this.AxiosClient);
+        this.PlayerTitles = new PlayerTitles(this.AxiosClient);
+        this.Seasons = new Seasons(this.AxiosClient);
+        this.Sprays = new Sprays(this.AxiosClient);
+        this.Themes = new Themes(this.AxiosClient);
+        this.Version = new Version(this.AxiosClient);
+        this.Weapons = new Weapons(this.AxiosClient);
 
         //event
         this.emit('ready');
@@ -62,8 +122,30 @@ class APIClient extends CustomEvent {
 
     //reload
     private reload(): void {
-        this.AxiosClient = new AxiosClient(this.config);
-        this.AxiosClient.on('error', ((data:ValAPIAxiosError) => { this.emit('error', data); }));
+        this.AxiosClient = new AxiosClient(this.config.axiosConfig);
+        this.AxiosClient.on('error', ((data: ValAPIAxiosError) => { this.emit('error', data); }));
+
+        //service
+        
+        this.Agents = new Agents(this.AxiosClient);
+        this.Buddies = new Buddies(this.AxiosClient);
+        this.Bundles = new Bundles(this.AxiosClient);
+        this.Ceremonies = new Ceremonies(this.AxiosClient);
+        this.CompetitiveTiers = new CompetitiveTiers(this.AxiosClient);
+        this.ContentTiers = new ContentTiers(this.AxiosClient);
+        this.Contracts = new Contracts(this.AxiosClient);
+        this.Currencies = new Currencies(this.AxiosClient);
+        this.Events = new Events(this.AxiosClient);
+        this.Gamemodes = new Gamemodes(this.AxiosClient);
+        this.Gear = new Gear(this.AxiosClient);
+        this.Maps = new Maps(this.AxiosClient);
+        this.PlayerCards = new PlayerCards(this.AxiosClient);
+        this.PlayerTitles = new PlayerTitles(this.AxiosClient);
+        this.Seasons = new Seasons(this.AxiosClient);
+        this.Sprays = new Sprays(this.AxiosClient);
+        this.Themes = new Themes(this.AxiosClient);
+        this.Version = new Version(this.AxiosClient);
+        this.Weapons = new Weapons(this.AxiosClient);
     }
 
     //save
@@ -77,16 +159,23 @@ class APIClient extends CustomEvent {
     }
 
     //settings
-    //wait me please
+    
+    public setLanguage(language: ValAPIConfigLanguage): void {
+        if(language === 'data'){
+            this.emit('error', { errorCode: 'ValAPIClient_Config_Error', message: "Language 'data' not found", data: language });
+        }
 
-    //static
-    //wait me please
+        this.config.language = language;
+        this.emit('changeSettings', { name: 'language', data: language });
+
+        this.reload();
+    }
 }
 
 //event
 interface ValAPIClientEvent {
     'ready': () => void,
-    'changeSettings': (data: { name:string, data:any }) => void,
+    'changeSettings': (data: { name: string, data: any }) => void,
     'error': (data: ValAPIClientError) => void;
 }
 

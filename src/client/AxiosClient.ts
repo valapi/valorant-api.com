@@ -10,12 +10,6 @@ interface ValAPIAxios<ValAPIAxiosReturn> {
 
 type ValAPIAxiosProtocal = 'http' | 'https';
 
-interface ValAPIAxiosConfig {
-    protocol?: ValAPIAxiosProtocal;
-    baseURL?: string;
-    apiVersion?: number;
-}
-
 interface ValAPIAxiosError {
     errorCode: string,
     message: string,
@@ -25,31 +19,19 @@ interface ValAPIAxiosError {
 //class
 class AxiosClient extends CustomEvent {
     public axiosClient: Axios;
-    protected config: ValAPIAxiosConfig;
+    protected config: AxiosRequestConfig;
 
     /**
     * @param {ValApiAxiosConfig} config Config
     */
-    constructor(config: ValAPIAxiosConfig & AxiosRequestConfig = {}) {
+    constructor(config: AxiosRequestConfig = {}) {
         super();
 
-        if(!config.protocol){
-            config.protocol = 'https';
-        }
-
         if(!config.baseURL){
-            config.baseURL = 'valorant-api.com';
-        }
-
-        if(!config.apiVersion){
-            config.apiVersion = 1;
+            config.baseURL = 'https://valorant-api.com/v1';
         }
 
         this.config = config;
-
-        delete config.protocol;
-        delete config.baseURL;
-        delete config.apiVersion;
 
         this.axiosClient = axios.create(config);
         
@@ -99,18 +81,6 @@ class AxiosClient extends CustomEvent {
         }
      }
 
-     /**
-      * @param {Number} apiVersion API Version
-      * @returns {String}
-      */
-     protected getURL(apiVersion?:number):string {
-        if(!apiVersion){
-            apiVersion = 1;
-        }
-
-         return `${this.config.protocol}://${this.config.baseURL}/v${String(apiVersion)}`;
-     }
-
     /**
     * @param {string} endpoint API Endpoint
     * @returns {Promise<ValAPIAxios<any>>}
@@ -122,12 +92,11 @@ class AxiosClient extends CustomEvent {
         if(!endpoint.startsWith('/')){
             endpoint = `/${endpoint}`;
         }
-        const _URL = this.getURL(this.config.apiVersion) + endpoint;
 
-        this.emit('request', _URL);
+        this.emit('request', endpoint);
 
         //request
-        const _request:any = await this.axiosClient.get(_URL, config).catch((error:AxiosError):any => {
+        const _request:any = await this.axiosClient.get(endpoint, config).catch((error:AxiosError):any => {
             return this.errorHandler(error);
             
         }).then((response:any) => {
@@ -163,4 +132,4 @@ declare interface AxiosClient {
 
 //export
 export { AxiosClient };
-export type { ValAPIAxios, ValAPIAxiosProtocal, ValAPIAxiosConfig, ValAPIAxiosError, ValAPIAxiosEvent };
+export type { ValAPIAxios, ValAPIAxiosProtocal, ValAPIAxiosError, ValAPIAxiosEvent };

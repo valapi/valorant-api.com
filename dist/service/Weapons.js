@@ -29,12 +29,12 @@ class Weapons {
     }
     getSkinChromas() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request('/weapons/skinschromas');
+            return yield this.AxiosClient.request('/weapons/skinchromas');
         });
     }
     getSkinLevels() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request('/weapons/skinslevels');
+            return yield this.AxiosClient.request('/weapons/skinlevels');
         });
     }
     getByUuid(uuid) {
@@ -49,12 +49,12 @@ class Weapons {
     }
     getSkinChromaByUuid(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/weapons/skinschromas/${uuid}`);
+            return yield this.AxiosClient.request(`/weapons/skinchromas/${uuid}`);
         });
     }
     getSkinLevelByUuid(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/weapons/skinslevels/${uuid}`);
+            return yield this.AxiosClient.request(`/weapons/skinlevels/${uuid}`);
         });
     }
 }
