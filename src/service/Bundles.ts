@@ -23,19 +23,21 @@ interface ValAPIServiceBundles {
 
 class Bundles {
     private AxiosClient: AxiosClient;
+    private language: string;
 
-    constructor(AxiosClient: AxiosClient) {
+    constructor(AxiosClient: AxiosClient, language: string) {
         this.AxiosClient = AxiosClient;
+        this.language = language;
     }
 
     //service
 
     public async get(): Promise<ValAPIClientService<ValAPIServiceBundles[]>> {
-        return await this.AxiosClient.request('/bundles');
+        return await this.AxiosClient.request('/bundles' + `?language=${this.language}`);
     }
 
     public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceBundles>> {
-        return await this.AxiosClient.request(`/bundles/${uuid}`);
+        return await this.AxiosClient.request(`/bundles/${uuid}` + `?language=${this.language}`);
     }
 }
 

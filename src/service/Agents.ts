@@ -52,19 +52,29 @@ interface ValAPIServiceAgents {
 
 class Agents {
     private AxiosClient: AxiosClient;
+    private language: string;
 
-    constructor(AxiosClient: AxiosClient) {
+    constructor(AxiosClient: AxiosClient, language: string) {
         this.AxiosClient = AxiosClient;
+        this.language = language;
     }
 
     //service
 
-    public async get():Promise<ValAPIClientService<ValAPIServiceAgents[]>> {
-        return await this.AxiosClient.request(`/agents`);
+    public async get(isPlayableCharacter?:boolean):Promise<ValAPIClientService<ValAPIServiceAgents[]>> {
+        let url = `/agents` + `?language=${this.language}`;
+
+        if(isPlayableCharacter === false){
+            url += `&isPlayableCharacter=false`;
+        } else if(isPlayableCharacter === true) {
+            url += `&isPlayableCharacter=true`;
+        }
+
+        return await this.AxiosClient.request(url);
     }
 
     public async getByUuid(uuid:string):Promise<ValAPIClientService<ValAPIServiceAgents>> {
-        return await this.AxiosClient.request(`/agents/${uuid}`);
+        return await this.AxiosClient.request(`/agents/${uuid}` + `?language=${this.language}`);
     }
 }
 

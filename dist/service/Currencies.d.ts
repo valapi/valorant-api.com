@@ -10,7 +10,8 @@ interface ValAPIServiceCurrencies {
 }
 declare class Currencies {
     private AxiosClient;
-    constructor(AxiosClient: AxiosClient);
+    private language;
+    constructor(AxiosClient: AxiosClient, language: string);
     get(): Promise<ValAPIClientService<ValAPIServiceCurrencies[]>>;
     getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceCurrencies>>;
 }

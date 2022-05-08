@@ -17,19 +17,21 @@ interface ValAPIServiceThemes {
 
 class Themes {
     private AxiosClient: AxiosClient;
+    private language: string;
 
-    constructor(AxiosClient: AxiosClient) {
+    constructor(AxiosClient: AxiosClient, language: string) {
         this.AxiosClient = AxiosClient;
+        this.language = language;
     }
 
     //service
 
     public async get(): Promise<ValAPIClientService<ValAPIServiceThemes[]>> {
-        return await this.AxiosClient.request('/themes');
+        return await this.AxiosClient.request('/themes' + `?language=${this.language}`);
     }
 
     public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceThemes>> {
-        return await this.AxiosClient.request(`/themes/${uuid}`);
+        return await this.AxiosClient.request(`/themes/${uuid}` + `?language=${this.language}`);
     }
 }
 

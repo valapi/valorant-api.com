@@ -27,19 +27,21 @@ interface ValAPIServiceCompetitiveTiers {
 
 class CompetitiveTiers {
     private AxiosClient: AxiosClient;
+    private language: string;
 
-    constructor(AxiosClient: AxiosClient) {
+    constructor(AxiosClient: AxiosClient, language: string) {
         this.AxiosClient = AxiosClient;
+        this.language = language;
     }
 
     //service
 
     public async get(): Promise<ValAPIClientService<ValAPIServiceCompetitiveTiers[]>> {
-        return await this.AxiosClient.request('/competitivetiers');
+        return await this.AxiosClient.request('/competitivetiers' + `?language=${this.language}`);
     }
 
     public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceCompetitiveTiers>> {
-        return await this.AxiosClient.request(`/competitivetiers/${uuid}`);
+        return await this.AxiosClient.request(`/competitivetiers/${uuid}` + `?language=${this.language}`);
     }
 }
 

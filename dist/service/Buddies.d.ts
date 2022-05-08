@@ -18,7 +18,8 @@ interface ValAPIServiceBuddies {
 }
 declare class Buddies {
     private AxiosClient;
-    constructor(AxiosClient: AxiosClient);
+    private language;
+    constructor(AxiosClient: AxiosClient, language: string);
     get(): Promise<ValAPIClientService<ValAPIServiceBuddies[]>>;
     getLevels(): Promise<ValAPIClientService<ValAPIServiceBuddyLevels[]>>;
     getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceBuddies>>;

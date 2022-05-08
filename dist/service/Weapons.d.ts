@@ -89,7 +89,8 @@ interface ValAPIServiceWeapons {
 }
 declare class Weapons {
     private AxiosClient;
-    constructor(AxiosClient: AxiosClient);
+    private language;
+    constructor(AxiosClient: AxiosClient, language: string);
     get(): Promise<ValAPIClientService<ValAPIServiceWeapons[]>>;
     getSkins(): Promise<ValAPIClientService<ValAPIServiceWeaponSkins[]>>;
     getSkinChromas(): Promise<ValAPIClientService<ValAPIServiceWeaponSkinChromas[]>>;

@@ -24,7 +24,8 @@ interface ValAPIServiceMaps {
 }
 declare class Maps {
     private AxiosClient;
-    constructor(AxiosClient: AxiosClient);
+    private language;
+    constructor(AxiosClient: AxiosClient, language: string);
     get(): Promise<ValAPIClientService<ValAPIServiceMaps[]>>;
     getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceMaps>>;
 }

@@ -23,7 +23,8 @@ interface ValAPIServiceGear {
 }
 declare class Gear {
     private AxiosClient;
-    constructor(AxiosClient: AxiosClient);
+    private language;
+    constructor(AxiosClient: AxiosClient, language: string);
     get(): Promise<ValAPIClientService<ValAPIServiceGear[]>>;
     getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceGear>>;
 }

@@ -13,48 +13,49 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Weapons = void 0;
 //class
 class Weapons {
-    constructor(AxiosClient) {
+    constructor(AxiosClient, language) {
         this.AxiosClient = AxiosClient;
+        this.language = language;
     }
     //service
     get() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request('/weapons');
+            return yield this.AxiosClient.request('/weapons' + `?language=${this.language}`);
         });
     }
     getSkins() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request('/weapons/skins');
+            return yield this.AxiosClient.request('/weapons/skins' + `?language=${this.language}`);
         });
     }
     getSkinChromas() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request('/weapons/skinchromas');
+            return yield this.AxiosClient.request('/weapons/skinchromas' + `?language=${this.language}`);
         });
     }
     getSkinLevels() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request('/weapons/skinlevels');
+            return yield this.AxiosClient.request('/weapons/skinlevels' + `?language=${this.language}`);
         });
     }
     getByUuid(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/weapons/${uuid}`);
+            return yield this.AxiosClient.request(`/weapons/${uuid}` + `?language=${this.language}`);
         });
     }
     getSkinByUuid(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/weapons/skins/${uuid}`);
+            return yield this.AxiosClient.request(`/weapons/skins/${uuid}` + `?language=${this.language}`);
         });
     }
     getSkinChromaByUuid(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/weapons/skinchromas/${uuid}`);
+            return yield this.AxiosClient.request(`/weapons/skinchromas/${uuid}` + `?language=${this.language}`);
         });
     }
     getSkinLevelByUuid(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/weapons/skinlevels/${uuid}`);
+            return yield this.AxiosClient.request(`/weapons/skinlevels/${uuid}` + `?language=${this.language}`);
         });
     }
 }

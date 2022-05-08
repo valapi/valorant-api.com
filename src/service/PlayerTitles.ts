@@ -18,19 +18,21 @@ interface ValAPIServicePlayerTitles {
 
 class PlayerTitles {
     private AxiosClient: AxiosClient;
+    private language: string;
 
-    constructor(AxiosClient: AxiosClient) {
+    constructor(AxiosClient: AxiosClient, language: string) {
         this.AxiosClient = AxiosClient;
+        this.language = language;
     }
 
     //service
 
     public async get(): Promise<ValAPIClientService<ValAPIServicePlayerTitles[]>> {
-        return await this.AxiosClient.request('/playertitles');
+        return await this.AxiosClient.request('/playertitles' + `?language=${this.language}`);
     }
 
     public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServicePlayerTitles>> {
-        return await this.AxiosClient.request(`/playertitles/${uuid}`);
+        return await this.AxiosClient.request(`/playertitles/${uuid}` + `?language=${this.language}`);
     }
 }
 

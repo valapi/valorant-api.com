@@ -18,19 +18,21 @@ interface ValAPIServiceEvents {
 
 class Events {
     private AxiosClient: AxiosClient;
+    private language: string;
 
-    constructor(AxiosClient: AxiosClient) {
+    constructor(AxiosClient: AxiosClient, language: string) {
         this.AxiosClient = AxiosClient;
+        this.language = language;
     }
 
     //service
 
     public async get(): Promise<ValAPIClientService<ValAPIServiceEvents[]>> {
-        return await this.AxiosClient.request('/events');
+        return await this.AxiosClient.request('/events' + `?language=${this.language}`);
     }
 
     public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceEvents>> {
-        return await this.AxiosClient.request(`/events/${uuid}`);
+        return await this.AxiosClient.request(`/events/${uuid}` + `?language=${this.language}`);
     }
 }
 

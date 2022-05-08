@@ -44,8 +44,9 @@ interface ValAPIServiceAgents {
 }
 declare class Agents {
     private AxiosClient;
-    constructor(AxiosClient: AxiosClient);
-    get(): Promise<ValAPIClientService<ValAPIServiceAgents[]>>;
+    private language;
+    constructor(AxiosClient: AxiosClient, language: string);
+    get(isPlayableCharacter?: boolean): Promise<ValAPIClientService<ValAPIServiceAgents[]>>;
     getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceAgents>>;
 }
 export { Agents };

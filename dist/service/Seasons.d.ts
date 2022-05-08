@@ -27,7 +27,8 @@ interface ValAPIServiceCompetitiveSeasons {
 }
 declare class Seasons {
     private AxiosClient;
-    constructor(AxiosClient: AxiosClient);
+    private language;
+    constructor(AxiosClient: AxiosClient, language: string);
     get(): Promise<ValAPIClientService<ValAPIServiceSeasons[]>>;
     getCompetitiveSeasons(): Promise<ValAPIClientService<ValAPIServiceCompetitiveSeasons[]>>;
     getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceSeasons>>;

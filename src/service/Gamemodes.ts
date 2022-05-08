@@ -39,27 +39,29 @@ interface ValAPIServiceGamemodeEquippables {
 
 class Gamemodes {
     private AxiosClient: AxiosClient;
+    private language: string;
 
-    constructor(AxiosClient: AxiosClient) {
+    constructor(AxiosClient: AxiosClient, language: string) {
         this.AxiosClient = AxiosClient;
+        this.language = language;
     }
 
     //service
 
     public async get():Promise<ValAPIClientService<ValAPIServiceGamemodes[]>> {
-        return await this.AxiosClient.request('/gamemodes');
+        return await this.AxiosClient.request('/gamemodes' + `?language=${this.language}`);
     }
 
     public async getEquippables():Promise<ValAPIClientService<ValAPIServiceGamemodeEquippables[]>> {
-        return await this.AxiosClient.request(`/gamemodes/equippables`);
+        return await this.AxiosClient.request(`/gamemodes/equippables` + `?language=${this.language}`);
     }
 
     public async getByUuid(uuid:string):Promise<ValAPIClientService<ValAPIServiceGamemodes>> {
-        return await this.AxiosClient.request(`/gamemodes/${uuid}`);
+        return await this.AxiosClient.request(`/gamemodes/${uuid}` + `?language=${this.language}`);
     }
 
     public async getEquippableByUuid(uuid:string):Promise<ValAPIClientService<ValAPIServiceGamemodeEquippables>> {
-        return await this.AxiosClient.request(`/gamemodes/equippables/${uuid}`);
+        return await this.AxiosClient.request(`/gamemodes/equippables/${uuid}` + `?language=${this.language}`);
     }
 }
 

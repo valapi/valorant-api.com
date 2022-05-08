@@ -19,7 +19,8 @@ interface ValAPIServiceCompetitiveTiers {
 }
 declare class CompetitiveTiers {
     private AxiosClient;
-    constructor(AxiosClient: AxiosClient);
+    private language;
+    constructor(AxiosClient: AxiosClient, language: string);
     get(): Promise<ValAPIClientService<ValAPIServiceCompetitiveTiers[]>>;
     getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceCompetitiveTiers>>;
 }

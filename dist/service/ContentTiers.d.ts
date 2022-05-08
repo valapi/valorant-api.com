@@ -12,7 +12,8 @@ interface ValAPIServiceContentTiers {
 }
 declare class ContentTiers {
     private AxiosClient;
-    constructor(AxiosClient: AxiosClient);
+    private language;
+    constructor(AxiosClient: AxiosClient, language: string);
     get(): Promise<ValAPIClientService<ValAPIServiceContentTiers[]>>;
     getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceContentTiers>>;
 }

@@ -32,19 +32,21 @@ interface ValAPIServiceMaps {
 
 class Maps {
     private AxiosClient: AxiosClient;
+    private language: string;
 
-    constructor(AxiosClient: AxiosClient) {
+    constructor(AxiosClient: AxiosClient, language: string) {
         this.AxiosClient = AxiosClient;
+        this.language = language;
     }
 
     //service
 
     public async get(): Promise<ValAPIClientService<ValAPIServiceMaps[]>> {
-        return await this.AxiosClient.request('/maps');
+        return await this.AxiosClient.request('/maps' + `?language=${this.language}`);
     }
 
     public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceMaps>> {
-        return await this.AxiosClient.request(`/maps/${uuid}`);
+        return await this.AxiosClient.request(`/maps/${uuid}` + `?language=${this.language}`);
     }
 }
 

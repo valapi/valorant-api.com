@@ -36,15 +36,17 @@ interface ValAPIServiceCompetitiveSeasons {
 
 class Seasons {
     private AxiosClient: AxiosClient;
+    private language: string;
 
-    constructor(AxiosClient: AxiosClient) {
+    constructor(AxiosClient: AxiosClient, language: string) {
         this.AxiosClient = AxiosClient;
+        this.language = language;
     }
 
     //service
 
     public async get(): Promise<ValAPIClientService<ValAPIServiceSeasons[]>> {
-        return await this.AxiosClient.request('/seasons');
+        return await this.AxiosClient.request('/seasons' + `?language=${this.language}`);
     }
 
     public async getCompetitiveSeasons(): Promise<ValAPIClientService<ValAPIServiceCompetitiveSeasons[]>> {
@@ -52,7 +54,7 @@ class Seasons {
     }
 
     public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceSeasons>> {
-        return await this.AxiosClient.request(`/seasons/${uuid}`);
+        return await this.AxiosClient.request(`/seasons/${uuid}` + `?language=${this.language}`);
     }
 
     public async getCompetitiveSeasonsByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceCompetitiveSeasons>> {

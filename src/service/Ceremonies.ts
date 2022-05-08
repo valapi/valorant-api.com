@@ -15,19 +15,21 @@ interface ValAPIServiceCeremonies {
 
 class Ceremonies  {
     private AxiosClient: AxiosClient;
+    private language: string;
 
-    constructor(AxiosClient: AxiosClient) {
+    constructor(AxiosClient: AxiosClient, language: string) {
         this.AxiosClient = AxiosClient;
+        this.language = language;
     }
 
     //service
 
     public async get(): Promise<ValAPIClientService<ValAPIServiceCeremonies[]>> {
-        return await this.AxiosClient.request('/ceremonies');
+        return await this.AxiosClient.request('/ceremonies' + `?language=${this.language}`);
     }
 
     public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceCeremonies>> {
-        return await this.AxiosClient.request(`/ceremonies/${uuid}`);
+        return await this.AxiosClient.request(`/ceremonies/${uuid}` + `?language=${this.language}`);
     }
 }
 

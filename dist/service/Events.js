@@ -13,18 +13,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Events = void 0;
 //class
 class Events {
-    constructor(AxiosClient) {
+    constructor(AxiosClient, language) {
         this.AxiosClient = AxiosClient;
+        this.language = language;
     }
     //service
     get() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request('/events');
+            return yield this.AxiosClient.request('/events' + `?language=${this.language}`);
         });
     }
     getByUuid(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/events/${uuid}`);
+            return yield this.AxiosClient.request(`/events/${uuid}` + `?language=${this.language}`);
         });
     }
 }

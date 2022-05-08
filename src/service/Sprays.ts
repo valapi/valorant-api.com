@@ -31,27 +31,29 @@ interface ValAPIServiceSprays {
 
 class Sprays {
     private AxiosClient: AxiosClient;
+    private language: string;
 
-    constructor(AxiosClient: AxiosClient) {
+    constructor(AxiosClient: AxiosClient, language: string) {
         this.AxiosClient = AxiosClient;
+        this.language = language;
     }
 
     //service
 
     public async get():Promise<ValAPIClientService<ValAPIServiceSprays[]>> {
-        return await this.AxiosClient.request('/sprays');
+        return await this.AxiosClient.request('/sprays' + `?language=${this.language}`);
     }
 
     public async getLevels():Promise<ValAPIClientService<ValAPIServiceSprayLevels[]>> {
-        return await this.AxiosClient.request(`/sprays/levels`);
+        return await this.AxiosClient.request(`/sprays/levels` + `?language=${this.language}`);
     }
 
     public async getByUuid(uuid:string):Promise<ValAPIClientService<ValAPIServiceSprays>> {
-        return await this.AxiosClient.request(`/sprays/${uuid}`);
+        return await this.AxiosClient.request(`/sprays/${uuid}` + `?language=${this.language}`);
     }
 
     public async getLevelsByUuid(uuid:string):Promise<ValAPIClientService<ValAPIServiceSprayLevels>> {
-        return await this.AxiosClient.request(`/sprays/levels/${uuid}`);
+        return await this.AxiosClient.request(`/sprays/levels/${uuid}` + `?language=${this.language}`);
     }
 }
 

@@ -13,13 +13,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Seasons = void 0;
 //class
 class Seasons {
-    constructor(AxiosClient) {
+    constructor(AxiosClient, language) {
         this.AxiosClient = AxiosClient;
+        this.language = language;
     }
     //service
     get() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request('/seasons');
+            return yield this.AxiosClient.request('/seasons' + `?language=${this.language}`);
         });
     }
     getCompetitiveSeasons() {
@@ -29,7 +30,7 @@ class Seasons {
     }
     getByUuid(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/seasons/${uuid}`);
+            return yield this.AxiosClient.request(`/seasons/${uuid}` + `?language=${this.language}`);
         });
     }
     getCompetitiveSeasonsByUuid(uuid) {

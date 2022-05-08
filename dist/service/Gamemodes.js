@@ -13,28 +13,29 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Gamemodes = void 0;
 //class
 class Gamemodes {
-    constructor(AxiosClient) {
+    constructor(AxiosClient, language) {
         this.AxiosClient = AxiosClient;
+        this.language = language;
     }
     //service
     get() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request('/gamemodes');
+            return yield this.AxiosClient.request('/gamemodes' + `?language=${this.language}`);
         });
     }
     getEquippables() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/gamemodes/equippables`);
+            return yield this.AxiosClient.request(`/gamemodes/equippables` + `?language=${this.language}`);
         });
     }
     getByUuid(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/gamemodes/${uuid}`);
+            return yield this.AxiosClient.request(`/gamemodes/${uuid}` + `?language=${this.language}`);
         });
     }
     getEquippableByUuid(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/gamemodes/equippables/${uuid}`);
+            return yield this.AxiosClient.request(`/gamemodes/equippables/${uuid}` + `?language=${this.language}`);
         });
     }
 }

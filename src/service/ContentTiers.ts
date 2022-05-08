@@ -20,19 +20,21 @@ interface ValAPIServiceContentTiers {
 
 class ContentTiers {
     private AxiosClient: AxiosClient;
+    private language: string;
 
-    constructor(AxiosClient: AxiosClient) {
+    constructor(AxiosClient: AxiosClient, language: string) {
         this.AxiosClient = AxiosClient;
+        this.language = language;
     }
 
     //service
 
     public async get(): Promise<ValAPIClientService<ValAPIServiceContentTiers[]>> {
-        return await this.AxiosClient.request('/contenttiers');
+        return await this.AxiosClient.request('/contenttiers' + `?language=${this.language}`);
     }
 
     public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceContentTiers>> {
-        return await this.AxiosClient.request(`/contenttiers/${uuid}`);
+        return await this.AxiosClient.request(`/contenttiers/${uuid}` + `?language=${this.language}`);
     }
 }
 

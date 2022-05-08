@@ -22,7 +22,8 @@ interface ValAPIServiceSprays {
 }
 declare class Sprays {
     private AxiosClient;
-    constructor(AxiosClient: AxiosClient);
+    private language;
+    constructor(AxiosClient: AxiosClient, language: string);
     get(): Promise<ValAPIClientService<ValAPIServiceSprays[]>>;
     getLevels(): Promise<ValAPIClientService<ValAPIServiceSprayLevels[]>>;
     getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceSprays>>;

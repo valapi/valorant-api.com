@@ -40,25 +40,25 @@ class APIClient extends lib_1.CustomEvent {
         this.AxiosClient = new AxiosClient_1.AxiosClient(this.config.axiosConfig);
         this.AxiosClient.on('error', ((data) => { this.emit('error', data); }));
         //service
-        this.Agents = new Agents_1.Agents(this.AxiosClient);
-        this.Buddies = new Buddies_1.Buddies(this.AxiosClient);
-        this.Bundles = new Bundles_1.Bundles(this.AxiosClient);
-        this.Ceremonies = new Ceremonies_1.Ceremonies(this.AxiosClient);
-        this.CompetitiveTiers = new CompetitiveTiers_1.CompetitiveTiers(this.AxiosClient);
-        this.ContentTiers = new ContentTiers_1.ContentTiers(this.AxiosClient);
-        this.Contracts = new Contracts_1.Contracts(this.AxiosClient);
-        this.Currencies = new Currencies_1.Currencies(this.AxiosClient);
-        this.Events = new Events_1.Events(this.AxiosClient);
-        this.Gamemodes = new Gamemodes_1.Gamemodes(this.AxiosClient);
-        this.Gear = new Gear_1.Gear(this.AxiosClient);
-        this.Maps = new Maps_1.Maps(this.AxiosClient);
-        this.PlayerCards = new PlayerCards_1.PlayerCards(this.AxiosClient);
-        this.PlayerTitles = new PlayerTitles_1.PlayerTitles(this.AxiosClient);
-        this.Seasons = new Seasons_1.Seasons(this.AxiosClient);
-        this.Sprays = new Sprays_1.Sprays(this.AxiosClient);
-        this.Themes = new Themes_1.Themes(this.AxiosClient);
+        this.Agents = new Agents_1.Agents(this.AxiosClient, String(this.config.language));
+        this.Buddies = new Buddies_1.Buddies(this.AxiosClient, String(this.config.language));
+        this.Bundles = new Bundles_1.Bundles(this.AxiosClient, String(this.config.language));
+        this.Ceremonies = new Ceremonies_1.Ceremonies(this.AxiosClient, String(this.config.language));
+        this.CompetitiveTiers = new CompetitiveTiers_1.CompetitiveTiers(this.AxiosClient, String(this.config.language));
+        this.ContentTiers = new ContentTiers_1.ContentTiers(this.AxiosClient, String(this.config.language));
+        this.Contracts = new Contracts_1.Contracts(this.AxiosClient, String(this.config.language));
+        this.Currencies = new Currencies_1.Currencies(this.AxiosClient, String(this.config.language));
+        this.Events = new Events_1.Events(this.AxiosClient, String(this.config.language));
+        this.Gamemodes = new Gamemodes_1.Gamemodes(this.AxiosClient, String(this.config.language));
+        this.Gear = new Gear_1.Gear(this.AxiosClient, String(this.config.language));
+        this.Maps = new Maps_1.Maps(this.AxiosClient, String(this.config.language));
+        this.PlayerCards = new PlayerCards_1.PlayerCards(this.AxiosClient, String(this.config.language));
+        this.PlayerTitles = new PlayerTitles_1.PlayerTitles(this.AxiosClient, String(this.config.language));
+        this.Seasons = new Seasons_1.Seasons(this.AxiosClient, String(this.config.language));
+        this.Sprays = new Sprays_1.Sprays(this.AxiosClient, String(this.config.language));
+        this.Themes = new Themes_1.Themes(this.AxiosClient, String(this.config.language));
         this.Version = new Version_1.Version(this.AxiosClient);
-        this.Weapons = new Weapons_1.Weapons(this.AxiosClient);
+        this.Weapons = new Weapons_1.Weapons(this.AxiosClient, String(this.config.language));
         //event
         this.emit('ready');
     }
@@ -67,25 +67,25 @@ class APIClient extends lib_1.CustomEvent {
         this.AxiosClient = new AxiosClient_1.AxiosClient(this.config.axiosConfig);
         this.AxiosClient.on('error', ((data) => { this.emit('error', data); }));
         //service
-        this.Agents = new Agents_1.Agents(this.AxiosClient);
-        this.Buddies = new Buddies_1.Buddies(this.AxiosClient);
-        this.Bundles = new Bundles_1.Bundles(this.AxiosClient);
-        this.Ceremonies = new Ceremonies_1.Ceremonies(this.AxiosClient);
-        this.CompetitiveTiers = new CompetitiveTiers_1.CompetitiveTiers(this.AxiosClient);
-        this.ContentTiers = new ContentTiers_1.ContentTiers(this.AxiosClient);
-        this.Contracts = new Contracts_1.Contracts(this.AxiosClient);
-        this.Currencies = new Currencies_1.Currencies(this.AxiosClient);
-        this.Events = new Events_1.Events(this.AxiosClient);
-        this.Gamemodes = new Gamemodes_1.Gamemodes(this.AxiosClient);
-        this.Gear = new Gear_1.Gear(this.AxiosClient);
-        this.Maps = new Maps_1.Maps(this.AxiosClient);
-        this.PlayerCards = new PlayerCards_1.PlayerCards(this.AxiosClient);
-        this.PlayerTitles = new PlayerTitles_1.PlayerTitles(this.AxiosClient);
-        this.Seasons = new Seasons_1.Seasons(this.AxiosClient);
-        this.Sprays = new Sprays_1.Sprays(this.AxiosClient);
-        this.Themes = new Themes_1.Themes(this.AxiosClient);
+        this.Agents = new Agents_1.Agents(this.AxiosClient, String(this.config.language));
+        this.Buddies = new Buddies_1.Buddies(this.AxiosClient, String(this.config.language));
+        this.Bundles = new Bundles_1.Bundles(this.AxiosClient, String(this.config.language));
+        this.Ceremonies = new Ceremonies_1.Ceremonies(this.AxiosClient, String(this.config.language));
+        this.CompetitiveTiers = new CompetitiveTiers_1.CompetitiveTiers(this.AxiosClient, String(this.config.language));
+        this.ContentTiers = new ContentTiers_1.ContentTiers(this.AxiosClient, String(this.config.language));
+        this.Contracts = new Contracts_1.Contracts(this.AxiosClient, String(this.config.language));
+        this.Currencies = new Currencies_1.Currencies(this.AxiosClient, String(this.config.language));
+        this.Events = new Events_1.Events(this.AxiosClient, String(this.config.language));
+        this.Gamemodes = new Gamemodes_1.Gamemodes(this.AxiosClient, String(this.config.language));
+        this.Gear = new Gear_1.Gear(this.AxiosClient, String(this.config.language));
+        this.Maps = new Maps_1.Maps(this.AxiosClient, String(this.config.language));
+        this.PlayerCards = new PlayerCards_1.PlayerCards(this.AxiosClient, String(this.config.language));
+        this.PlayerTitles = new PlayerTitles_1.PlayerTitles(this.AxiosClient, String(this.config.language));
+        this.Seasons = new Seasons_1.Seasons(this.AxiosClient, String(this.config.language));
+        this.Sprays = new Sprays_1.Sprays(this.AxiosClient, String(this.config.language));
+        this.Themes = new Themes_1.Themes(this.AxiosClient, String(this.config.language));
         this.Version = new Version_1.Version(this.AxiosClient);
-        this.Weapons = new Weapons_1.Weapons(this.AxiosClient);
+        this.Weapons = new Weapons_1.Weapons(this.AxiosClient, String(this.config.language));
     }
     //save
     toJSON() {

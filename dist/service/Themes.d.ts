@@ -9,7 +9,8 @@ interface ValAPIServiceThemes {
 }
 declare class Themes {
     private AxiosClient;
-    constructor(AxiosClient: AxiosClient);
+    private language;
+    constructor(AxiosClient: AxiosClient, language: string);
     get(): Promise<ValAPIClientService<ValAPIServiceThemes[]>>;
     getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceThemes>>;
 }

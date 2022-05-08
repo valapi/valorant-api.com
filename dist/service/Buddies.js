@@ -13,28 +13,29 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Buddies = void 0;
 //class
 class Buddies {
-    constructor(AxiosClient) {
+    constructor(AxiosClient, language) {
         this.AxiosClient = AxiosClient;
+        this.language = language;
     }
     //service
     get() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request('/buddies');
+            return yield this.AxiosClient.request('/buddies' + `?language=${this.language}`);
         });
     }
     getLevels() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/buddies/levels`);
+            return yield this.AxiosClient.request(`/buddies/levels` + `?language=${this.language}`);
         });
     }
     getByUuid(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/buddies/${uuid}`);
+            return yield this.AxiosClient.request(`/buddies/${uuid}` + `?language=${this.language}`);
         });
     }
     getLevelsByUuid(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/buddies/levels/${uuid}`);
+            return yield this.AxiosClient.request(`/buddies/levels/${uuid}` + `?language=${this.language}`);
         });
     }
 }

@@ -13,7 +13,8 @@ interface ValAPIServicePlayerCards {
 }
 declare class PlayerCards {
     private AxiosClient;
-    constructor(AxiosClient: AxiosClient);
+    private language;
+    constructor(AxiosClient: AxiosClient, language: string);
     get(): Promise<ValAPIClientService<ValAPIServicePlayerCards[]>>;
     getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServicePlayerCards>>;
 }

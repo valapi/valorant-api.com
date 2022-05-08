@@ -13,18 +13,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Themes = void 0;
 //class
 class Themes {
-    constructor(AxiosClient) {
+    constructor(AxiosClient, language) {
         this.AxiosClient = AxiosClient;
+        this.language = language;
     }
     //service
     get() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request('/themes');
+            return yield this.AxiosClient.request('/themes' + `?language=${this.language}`);
         });
     }
     getByUuid(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/themes/${uuid}`);
+            return yield this.AxiosClient.request(`/themes/${uuid}` + `?language=${this.language}`);
         });
     }
 }

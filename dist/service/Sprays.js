@@ -13,28 +13,29 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Sprays = void 0;
 //class
 class Sprays {
-    constructor(AxiosClient) {
+    constructor(AxiosClient, language) {
         this.AxiosClient = AxiosClient;
+        this.language = language;
     }
     //service
     get() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request('/sprays');
+            return yield this.AxiosClient.request('/sprays' + `?language=${this.language}`);
         });
     }
     getLevels() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/sprays/levels`);
+            return yield this.AxiosClient.request(`/sprays/levels` + `?language=${this.language}`);
         });
     }
     getByUuid(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/sprays/${uuid}`);
+            return yield this.AxiosClient.request(`/sprays/${uuid}` + `?language=${this.language}`);
         });
     }
     getLevelsByUuid(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/sprays/levels/${uuid}`);
+            return yield this.AxiosClient.request(`/sprays/levels/${uuid}` + `?language=${this.language}`);
         });
     }
 }

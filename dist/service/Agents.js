@@ -13,18 +13,26 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Agents = void 0;
 //class
 class Agents {
-    constructor(AxiosClient) {
+    constructor(AxiosClient, language) {
         this.AxiosClient = AxiosClient;
+        this.language = language;
     }
     //service
-    get() {
+    get(isPlayableCharacter) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/agents`);
+            let url = `/agents` + `?language=${this.language}`;
+            if (isPlayableCharacter === false) {
+                url += `&isPlayableCharacter=false`;
+            }
+            else if (isPlayableCharacter === true) {
+                url += `&isPlayableCharacter=true`;
+            }
+            return yield this.AxiosClient.request(url);
         });
     }
     getByUuid(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/agents/${uuid}`);
+            return yield this.AxiosClient.request(`/agents/${uuid}` + `?language=${this.language}`);
         });
     }
 }
