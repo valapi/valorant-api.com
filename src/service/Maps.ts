@@ -27,3 +27,28 @@ interface ValAPIServiceMaps {
         };
     }>;
 }
+
+//class
+
+class Maps {
+    private AxiosClient: AxiosClient;
+
+    constructor(AxiosClient: AxiosClient) {
+        this.AxiosClient = AxiosClient;
+    }
+
+    //service
+
+    public async get(): Promise<ValAPIClientService<ValAPIServiceMaps[]>> {
+        return await this.AxiosClient.request('/maps');
+    }
+
+    public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceMaps>> {
+        return await this.AxiosClient.request(`/maps/${uuid}`);
+    }
+}
+
+//export
+
+export { Maps };
+export type { ValAPIServiceMaps };

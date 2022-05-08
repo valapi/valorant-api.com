@@ -26,3 +26,36 @@ interface ValAPIServiceSprays {
     assetPath: string;
     levels: Array<ValAPIServiceSprayLevels>;
 }
+
+//class
+
+class Sprays {
+    private AxiosClient: AxiosClient;
+
+    constructor(AxiosClient: AxiosClient) {
+        this.AxiosClient = AxiosClient;
+    }
+
+    //service
+
+    public async get():Promise<ValAPIClientService<ValAPIServiceSprays[]>> {
+        return await this.AxiosClient.request('/sprays');
+    }
+
+    public async getLevels():Promise<ValAPIClientService<ValAPIServiceSprayLevels[]>> {
+        return await this.AxiosClient.request(`/sprays/levels`);
+    }
+
+    public async getByUuid(uuid:string):Promise<ValAPIClientService<ValAPIServiceSprays>> {
+        return await this.AxiosClient.request(`/sprays/${uuid}`);
+    }
+
+    public async getLevelsByUuid(uuid:string):Promise<ValAPIClientService<ValAPIServiceSprayLevels>> {
+        return await this.AxiosClient.request(`/sprays/levels/${uuid}`);
+    }
+}
+
+//export
+
+export { Sprays };
+export type { ValAPIServiceSprays, ValAPIServiceSprayLevels };

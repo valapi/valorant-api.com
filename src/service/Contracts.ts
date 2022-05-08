@@ -39,3 +39,28 @@ interface ValAPIServiceContracts {
     };
     assetPath: string;
 }
+
+//class
+
+class Contracts {
+    private AxiosClient: AxiosClient;
+
+    constructor(AxiosClient: AxiosClient) {
+        this.AxiosClient = AxiosClient;
+    }
+
+    //service
+
+    public async get():Promise<ValAPIClientService<ValAPIServiceContracts[]>> {
+        return await this.AxiosClient.request('/contracts');
+    }
+
+    public async getByUuid(uuid:string):Promise<ValAPIClientService<ValAPIServiceContracts>> {
+        return await this.AxiosClient.request(`/contracts/${uuid}`);
+    }
+}
+
+//export
+
+export { Contracts };
+export type { ValAPIServiceContracts };

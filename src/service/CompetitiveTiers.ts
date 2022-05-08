@@ -22,3 +22,28 @@ interface ValAPIServiceCompetitiveTiers {
     }>;
     assetPath: string;
 }
+
+//class
+
+class CompetitiveTiers {
+    private AxiosClient: AxiosClient;
+
+    constructor(AxiosClient: AxiosClient) {
+        this.AxiosClient = AxiosClient;
+    }
+
+    //service
+
+    public async get(): Promise<ValAPIClientService<ValAPIServiceCompetitiveTiers[]>> {
+        return await this.AxiosClient.request('/competitivetiers');
+    }
+
+    public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceCompetitiveTiers>> {
+        return await this.AxiosClient.request(`/competitivetiers/${uuid}`);
+    }
+}
+
+//export
+
+export { CompetitiveTiers };
+export type { ValAPIServiceCompetitiveTiers };

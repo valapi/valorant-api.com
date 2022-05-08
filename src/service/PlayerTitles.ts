@@ -13,3 +13,28 @@ interface ValAPIServicePlayerTitles {
     isHiddenIfNotOwned: boolean;
     assetPath: string;
 }
+
+//class
+
+class PlayerTitles {
+    private AxiosClient: AxiosClient;
+
+    constructor(AxiosClient: AxiosClient) {
+        this.AxiosClient = AxiosClient;
+    }
+
+    //service
+
+    public async get(): Promise<ValAPIClientService<ValAPIServicePlayerTitles[]>> {
+        return await this.AxiosClient.request('/playertitles');
+    }
+
+    public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServicePlayerTitles>> {
+        return await this.AxiosClient.request(`/playertitles/${uuid}`);
+    }
+}
+
+//export
+
+export { PlayerTitles };
+export type { ValAPIServicePlayerTitles };

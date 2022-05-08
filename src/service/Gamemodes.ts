@@ -34,3 +34,36 @@ interface ValAPIServiceGamemodeEquippables {
     killStreamIcon: string;
     assetPath: string;
 }
+
+//class
+
+class Gamemodes {
+    private AxiosClient: AxiosClient;
+
+    constructor(AxiosClient: AxiosClient) {
+        this.AxiosClient = AxiosClient;
+    }
+
+    //service
+
+    public async get():Promise<ValAPIClientService<ValAPIServiceGamemodes[]>> {
+        return await this.AxiosClient.request('/gamemodes');
+    }
+
+    public async getEquippables():Promise<ValAPIClientService<ValAPIServiceGamemodeEquippables[]>> {
+        return await this.AxiosClient.request(`/gamemodes/equippables`);
+    }
+
+    public async getByUuid(uuid:string):Promise<ValAPIClientService<ValAPIServiceGamemodes>> {
+        return await this.AxiosClient.request(`/gamemodes/${uuid}`);
+    }
+
+    public async getEquippableByUuid(uuid:string):Promise<ValAPIClientService<ValAPIServiceGamemodeEquippables>> {
+        return await this.AxiosClient.request(`/gamemodes/equippables/${uuid}`);
+    }
+}
+
+//export
+
+export { Gamemodes };
+export type { ValAPIServiceGamemodes, ValAPIServiceGamemodeEquippables };

@@ -1,11 +1,11 @@
 //import
 import { CustomEvent } from "@valapi/lib";
-import axios, { type Axios, type AxiosRequestConfig, AxiosError } from 'axios';
+import axios, { type Axios, type AxiosRequestConfig, type AxiosError } from 'axios';
 
 //interface
 interface ValAPIAxios<ValAPIAxiosReturn> {
-    isError: boolean;
-    data: ValAPIAxiosReturn;
+    isError:boolean,  
+    data:ValAPIAxiosReturn,
 }
 
 type ValAPIAxiosProtocal = 'http' | 'https';
@@ -14,7 +14,6 @@ interface ValAPIAxiosConfig {
     protocol?: ValAPIAxiosProtocal;
     baseURL?: string;
     apiVersion?: number;
-    timeout?: number;
 }
 
 interface ValAPIAxiosError {
@@ -25,13 +24,13 @@ interface ValAPIAxiosError {
 
 //class
 class AxiosClient extends CustomEvent {
-    axiosClient: Axios;
-    config: ValAPIAxiosConfig;
+    public axiosClient: Axios;
+    protected config: ValAPIAxiosConfig;
 
     /**
     * @param {ValApiAxiosConfig} config Config
     */
-    constructor(config: ValAPIAxiosConfig = {}) {
+    constructor(config: ValAPIAxiosConfig & AxiosRequestConfig = {}) {
         super();
 
         if(!config.protocol){
@@ -45,15 +44,16 @@ class AxiosClient extends CustomEvent {
         if(!config.apiVersion){
             config.apiVersion = 1;
         }
-        
-        if(!config.timeout){
-            config.timeout = 60000; // 1 minute (60 * 1000)
-        }
 
-        this.axiosClient = axios.create({ timeout: config.timeout });
+        this.config = config;
+
+        delete config.protocol;
+        delete config.baseURL;
+        delete config.apiVersion;
+
+        this.axiosClient = axios.create(config);
         
         //event
-        this.config = config;
         this.emit('ready');
     }
 
@@ -155,6 +155,7 @@ interface ValAPIAxiosEvent {
 }
 
 declare interface AxiosClient {
+    emit<EventName extends keyof ValAPIAxiosEvent>(name: EventName, ...args: Parameters<ValAPIAxiosEvent[EventName]>): void;
     on<EventName extends keyof ValAPIAxiosEvent>(name: EventName, callback: ValAPIAxiosEvent[EventName]): void;
     once<EventName extends keyof ValAPIAxiosEvent>(name: EventName, callback: ValAPIAxiosEvent[EventName]): void;
     off<EventName extends keyof ValAPIAxiosEvent>(name: EventName, callback?: ValAPIAxiosEvent[EventName]): void;

@@ -50,7 +50,7 @@ interface ValAPIServiceAgents {
 
 //class
 
-class Agent {
+class Agents {
     private AxiosClient: AxiosClient;
 
     constructor(AxiosClient: AxiosClient) {
@@ -59,29 +59,16 @@ class Agent {
 
     //service
 
-    public async get():Promise<ValAPIClientService<Array<ValAPIServiceAgents>>> {
-        const response = await this.AxiosClient.request(`/agents`);
-
-        return {
-            isError: response.isError,
-            status: Number(response.data?.status),
-            data: response.data?.data,
-            error: response.data?.error,
-        }
+    public async get():Promise<ValAPIClientService<ValAPIServiceAgents[]>> {
+        return await this.AxiosClient.request(`/agents`);
     }
 
-    public async getByUUID(uuid:string):Promise<ValAPIClientService<ValAPIServiceAgents>> {
-        const response = await this.AxiosClient.request(`/agents/${uuid}`);
-
-        return {
-            isError: response.isError,
-            status: Number(response.data?.status),
-            data: response.data?.data,
-            error: response.data?.error,
-        }
+    public async getByUuid(uuid:string):Promise<ValAPIClientService<ValAPIServiceAgents>> {
+        return await this.AxiosClient.request(`/agents/${uuid}`);
     }
 }
 
 //export
-export { Agent };
+
+export { Agents };
 export type { ValAPIServiceAgents };

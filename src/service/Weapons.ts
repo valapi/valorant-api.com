@@ -95,3 +95,52 @@ interface ValAPIServiceWeapons {
     };
     skins: Array<ValAPIServiceWeaponSkins>;
 }
+
+//class
+
+class Weapons {
+    private AxiosClient: AxiosClient;
+
+    constructor(AxiosClient: AxiosClient) {
+        this.AxiosClient = AxiosClient;
+    }
+
+    //service
+
+    public async get(): Promise<ValAPIClientService<ValAPIServiceWeapons[]>> {
+        return await this.AxiosClient.request('/weapons');
+    }
+
+    public async getSkins(): Promise<ValAPIClientService<ValAPIServiceWeaponSkins[]>> {
+        return await this.AxiosClient.request('/weapons/skins');
+    }
+
+    public async getSkinChromas(): Promise<ValAPIClientService<ValAPIServiceWeaponSkinChromas[]>> {
+        return await this.AxiosClient.request('/weapons/skinschromas');
+    }
+
+    public async getSkinLevels(): Promise<ValAPIClientService<ValAPIServiceWeaponSkinLevels[]>> {
+        return await this.AxiosClient.request('/weapons/skinslevels');
+    }
+
+    public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceWeapons>> {
+        return await this.AxiosClient.request(`/weapons/${uuid}`);
+    }
+
+    public async getSkinByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceWeaponSkins>> {
+        return await this.AxiosClient.request(`/weapons/skins/${uuid}`);
+    }
+
+    public async getSkinChromaByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceWeaponSkinChromas>> {
+        return await this.AxiosClient.request(`/weapons/skinschromas/${uuid}`);
+    }
+
+    public async getSkinLevelByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceWeaponSkinLevels>> {
+        return await this.AxiosClient.request(`/weapons/skinslevels/${uuid}`);
+    }
+}
+
+//export
+
+export { Weapons };
+export { ValAPIServiceWeapons, ValAPIServiceWeaponSkins, ValAPIServiceWeaponSkinChromas, ValAPIServiceWeaponSkinLevels};

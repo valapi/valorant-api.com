@@ -17,3 +17,28 @@ interface ValAPIServicePlayerCards {
     largeArt: string;
     assetPath: string;
 }
+
+//class
+
+class PlayerCards {
+    private AxiosClient: AxiosClient;
+
+    constructor(AxiosClient: AxiosClient) {
+        this.AxiosClient = AxiosClient;
+    }
+
+    //service
+
+    public async get(): Promise<ValAPIClientService<ValAPIServicePlayerCards[]>> {
+        return await this.AxiosClient.request('/playercards');
+    }
+
+    public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServicePlayerCards>> {
+        return await this.AxiosClient.request(`/playercards/${uuid}`);
+    }
+}
+
+//export
+
+export { PlayerCards };
+export type { ValAPIServicePlayerCards };

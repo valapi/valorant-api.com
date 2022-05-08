@@ -26,3 +26,28 @@ interface ValAPIServiceGear {
         assetPath: string;
     };
 }
+
+//class
+
+class Gear {
+    private AxiosClient: AxiosClient;
+
+    constructor(AxiosClient: AxiosClient) {
+        this.AxiosClient = AxiosClient;
+    }
+
+    //service
+
+    public async get(): Promise<ValAPIClientService<ValAPIServiceGear[]>> {
+        return await this.AxiosClient.request('/gear');
+    }
+
+    public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceGear>> {
+        return await this.AxiosClient.request(`/gear/${uuid}`);
+    }
+}
+
+//export
+
+export { Gear };
+export type { ValAPIServiceGear };

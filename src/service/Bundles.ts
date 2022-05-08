@@ -18,3 +18,28 @@ interface ValAPIServiceBundles {
     verticalPromoImage: string;
     assetPath: string;
 }
+
+//class
+
+class Bundles {
+    private AxiosClient: AxiosClient;
+
+    constructor(AxiosClient: AxiosClient) {
+        this.AxiosClient = AxiosClient;
+    }
+
+    //service
+
+    public async get(): Promise<ValAPIClientService<ValAPIServiceBundles[]>> {
+        return await this.AxiosClient.request('/bundles');
+    }
+
+    public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceBundles>> {
+        return await this.AxiosClient.request(`/bundles/${uuid}`);
+    }
+}
+
+//export
+
+export { Bundles };
+export type { ValAPIServiceBundles };

@@ -31,3 +31,36 @@ interface ValAPIServiceCompetitiveSeasons {
     }>;
     assetPath: string;
 }
+
+//class
+
+class Seasons {
+    private AxiosClient: AxiosClient;
+
+    constructor(AxiosClient: AxiosClient) {
+        this.AxiosClient = AxiosClient;
+    }
+
+    //service
+
+    public async get(): Promise<ValAPIClientService<ValAPIServiceSeasons[]>> {
+        return await this.AxiosClient.request('/seasons');
+    }
+
+    public async getCompetitiveSeasons(): Promise<ValAPIClientService<ValAPIServiceCompetitiveSeasons[]>> {
+        return await this.AxiosClient.request('/seasons/competitive');
+    }
+
+    public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceSeasons>> {
+        return await this.AxiosClient.request(`/seasons/${uuid}`);
+    }
+
+    public async getCompetitiveSeasonsByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceCompetitiveSeasons>> {
+        return await this.AxiosClient.request(`/seasons/competitive/${uuid}`);
+    }
+}
+
+//export 
+
+export { Seasons };
+export type { ValAPIServiceSeasons, ValAPIServiceCompetitiveSeasons };

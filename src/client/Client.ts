@@ -3,51 +3,52 @@ import { CustomEvent } from "@valapi/lib";
 
 import { Locale } from "@valapi/lib";
 import { Region as _Region } from "@valapi/lib";
-import { AxiosClient, type ValAPIAxiosConfig, type ValAPIAxiosError } from "./AxiosClient";
+
+import type { AxiosRequestConfig } from "axios";
+import { AxiosClient, type ValAPIAxios, type ValAPIAxiosConfig, type ValAPIAxiosError } from "./AxiosClient";
+
+//service
+
 
 //interface
 
-interface ValAPIClientService<ValAPIClientServiceReturn> { 
-    isError:boolean, 
-    status:number, 
-    data?:ValAPIClientServiceReturn,
-    error?:string,
-}
+type ValAPIClientService<ValAPIClientServiceReturn> = ValAPIAxios<{
+    status: number;
+    error?: string;
+    data?: ValAPIClientServiceReturn;
+}>;
 
 interface ValAPIClientError {
-    errorCode: string,
-    message: string,
-    data: any,
+    errorCode: string;
+    message: string;
+    data: any;
 }
 
 type ValAPIConfigLanguage = keyof typeof Locale
 
 interface ValAPIConfig {
-    language?: ValAPIConfigLanguage
+    language?: ValAPIConfigLanguage; //can use 'all' but not supported yet
 }
 
 //class
 class APIClient extends CustomEvent {
-    config: ValAPIConfig & ValAPIAxiosConfig;
-    AxiosClient: AxiosClient;
+    protected config: ValAPIConfig & ValAPIAxiosConfig;
+    private AxiosClient: AxiosClient;
 
     //service
     //wait me please
 
-    constructor(config: ValAPIConfig & ValAPIAxiosConfig = {}) {
+    constructor(config: ValAPIConfig & ValAPIAxiosConfig & AxiosRequestConfig = {}) {
         super();
 
         //config
-
         if(!config.language){
             config.language = 'en-US';
-        } else if (config.language = 'data'){
+        } else if (config.language = 'data' || config.language == 'en-GB'){
             throw new Error("Language '" + config.language + "' is not supported");
         }
 
-        this.config = {
-            language: config.language,
-        };
+        this.config = config;
 
         delete config.language;
 
@@ -85,11 +86,12 @@ class APIClient extends CustomEvent {
 //event
 interface ValAPIClientEvent {
     'ready': () => void,
-    'changeSettings': (data: { name:any, data:any }) => void,
+    'changeSettings': (data: { name:string, data:any }) => void,
     'error': (data: ValAPIClientError) => void;
 }
 
 declare interface APIClient {
+    emit<EventName extends keyof ValAPIClientEvent>(name: EventName, ...args: Parameters<ValAPIClientEvent[EventName]>): void;
     on<EventName extends keyof ValAPIClientEvent>(name: EventName, callback: ValAPIClientEvent[EventName]): void;
     once<EventName extends keyof ValAPIClientEvent>(name: EventName, callback: ValAPIClientEvent[EventName]): void;
     off<EventName extends keyof ValAPIClientEvent>(name: EventName, callback?: ValAPIClientEvent[EventName]): void;
