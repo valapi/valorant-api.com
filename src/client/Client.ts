@@ -10,7 +10,8 @@ import { AxiosClient, type ValAPIAxiosConfig, type ValAPIAxiosError } from "./Ax
 interface ValAPIClientService<ValAPIClientServiceReturn> { 
     isError:boolean, 
     status:number, 
-    data:ValAPIClientServiceReturn 
+    data?:ValAPIClientServiceReturn,
+    error?:string,
 }
 
 interface ValAPIClientError {
