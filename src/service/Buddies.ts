@@ -5,7 +5,7 @@ import type { ValAPIClientService } from "../client/Client";
 
 //interface
 
-interface ValAPIServiceBuddiesLevels {
+interface ValAPIServiceBuddyLevels {
     uuid: string;
     charmLevel: number;
     displayName: string; //localized
@@ -20,5 +20,5 @@ interface ValAPIServiceBuddies {
     themeUuid: string;
     displayIcon: string;
     assetPath: string;
-    levels: Array<ValAPIServiceBuddiesLevels>;
+    levels: Array<ValAPIServiceBuddyLevels>;
 }

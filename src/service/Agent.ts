@@ -5,7 +5,7 @@ import type { ValAPIClientService } from "../client/Client";
 
 //interface
 
-interface ValAPIServiceAgent {
+interface ValAPIServiceAgents {
     uuid: string;
     displayName: string; //localized
     description: string; //localized
@@ -59,7 +59,7 @@ class Agent {
 
     //service
 
-    public async get():Promise<ValAPIClientService<Array<ValAPIServiceAgent>>> {
+    public async get():Promise<ValAPIClientService<Array<ValAPIServiceAgents>>> {
         const response = await this.AxiosClient.request(`/agents`);
 
         return {
@@ -70,7 +70,7 @@ class Agent {
         }
     }
 
-    public async getByUUID(uuid:string):Promise<ValAPIClientService<ValAPIServiceAgent>> {
+    public async getByUUID(uuid:string):Promise<ValAPIClientService<ValAPIServiceAgents>> {
         const response = await this.AxiosClient.request(`/agents/${uuid}`);
 
         return {
@@ -84,4 +84,4 @@ class Agent {
 
 //export
 export { Agent };
-export type { ValAPIServiceAgent };
+export type { ValAPIServiceAgents };

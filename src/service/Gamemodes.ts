@@ -26,7 +26,7 @@ interface ValAPIServiceGamemodes {
     assetPath: string;
 }
 
-interface ValAPIServiceGamemodesEquippables {
+interface ValAPIServiceGamemodeEquippables {
     uuid: string;
     displayName: string; //localized
     category: string;
