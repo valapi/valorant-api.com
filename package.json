@@ -43,7 +43,7 @@
   },
   "homepage": "https://github.com/valapi/valorant-api.com#readme",
   "dependencies": {
-    "@valapi/lib": "^1.0.0",
+    "@valapi/lib": "^1.0.1",
     "axios": "^0.27.2"
   },
   "devDependencies": {
