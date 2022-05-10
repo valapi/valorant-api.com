@@ -148,16 +148,6 @@ class APIClient extends CustomEvent {
         this.Weapons = new Weapons(this.AxiosClient, String(this.config.language));
     }
 
-    //save
-
-    public toJSON(): ValAPIConfig {
-        return this.config;
-    }
-
-    public fromJSON(data: ValAPIConfig): void {
-        this.config = data;
-    }
-
     //settings
     
     public setLanguage(language: ValAPIConfigLanguage): void {

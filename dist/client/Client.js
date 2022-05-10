@@ -87,13 +87,6 @@ class APIClient extends lib_1.CustomEvent {
         this.Version = new Version_1.Version(this.AxiosClient);
         this.Weapons = new Weapons_1.Weapons(this.AxiosClient, String(this.config.language));
     }
-    //save
-    toJSON() {
-        return this.config;
-    }
-    fromJSON(data) {
-        this.config = data;
-    }
     //settings
     setLanguage(language) {
         if (language === 'data') {

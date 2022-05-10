@@ -60,8 +60,6 @@ declare class APIClient extends CustomEvent {
     Weapons: Weapons;
     constructor(config?: ValAPIConfig);
     private reload;
-    toJSON(): ValAPIConfig;
-    fromJSON(data: ValAPIConfig): void;
     setLanguage(language: ValAPIConfigLanguage): void;
 }
 interface ValAPIClientEvent {
