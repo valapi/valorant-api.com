@@ -33,7 +33,7 @@ class Sprays {
             return yield this.AxiosClient.request(`/sprays/${uuid}` + `?language=${this.language}`);
         });
     }
-    getLevelsByUuid(uuid) {
+    getLevelByUuid(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield this.AxiosClient.request(`/sprays/levels/${uuid}` + `?language=${this.language}`);
         });

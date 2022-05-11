@@ -48,7 +48,7 @@ class Buddies {
         return await this.AxiosClient.request(`/buddies/${uuid}` + `?language=${this.language}`);
     }
 
-    public async getLevelsByUuid(uuid:string):Promise<ValAPIClientService<ValAPIServiceBuddyLevels>> {
+    public async getLevelByUuid(uuid:string):Promise<ValAPIClientService<ValAPIServiceBuddyLevels>> {
         return await this.AxiosClient.request(`/buddies/levels/${uuid}` + `?language=${this.language}`);
     }
 }

@@ -23,7 +23,7 @@ declare class Buddies {
     get(): Promise<ValAPIClientService<ValAPIServiceBuddies[]>>;
     getLevels(): Promise<ValAPIClientService<ValAPIServiceBuddyLevels[]>>;
     getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceBuddies>>;
-    getLevelsByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceBuddyLevels>>;
+    getLevelByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceBuddyLevels>>;
 }
 export { Buddies };
 export type { ValAPIServiceBuddies, ValAPIServiceBuddyLevels };

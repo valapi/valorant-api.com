@@ -33,7 +33,7 @@ class Buddies {
             return yield this.AxiosClient.request(`/buddies/${uuid}` + `?language=${this.language}`);
         });
     }
-    getLevelsByUuid(uuid) {
+    getLevelByUuid(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield this.AxiosClient.request(`/buddies/levels/${uuid}` + `?language=${this.language}`);
         });

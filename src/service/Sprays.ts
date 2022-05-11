@@ -52,7 +52,7 @@ class Sprays {
         return await this.AxiosClient.request(`/sprays/${uuid}` + `?language=${this.language}`);
     }
 
-    public async getLevelsByUuid(uuid:string):Promise<ValAPIClientService<ValAPIServiceSprayLevels>> {
+    public async getLevelByUuid(uuid:string):Promise<ValAPIClientService<ValAPIServiceSprayLevels>> {
         return await this.AxiosClient.request(`/sprays/levels/${uuid}` + `?language=${this.language}`);
     }
 }

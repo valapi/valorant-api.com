@@ -57,7 +57,7 @@ class Seasons {
         return await this.AxiosClient.request(`/seasons/${uuid}` + `?language=${this.language}`);
     }
 
-    public async getCompetitiveSeasonsByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceCompetitiveSeasons>> {
+    public async getCompetitiveSeasonByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceCompetitiveSeasons>> {
         return await this.AxiosClient.request(`/seasons/competitive/${uuid}`);
     }
 }

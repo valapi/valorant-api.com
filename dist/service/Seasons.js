@@ -33,7 +33,7 @@ class Seasons {
             return yield this.AxiosClient.request(`/seasons/${uuid}` + `?language=${this.language}`);
         });
     }
-    getCompetitiveSeasonsByUuid(uuid) {
+    getCompetitiveSeasonByUuid(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield this.AxiosClient.request(`/seasons/competitive/${uuid}`);
         });

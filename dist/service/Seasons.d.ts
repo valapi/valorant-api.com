@@ -32,7 +32,7 @@ declare class Seasons {
     get(): Promise<ValAPIClientService<ValAPIServiceSeasons[]>>;
     getCompetitiveSeasons(): Promise<ValAPIClientService<ValAPIServiceCompetitiveSeasons[]>>;
     getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceSeasons>>;
-    getCompetitiveSeasonsByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceCompetitiveSeasons>>;
+    getCompetitiveSeasonByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceCompetitiveSeasons>>;
 }
 export { Seasons };
 export type { ValAPIServiceSeasons, ValAPIServiceCompetitiveSeasons };

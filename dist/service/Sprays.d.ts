@@ -27,7 +27,7 @@ declare class Sprays {
     get(): Promise<ValAPIClientService<ValAPIServiceSprays[]>>;
     getLevels(): Promise<ValAPIClientService<ValAPIServiceSprayLevels[]>>;
     getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceSprays>>;
-    getLevelsByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceSprayLevels>>;
+    getLevelByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceSprayLevels>>;
 }
 export { Sprays };
 export type { ValAPIServiceSprays, ValAPIServiceSprayLevels };
