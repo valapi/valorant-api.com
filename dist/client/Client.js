@@ -33,7 +33,7 @@ class APIClient extends lib_1.CustomEvent {
     constructor(config = {}) {
         super();
         //config
-        if (config.language = 'data' || config.language == 'en-GB') {
+        if (config.language === 'data' || config.language === 'en-GB') {
             throw new Error("Language '" + config.language + "' is not supported");
         }
         this.config = new Object(Object.assign(Object.assign({}, _defaultConfig), config));

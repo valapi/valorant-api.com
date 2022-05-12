@@ -81,7 +81,7 @@ class APIClient extends CustomEvent {
         super();
 
         //config
-        if (config.language = 'data' || config.language == 'en-GB') {
+        if (config.language === 'data' || config.language === 'en-GB') {
             throw new Error("Language '" + config.language + "' is not supported");
         }
 
