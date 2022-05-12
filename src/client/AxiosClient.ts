@@ -1,5 +1,5 @@
 //import
-import { CustomEvent } from "@valapi/lib";
+import { CustomEvent, type ValorantAPIError } from "@valapi/lib";
 import axios, { type Axios, type AxiosRequestConfig, type AxiosError } from 'axios';
 
 //interface
@@ -9,12 +9,6 @@ interface ValAPIAxios<ValAPIAxiosReturn> {
 }
 
 type ValAPIAxiosProtocal = 'http' | 'https';
-
-interface ValAPIAxiosError {
-    errorCode: string,
-    message: string,
-    data: any,
-}
 
 //class
 class AxiosClient extends CustomEvent {
@@ -46,13 +40,11 @@ class AxiosClient extends CustomEvent {
      */
      private errorHandler(error:AxiosError):ValAPIAxios<any> {
         //event
-        const RequestError:ValAPIAxiosError = {
+        this.emit('error', {
             errorCode: 'ValAPI_Request_Error',
             message: error.message,
             data: error,
-        }
-
-        this.emit('error', RequestError)
+        })
 
         //data
         if(error.response && error.response.data){
@@ -120,7 +112,7 @@ class AxiosClient extends CustomEvent {
 interface ValAPIAxiosEvent {
     'ready': () => void;
     'request': (data: string) => void;
-    'error': (data: ValAPIAxiosError) => void;
+    'error': (data: ValorantAPIError) => void;
 }
 
 declare interface AxiosClient {
@@ -132,4 +124,4 @@ declare interface AxiosClient {
 
 //export
 export { AxiosClient };
-export type { ValAPIAxios, ValAPIAxiosProtocal, ValAPIAxiosError, ValAPIAxiosEvent };
+export type { ValAPIAxios, ValAPIAxiosProtocal, ValAPIAxiosEvent };

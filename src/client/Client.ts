@@ -1,11 +1,11 @@
 //import
-import { CustomEvent } from "@valapi/lib";
+import { CustomEvent, type ValorantAPIError } from "@valapi/lib";
 
 import { Locale } from "@valapi/lib";
 import { Region as _Region } from "@valapi/lib";
 
 import type { AxiosRequestConfig } from "axios";
-import { AxiosClient, type ValAPIAxios, type ValAPIAxiosError } from "./AxiosClient";
+import { AxiosClient, type ValAPIAxios } from "./AxiosClient";
 
 //service
 
@@ -38,17 +38,16 @@ type ValAPIClientService<ValAPIClientServiceReturn> = ValAPIAxios<{
     data?: ValAPIClientServiceReturn;
 }>;
 
-interface ValAPIClientError {
-    errorCode: string;
-    message: string;
-    data: any;
-}
-
 type ValAPIConfigLanguage = keyof typeof Locale
 
 interface ValAPIConfig {
     language?: ValAPIConfigLanguage; //can use 'all' but not supported yet
     axiosConfig?: AxiosRequestConfig;
+}
+
+const _defaultConfig:ValAPIConfig = {
+    language: 'en-US',
+    axiosConfig: {},
 }
 
 //class
@@ -82,17 +81,16 @@ class APIClient extends CustomEvent {
         super();
 
         //config
-        if (!config.language) {
-            config.language = 'en-US';
-        } else if (config.language = 'data' || config.language == 'en-GB') {
+        if (config.language = 'data' || config.language == 'en-GB') {
             throw new Error("Language '" + config.language + "' is not supported");
         }
 
-        this.config = config;
+        this.config = new Object({ ..._defaultConfig, ...config });
 
         //first reload
         this.AxiosClient = new AxiosClient(this.config.axiosConfig);
-        this.AxiosClient.on('error', ((data: ValAPIAxiosError) => { this.emit('error', data); }));
+        this.AxiosClient.on('error', ((data: ValorantAPIError) => { this.emit('error', data); }));
+        this.AxiosClient.on('request', ((data:string) => { this.emit('request', data as string); }));
 
         //service
         
@@ -123,7 +121,8 @@ class APIClient extends CustomEvent {
     //reload
     private reload(): void {
         this.AxiosClient = new AxiosClient(this.config.axiosConfig);
-        this.AxiosClient.on('error', ((data: ValAPIAxiosError) => { this.emit('error', data); }));
+        this.AxiosClient.on('error', ((data: ValorantAPIError) => { this.emit('error', data); }));
+        this.AxiosClient.on('request', ((data:string) => { this.emit('request', data as string); }));
 
         //service
         
@@ -146,6 +145,9 @@ class APIClient extends CustomEvent {
         this.Themes = new Themes(this.AxiosClient, String(this.config.language));
         this.Version = new Version(this.AxiosClient);
         this.Weapons = new Weapons(this.AxiosClient, String(this.config.language));
+
+        //event
+        this.emit('ready');
     }
 
     //settings
@@ -165,8 +167,9 @@ class APIClient extends CustomEvent {
 //event
 interface ValAPIClientEvent {
     'ready': () => void,
+    'request': (data:string) => void,
     'changeSettings': (data: { name: string, data: any }) => void,
-    'error': (data: ValAPIClientError) => void;
+    'error': (data: ValorantAPIError) => void;
 }
 
 declare interface APIClient {
@@ -178,4 +181,4 @@ declare interface APIClient {
 
 //export
 export { APIClient };
-export type { ValAPIClientError, ValAPIConfig, ValAPIClientEvent, ValAPIClientService };
+export type { ValAPIConfig, ValAPIClientEvent, ValAPIClientService };

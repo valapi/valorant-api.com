@@ -24,21 +24,23 @@ const Sprays_1 = require("../service/Sprays");
 const Themes_1 = require("../service/Themes");
 const Version_1 = require("../service/Version");
 const Weapons_1 = require("../service/Weapons");
+const _defaultConfig = {
+    language: 'en-US',
+    axiosConfig: {},
+};
 //class
 class APIClient extends lib_1.CustomEvent {
     constructor(config = {}) {
         super();
         //config
-        if (!config.language) {
-            config.language = 'en-US';
-        }
-        else if (config.language = 'data' || config.language == 'en-GB') {
+        if (config.language = 'data' || config.language == 'en-GB') {
             throw new Error("Language '" + config.language + "' is not supported");
         }
-        this.config = config;
+        this.config = new Object(Object.assign(Object.assign({}, _defaultConfig), config));
         //first reload
         this.AxiosClient = new AxiosClient_1.AxiosClient(this.config.axiosConfig);
         this.AxiosClient.on('error', ((data) => { this.emit('error', data); }));
+        this.AxiosClient.on('request', ((data) => { this.emit('request', data); }));
         //service
         this.Agents = new Agents_1.Agents(this.AxiosClient, String(this.config.language));
         this.Buddies = new Buddies_1.Buddies(this.AxiosClient, String(this.config.language));
@@ -66,6 +68,7 @@ class APIClient extends lib_1.CustomEvent {
     reload() {
         this.AxiosClient = new AxiosClient_1.AxiosClient(this.config.axiosConfig);
         this.AxiosClient.on('error', ((data) => { this.emit('error', data); }));
+        this.AxiosClient.on('request', ((data) => { this.emit('request', data); }));
         //service
         this.Agents = new Agents_1.Agents(this.AxiosClient, String(this.config.language));
         this.Buddies = new Buddies_1.Buddies(this.AxiosClient, String(this.config.language));
@@ -86,6 +89,8 @@ class APIClient extends lib_1.CustomEvent {
         this.Themes = new Themes_1.Themes(this.AxiosClient, String(this.config.language));
         this.Version = new Version_1.Version(this.AxiosClient);
         this.Weapons = new Weapons_1.Weapons(this.AxiosClient, String(this.config.language));
+        //event
+        this.emit('ready');
     }
     //settings
     setLanguage(language) {

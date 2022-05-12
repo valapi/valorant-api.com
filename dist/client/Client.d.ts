@@ -1,4 +1,4 @@
-import { CustomEvent } from "@valapi/lib";
+import { CustomEvent, type ValorantAPIError } from "@valapi/lib";
 import { Locale } from "@valapi/lib";
 import type { AxiosRequestConfig } from "axios";
 import { type ValAPIAxios } from "./AxiosClient";
@@ -26,11 +26,6 @@ declare type ValAPIClientService<ValAPIClientServiceReturn> = ValAPIAxios<{
     error?: string;
     data?: ValAPIClientServiceReturn;
 }>;
-interface ValAPIClientError {
-    errorCode: string;
-    message: string;
-    data: any;
-}
 declare type ValAPIConfigLanguage = keyof typeof Locale;
 interface ValAPIConfig {
     language?: ValAPIConfigLanguage;
@@ -64,11 +59,12 @@ declare class APIClient extends CustomEvent {
 }
 interface ValAPIClientEvent {
     'ready': () => void;
+    'request': (data: string) => void;
     'changeSettings': (data: {
         name: string;
         data: any;
     }) => void;
-    'error': (data: ValAPIClientError) => void;
+    'error': (data: ValorantAPIError) => void;
 }
 declare interface APIClient {
     emit<EventName extends keyof ValAPIClientEvent>(name: EventName, ...args: Parameters<ValAPIClientEvent[EventName]>): void;
@@ -77,5 +73,5 @@ declare interface APIClient {
     off<EventName extends keyof ValAPIClientEvent>(name: EventName, callback?: ValAPIClientEvent[EventName]): void;
 }
 export { APIClient };
-export type { ValAPIClientError, ValAPIConfig, ValAPIClientEvent, ValAPIClientService };
+export type { ValAPIConfig, ValAPIClientEvent, ValAPIClientService };
 //# sourceMappingURL=Client.d.ts.map
