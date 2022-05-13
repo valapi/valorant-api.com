@@ -80,12 +80,12 @@ class APIClient extends CustomEvent {
     constructor(config: ValAPIConfig = {}) {
         super();
 
-        //config
-        if (config.language === 'data' || config.language === 'en-GB') {
-            throw new Error("Language '" + config.language + "' is not supported");
-        }
-
         this.config = new Object({ ..._defaultConfig, ...config });
+
+        //config
+        if (this.config.language === 'data' || this.config.language === 'en-GB') {
+            throw new Error("Language '" + this.config.language + "' is not supported");
+        }
 
         //first reload
         this.AxiosClient = new AxiosClient(this.config.axiosConfig);

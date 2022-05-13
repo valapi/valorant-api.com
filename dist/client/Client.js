@@ -32,11 +32,11 @@ const _defaultConfig = {
 class APIClient extends lib_1.CustomEvent {
     constructor(config = {}) {
         super();
-        //config
-        if (config.language === 'data' || config.language === 'en-GB') {
-            throw new Error("Language '" + config.language + "' is not supported");
-        }
         this.config = new Object(Object.assign(Object.assign({}, _defaultConfig), config));
+        //config
+        if (this.config.language === 'data' || this.config.language === 'en-GB') {
+            throw new Error("Language '" + this.config.language + "' is not supported");
+        }
         //first reload
         this.AxiosClient = new AxiosClient_1.AxiosClient(this.config.axiosConfig);
         this.AxiosClient.on('error', ((data) => { this.emit('error', data); }));
