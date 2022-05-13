@@ -1,6 +1,7 @@
 .env
 .env.test
 .DS_Store
+.npmrc
 .vscode
 .vscode/
 .dynamodb
