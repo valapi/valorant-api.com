@@ -17,4 +17,4 @@
 
 # About
 
-this package is base on [@valapi](https://github.com/valapi)
+this package is dependencies of [@valapi](https://github.com/valapi)
