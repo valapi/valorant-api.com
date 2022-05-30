@@ -1,7 +1,6 @@
-import { CustomEvent, type ValorantAPIError } from "@valapi/lib";
+import { ValEvent, type ValorantApiError, ValorantApiRequestResponse, ValorantApiRequestData } from "@valapi/lib";
 import { Locale } from "@valapi/lib";
 import type { AxiosRequestConfig } from "axios";
-import { type ValAPIAxios } from "./AxiosClient";
 import { Agents } from "../service/Agents";
 import { Buddies } from "../service/Buddies";
 import { Bundles } from "../service/Bundles";
@@ -21,19 +20,19 @@ import { Sprays } from "../service/Sprays";
 import { Themes } from "../service/Themes";
 import { Version } from "../service/Version";
 import { Weapons } from "../service/Weapons";
-declare type ValAPIClientService<ValAPIClientServiceReturn> = ValAPIAxios<{
+declare type ValAPIClientService<ValAPIClientServiceReturn> = ValorantApiRequestResponse<{
     status: number;
     error?: string;
     data?: ValAPIClientServiceReturn;
 }>;
-declare type ValAPIConfigLanguage = keyof typeof Locale;
+declare type ValAPIConfigLanguage = keyof typeof Locale.from;
 interface ValAPIConfig {
     language?: ValAPIConfigLanguage;
     axiosConfig?: AxiosRequestConfig;
 }
-declare class APIClient extends CustomEvent {
+declare class APIClient extends ValEvent {
     protected config: ValAPIConfig;
-    private AxiosClient;
+    private RequestClient;
     Agents: Agents;
     Buddies: Buddies;
     Bundles: Bundles;
@@ -59,12 +58,12 @@ declare class APIClient extends CustomEvent {
 }
 interface ValAPIClientEvent {
     'ready': () => void;
-    'request': (data: string) => void;
+    'request': (data: ValorantApiRequestData) => void;
     'changeSettings': (data: {
         name: string;
         data: any;
     }) => void;
-    'error': (data: ValorantAPIError) => void;
+    'error': (data: ValorantApiError) => void;
 }
 declare interface APIClient {
     emit<EventName extends keyof ValAPIClientEvent>(name: EventName, ...args: Parameters<ValAPIClientEvent[EventName]>): void;

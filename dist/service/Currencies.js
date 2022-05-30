@@ -13,19 +13,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Currencies = void 0;
 //class
 class Currencies {
-    constructor(AxiosClient, language) {
-        this.AxiosClient = AxiosClient;
+    constructor(RequestClient, language) {
+        this.RequestClient = RequestClient;
         this.language = language;
     }
     //service
     get() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request('/currencies' + `?language=${this.language}`);
+            return yield this.RequestClient.get('/currencies' + `?language=${this.language}`);
         });
     }
     getByUuid(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/currencies/${uuid}` + `?language=${this.language}`);
+            return yield this.RequestClient.get(`/currencies/${uuid}` + `?language=${this.language}`);
         });
     }
 }

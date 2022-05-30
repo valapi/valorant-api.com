@@ -1,6 +1,6 @@
 //import
 
-import type { AxiosClient } from "../client/AxiosClient";
+import type { ValRequestClient } from "@valapi/lib";
 import type { ValAPIClientService } from "../client/Client";
 
 //interface
@@ -30,30 +30,30 @@ interface ValAPIServiceSprays {
 //class
 
 class Sprays {
-    private AxiosClient: AxiosClient;
+    private RequestClient: ValRequestClient;
     private language: string;
 
-    constructor(AxiosClient: AxiosClient, language: string) {
-        this.AxiosClient = AxiosClient;
+    constructor(RequestClient: ValRequestClient, language: string) {
+        this.RequestClient = RequestClient;
         this.language = language;
     }
 
     //service
 
     public async get():Promise<ValAPIClientService<ValAPIServiceSprays[]>> {
-        return await this.AxiosClient.request('/sprays' + `?language=${this.language}`);
+        return await this.RequestClient.get('/sprays' + `?language=${this.language}`);
     }
 
     public async getLevels():Promise<ValAPIClientService<ValAPIServiceSprayLevels[]>> {
-        return await this.AxiosClient.request(`/sprays/levels` + `?language=${this.language}`);
+        return await this.RequestClient.get(`/sprays/levels` + `?language=${this.language}`);
     }
 
     public async getByUuid(uuid:string):Promise<ValAPIClientService<ValAPIServiceSprays>> {
-        return await this.AxiosClient.request(`/sprays/${uuid}` + `?language=${this.language}`);
+        return await this.RequestClient.get(`/sprays/${uuid}` + `?language=${this.language}`);
     }
 
     public async getLevelByUuid(uuid:string):Promise<ValAPIClientService<ValAPIServiceSprayLevels>> {
-        return await this.AxiosClient.request(`/sprays/levels/${uuid}` + `?language=${this.language}`);
+        return await this.RequestClient.get(`/sprays/levels/${uuid}` + `?language=${this.language}`);
     }
 }
 

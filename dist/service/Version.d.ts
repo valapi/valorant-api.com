@@ -1,4 +1,4 @@
-import type { AxiosClient } from "../client/AxiosClient";
+import type { ValRequestClient } from "@valapi/lib";
 import type { ValAPIClientService } from "../client/Client";
 interface ValAPIServiceVersion {
     manifestId: string;
@@ -10,8 +10,8 @@ interface ValAPIServiceVersion {
     buildDate: string | Date;
 }
 declare class Version {
-    private AxiosClient;
-    constructor(AxiosClient: AxiosClient);
+    private RequestClient;
+    constructor(RequestClient: ValRequestClient);
     get(): Promise<ValAPIClientService<ValAPIServiceVersion>>;
 }
 export { Version };

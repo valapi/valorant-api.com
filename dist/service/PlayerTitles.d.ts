@@ -1,4 +1,4 @@
-import type { AxiosClient } from "../client/AxiosClient";
+import type { ValRequestClient } from "@valapi/lib";
 import type { ValAPIClientService } from "../client/Client";
 interface ValAPIServicePlayerTitles {
     uuid: string;
@@ -8,9 +8,9 @@ interface ValAPIServicePlayerTitles {
     assetPath: string;
 }
 declare class PlayerTitles {
-    private AxiosClient;
+    private RequestClient;
     private language;
-    constructor(AxiosClient: AxiosClient, language: string);
+    constructor(RequestClient: ValRequestClient, language: string);
     get(): Promise<ValAPIClientService<ValAPIServicePlayerTitles[]>>;
     getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServicePlayerTitles>>;
 }

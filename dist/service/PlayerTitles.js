@@ -13,19 +13,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PlayerTitles = void 0;
 //class
 class PlayerTitles {
-    constructor(AxiosClient, language) {
-        this.AxiosClient = AxiosClient;
+    constructor(RequestClient, language) {
+        this.RequestClient = RequestClient;
         this.language = language;
     }
     //service
     get() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request('/playertitles' + `?language=${this.language}`);
+            return yield this.RequestClient.get('/playertitles' + `?language=${this.language}`);
         });
     }
     getByUuid(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/playertitles/${uuid}` + `?language=${this.language}`);
+            return yield this.RequestClient.get(`/playertitles/${uuid}` + `?language=${this.language}`);
         });
     }
 }

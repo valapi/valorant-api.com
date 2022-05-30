@@ -13,13 +13,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Version = void 0;
 //class
 class Version {
-    constructor(AxiosClient) {
-        this.AxiosClient = AxiosClient;
+    constructor(RequestClient) {
+        this.RequestClient = RequestClient;
     }
     //service
     get() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request('/version');
+            return yield this.RequestClient.get('/version');
         });
     }
 }

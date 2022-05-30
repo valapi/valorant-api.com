@@ -1,11 +1,10 @@
 //import
-import { CustomEvent, type ValorantAPIError } from "@valapi/lib";
+import { ValEvent, type ValorantApiError, ValRequestClient, ValorantApiRequestResponse, ValorantApiRequestData } from "@valapi/lib";
 
 import { Locale } from "@valapi/lib";
 import { Region as _Region } from "@valapi/lib";
 
 import type { AxiosRequestConfig } from "axios";
-import { AxiosClient, type ValAPIAxios } from "./AxiosClient";
 
 //service
 
@@ -32,13 +31,13 @@ import { Weapons } from "../service/Weapons";
 
 //interface
 
-type ValAPIClientService<ValAPIClientServiceReturn> = ValAPIAxios<{
+type ValAPIClientService<ValAPIClientServiceReturn> = ValorantApiRequestResponse<{
     status: number;
     error?: string;
     data?: ValAPIClientServiceReturn;
 }>;
 
-type ValAPIConfigLanguage = keyof typeof Locale
+type ValAPIConfigLanguage = keyof typeof Locale.from;
 
 interface ValAPIConfig {
     language?: ValAPIConfigLanguage; //can use 'all' but not supported yet
@@ -47,13 +46,15 @@ interface ValAPIConfig {
 
 const _defaultConfig:ValAPIConfig = {
     language: 'en-US',
-    axiosConfig: {},
+    axiosConfig: {
+        baseURL: 'https://valorant-api.com/v1',
+    },
 }
 
 //class
-class APIClient extends CustomEvent {
+class APIClient extends ValEvent {
     protected config: ValAPIConfig;
-    private AxiosClient: AxiosClient;
+    private RequestClient: ValRequestClient;
 
     //service
 
@@ -83,36 +84,36 @@ class APIClient extends CustomEvent {
         this.config = new Object({ ..._defaultConfig, ...config });
 
         //config
-        if (this.config.language === 'data' || this.config.language === 'en-GB') {
+        if (this.config.language === 'en-GB') {
             throw new Error("Language '" + this.config.language + "' is not supported");
         }
 
         //first reload
-        this.AxiosClient = new AxiosClient(this.config.axiosConfig);
-        this.AxiosClient.on('error', ((data: ValorantAPIError) => { this.emit('error', data); }));
-        this.AxiosClient.on('request', ((data:string) => { this.emit('request', data as string); }));
+        this.RequestClient = new ValRequestClient(this.config.axiosConfig);
+        this.RequestClient.on('error', ((data: ValorantApiError) => { this.emit('error', data); }));
+        this.RequestClient.on('request', ((data: ValorantApiRequestData) => { this.emit('request', data); }));
 
         //service
         
-        this.Agents = new Agents(this.AxiosClient, String(this.config.language));
-        this.Buddies = new Buddies(this.AxiosClient, String(this.config.language));
-        this.Bundles = new Bundles(this.AxiosClient, String(this.config.language));
-        this.Ceremonies = new Ceremonies(this.AxiosClient, String(this.config.language));
-        this.CompetitiveTiers = new CompetitiveTiers(this.AxiosClient, String(this.config.language));
-        this.ContentTiers = new ContentTiers(this.AxiosClient, String(this.config.language));
-        this.Contracts = new Contracts(this.AxiosClient, String(this.config.language));
-        this.Currencies = new Currencies(this.AxiosClient, String(this.config.language));
-        this.Events = new Events(this.AxiosClient, String(this.config.language));
-        this.Gamemodes = new Gamemodes(this.AxiosClient, String(this.config.language));
-        this.Gear = new Gear(this.AxiosClient, String(this.config.language));
-        this.Maps = new Maps(this.AxiosClient, String(this.config.language));
-        this.PlayerCards = new PlayerCards(this.AxiosClient, String(this.config.language));
-        this.PlayerTitles = new PlayerTitles(this.AxiosClient, String(this.config.language));
-        this.Seasons = new Seasons(this.AxiosClient, String(this.config.language));
-        this.Sprays = new Sprays(this.AxiosClient, String(this.config.language));
-        this.Themes = new Themes(this.AxiosClient, String(this.config.language));
-        this.Version = new Version(this.AxiosClient);
-        this.Weapons = new Weapons(this.AxiosClient, String(this.config.language));
+        this.Agents = new Agents(this.RequestClient, String(this.config.language));
+        this.Buddies = new Buddies(this.RequestClient, String(this.config.language));
+        this.Bundles = new Bundles(this.RequestClient, String(this.config.language));
+        this.Ceremonies = new Ceremonies(this.RequestClient, String(this.config.language));
+        this.CompetitiveTiers = new CompetitiveTiers(this.RequestClient, String(this.config.language));
+        this.ContentTiers = new ContentTiers(this.RequestClient, String(this.config.language));
+        this.Contracts = new Contracts(this.RequestClient, String(this.config.language));
+        this.Currencies = new Currencies(this.RequestClient, String(this.config.language));
+        this.Events = new Events(this.RequestClient, String(this.config.language));
+        this.Gamemodes = new Gamemodes(this.RequestClient, String(this.config.language));
+        this.Gear = new Gear(this.RequestClient, String(this.config.language));
+        this.Maps = new Maps(this.RequestClient, String(this.config.language));
+        this.PlayerCards = new PlayerCards(this.RequestClient, String(this.config.language));
+        this.PlayerTitles = new PlayerTitles(this.RequestClient, String(this.config.language));
+        this.Seasons = new Seasons(this.RequestClient, String(this.config.language));
+        this.Sprays = new Sprays(this.RequestClient, String(this.config.language));
+        this.Themes = new Themes(this.RequestClient, String(this.config.language));
+        this.Version = new Version(this.RequestClient);
+        this.Weapons = new Weapons(this.RequestClient, String(this.config.language));
 
         //event
         this.emit('ready');
@@ -120,31 +121,31 @@ class APIClient extends CustomEvent {
 
     //reload
     private reload(): void {
-        this.AxiosClient = new AxiosClient(this.config.axiosConfig);
-        this.AxiosClient.on('error', ((data: ValorantAPIError) => { this.emit('error', data); }));
-        this.AxiosClient.on('request', ((data:string) => { this.emit('request', data as string); }));
+        this.RequestClient = new ValRequestClient(this.config.axiosConfig);
+        this.RequestClient.on('error', ((data: ValorantApiError) => { this.emit('error', data); }));
+        this.RequestClient.on('request', ((data: ValorantApiRequestData) => { this.emit('request', data); }));
 
         //service
         
-        this.Agents = new Agents(this.AxiosClient, String(this.config.language));
-        this.Buddies = new Buddies(this.AxiosClient, String(this.config.language));
-        this.Bundles = new Bundles(this.AxiosClient, String(this.config.language));
-        this.Ceremonies = new Ceremonies(this.AxiosClient, String(this.config.language));
-        this.CompetitiveTiers = new CompetitiveTiers(this.AxiosClient, String(this.config.language));
-        this.ContentTiers = new ContentTiers(this.AxiosClient, String(this.config.language));
-        this.Contracts = new Contracts(this.AxiosClient, String(this.config.language));
-        this.Currencies = new Currencies(this.AxiosClient, String(this.config.language));
-        this.Events = new Events(this.AxiosClient, String(this.config.language));
-        this.Gamemodes = new Gamemodes(this.AxiosClient, String(this.config.language));
-        this.Gear = new Gear(this.AxiosClient, String(this.config.language));
-        this.Maps = new Maps(this.AxiosClient, String(this.config.language));
-        this.PlayerCards = new PlayerCards(this.AxiosClient, String(this.config.language));
-        this.PlayerTitles = new PlayerTitles(this.AxiosClient, String(this.config.language));
-        this.Seasons = new Seasons(this.AxiosClient, String(this.config.language));
-        this.Sprays = new Sprays(this.AxiosClient, String(this.config.language));
-        this.Themes = new Themes(this.AxiosClient, String(this.config.language));
-        this.Version = new Version(this.AxiosClient);
-        this.Weapons = new Weapons(this.AxiosClient, String(this.config.language));
+        this.Agents = new Agents(this.RequestClient, String(this.config.language));
+        this.Buddies = new Buddies(this.RequestClient, String(this.config.language));
+        this.Bundles = new Bundles(this.RequestClient, String(this.config.language));
+        this.Ceremonies = new Ceremonies(this.RequestClient, String(this.config.language));
+        this.CompetitiveTiers = new CompetitiveTiers(this.RequestClient, String(this.config.language));
+        this.ContentTiers = new ContentTiers(this.RequestClient, String(this.config.language));
+        this.Contracts = new Contracts(this.RequestClient, String(this.config.language));
+        this.Currencies = new Currencies(this.RequestClient, String(this.config.language));
+        this.Events = new Events(this.RequestClient, String(this.config.language));
+        this.Gamemodes = new Gamemodes(this.RequestClient, String(this.config.language));
+        this.Gear = new Gear(this.RequestClient, String(this.config.language));
+        this.Maps = new Maps(this.RequestClient, String(this.config.language));
+        this.PlayerCards = new PlayerCards(this.RequestClient, String(this.config.language));
+        this.PlayerTitles = new PlayerTitles(this.RequestClient, String(this.config.language));
+        this.Seasons = new Seasons(this.RequestClient, String(this.config.language));
+        this.Sprays = new Sprays(this.RequestClient, String(this.config.language));
+        this.Themes = new Themes(this.RequestClient, String(this.config.language));
+        this.Version = new Version(this.RequestClient);
+        this.Weapons = new Weapons(this.RequestClient, String(this.config.language));
 
         //event
         this.emit('ready');
@@ -153,10 +154,6 @@ class APIClient extends CustomEvent {
     //settings
     
     public setLanguage(language: ValAPIConfigLanguage): void {
-        if(language === 'data'){
-            this.emit('error', { errorCode: 'ValAPIClient_Config_Error', message: "Language 'data' not found", data: language });
-        }
-
         this.config.language = language;
         this.emit('changeSettings', { name: 'language', data: language });
 
@@ -167,9 +164,9 @@ class APIClient extends CustomEvent {
 //event
 interface ValAPIClientEvent {
     'ready': () => void,
-    'request': (data:string) => void,
+    'request': (data:ValorantApiRequestData) => void,
     'changeSettings': (data: { name: string, data: any }) => void,
-    'error': (data: ValorantAPIError) => void;
+    'error': (data: ValorantApiError) => void;
 }
 
 declare interface APIClient {

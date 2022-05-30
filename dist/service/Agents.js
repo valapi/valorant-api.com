@@ -13,8 +13,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Agents = void 0;
 //class
 class Agents {
-    constructor(AxiosClient, language) {
-        this.AxiosClient = AxiosClient;
+    constructor(RequestClient, language) {
+        this.RequestClient = RequestClient;
         this.language = language;
     }
     //service
@@ -27,12 +27,12 @@ class Agents {
             else if (isPlayableCharacter === true) {
                 url += `&isPlayableCharacter=true`;
             }
-            return yield this.AxiosClient.request(url);
+            return yield this.RequestClient.get(url);
         });
     }
     getByUuid(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/agents/${uuid}` + `?language=${this.language}`);
+            return yield this.RequestClient.get(`/agents/${uuid}` + `?language=${this.language}`);
         });
     }
 }

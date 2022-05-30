@@ -13,29 +13,29 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Sprays = void 0;
 //class
 class Sprays {
-    constructor(AxiosClient, language) {
-        this.AxiosClient = AxiosClient;
+    constructor(RequestClient, language) {
+        this.RequestClient = RequestClient;
         this.language = language;
     }
     //service
     get() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request('/sprays' + `?language=${this.language}`);
+            return yield this.RequestClient.get('/sprays' + `?language=${this.language}`);
         });
     }
     getLevels() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/sprays/levels` + `?language=${this.language}`);
+            return yield this.RequestClient.get(`/sprays/levels` + `?language=${this.language}`);
         });
     }
     getByUuid(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/sprays/${uuid}` + `?language=${this.language}`);
+            return yield this.RequestClient.get(`/sprays/${uuid}` + `?language=${this.language}`);
         });
     }
     getLevelByUuid(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/sprays/levels/${uuid}` + `?language=${this.language}`);
+            return yield this.RequestClient.get(`/sprays/levels/${uuid}` + `?language=${this.language}`);
         });
     }
 }

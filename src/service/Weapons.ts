@@ -1,6 +1,6 @@
 //import
 
-import type { AxiosClient } from "../client/AxiosClient";
+import type { ValRequestClient } from "@valapi/lib";
 import type { ValAPIClientService } from "../client/Client";
 
 //interface
@@ -99,46 +99,46 @@ interface ValAPIServiceWeapons {
 //class
 
 class Weapons {
-    private AxiosClient: AxiosClient;
+    private RequestClient: ValRequestClient;
     private language: string;
 
-    constructor(AxiosClient: AxiosClient, language: string) {
-        this.AxiosClient = AxiosClient;
+    constructor(RequestClient: ValRequestClient, language: string) {
+        this.RequestClient = RequestClient;
         this.language = language;
     }
 
     //service
 
     public async get(): Promise<ValAPIClientService<ValAPIServiceWeapons[]>> {
-        return await this.AxiosClient.request('/weapons' + `?language=${this.language}`);
+        return await this.RequestClient.get('/weapons' + `?language=${this.language}`);
     }
 
     public async getSkins(): Promise<ValAPIClientService<ValAPIServiceWeaponSkins[]>> {
-        return await this.AxiosClient.request('/weapons/skins' + `?language=${this.language}`);
+        return await this.RequestClient.get('/weapons/skins' + `?language=${this.language}`);
     }
 
     public async getSkinChromas(): Promise<ValAPIClientService<ValAPIServiceWeaponSkinChromas[]>> {
-        return await this.AxiosClient.request('/weapons/skinchromas' + `?language=${this.language}`);
+        return await this.RequestClient.get('/weapons/skinchromas' + `?language=${this.language}`);
     }
 
     public async getSkinLevels(): Promise<ValAPIClientService<ValAPIServiceWeaponSkinLevels[]>> {
-        return await this.AxiosClient.request('/weapons/skinlevels' + `?language=${this.language}`);
+        return await this.RequestClient.get('/weapons/skinlevels' + `?language=${this.language}`);
     }
 
     public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceWeapons>> {
-        return await this.AxiosClient.request(`/weapons/${uuid}` + `?language=${this.language}`);
+        return await this.RequestClient.get(`/weapons/${uuid}` + `?language=${this.language}`);
     }
 
     public async getSkinByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceWeaponSkins>> {
-        return await this.AxiosClient.request(`/weapons/skins/${uuid}` + `?language=${this.language}`);
+        return await this.RequestClient.get(`/weapons/skins/${uuid}` + `?language=${this.language}`);
     }
 
     public async getSkinChromaByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceWeaponSkinChromas>> {
-        return await this.AxiosClient.request(`/weapons/skinchromas/${uuid}` + `?language=${this.language}`);
+        return await this.RequestClient.get(`/weapons/skinchromas/${uuid}` + `?language=${this.language}`);
     }
 
     public async getSkinLevelByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceWeaponSkinLevels>> {
-        return await this.AxiosClient.request(`/weapons/skinlevels/${uuid}` + `?language=${this.language}`);
+        return await this.RequestClient.get(`/weapons/skinlevels/${uuid}` + `?language=${this.language}`);
     }
 }
 

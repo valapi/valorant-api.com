@@ -1,6 +1,6 @@
 //import
 
-import type { AxiosClient } from "../client/AxiosClient";
+import type { ValRequestClient } from "@valapi/lib";
 import type { ValAPIClientService } from "../client/Client";
 
 //interface
@@ -30,22 +30,22 @@ interface ValAPIServiceGear {
 //class
 
 class Gear {
-    private AxiosClient: AxiosClient;
+    private RequestClient: ValRequestClient;
     private language: string;
 
-    constructor(AxiosClient: AxiosClient, language: string) {
-        this.AxiosClient = AxiosClient;
+    constructor(RequestClient: ValRequestClient, language: string) {
+        this.RequestClient = RequestClient;
         this.language = language;
     }
 
     //service
 
     public async get(): Promise<ValAPIClientService<ValAPIServiceGear[]>> {
-        return await this.AxiosClient.request('/gear' + `?language=${this.language}`);
+        return await this.RequestClient.get('/gear' + `?language=${this.language}`);
     }
 
     public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceGear>> {
-        return await this.AxiosClient.request(`/gear/${uuid}` + `?language=${this.language}`);
+        return await this.RequestClient.get(`/gear/${uuid}` + `?language=${this.language}`);
     }
 }
 

@@ -13,29 +13,29 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Seasons = void 0;
 //class
 class Seasons {
-    constructor(AxiosClient, language) {
-        this.AxiosClient = AxiosClient;
+    constructor(RequestClient, language) {
+        this.RequestClient = RequestClient;
         this.language = language;
     }
     //service
     get() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request('/seasons' + `?language=${this.language}`);
+            return yield this.RequestClient.get('/seasons' + `?language=${this.language}`);
         });
     }
     getCompetitiveSeasons() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request('/seasons/competitive');
+            return yield this.RequestClient.get('/seasons/competitive');
         });
     }
     getByUuid(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/seasons/${uuid}` + `?language=${this.language}`);
+            return yield this.RequestClient.get(`/seasons/${uuid}` + `?language=${this.language}`);
         });
     }
     getCompetitiveSeasonByUuid(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/seasons/competitive/${uuid}`);
+            return yield this.RequestClient.get(`/seasons/competitive/${uuid}`);
         });
     }
 }

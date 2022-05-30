@@ -1,6 +1,6 @@
 //import
 
-import type { AxiosClient } from "../client/AxiosClient";
+import type { ValRequestClient } from "@valapi/lib";
 import type { ValAPIClientService } from "../client/Client";
 
 //interface
@@ -35,30 +35,30 @@ interface ValAPIServiceCompetitiveSeasons {
 //class
 
 class Seasons {
-    private AxiosClient: AxiosClient;
+    private RequestClient: ValRequestClient;
     private language: string;
 
-    constructor(AxiosClient: AxiosClient, language: string) {
-        this.AxiosClient = AxiosClient;
+    constructor(RequestClient: ValRequestClient, language: string) {
+        this.RequestClient = RequestClient;
         this.language = language;
     }
 
     //service
 
     public async get(): Promise<ValAPIClientService<ValAPIServiceSeasons[]>> {
-        return await this.AxiosClient.request('/seasons' + `?language=${this.language}`);
+        return await this.RequestClient.get('/seasons' + `?language=${this.language}`);
     }
 
     public async getCompetitiveSeasons(): Promise<ValAPIClientService<ValAPIServiceCompetitiveSeasons[]>> {
-        return await this.AxiosClient.request('/seasons/competitive');
+        return await this.RequestClient.get('/seasons/competitive');
     }
 
     public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceSeasons>> {
-        return await this.AxiosClient.request(`/seasons/${uuid}` + `?language=${this.language}`);
+        return await this.RequestClient.get(`/seasons/${uuid}` + `?language=${this.language}`);
     }
 
     public async getCompetitiveSeasonByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceCompetitiveSeasons>> {
-        return await this.AxiosClient.request(`/seasons/competitive/${uuid}`);
+        return await this.RequestClient.get(`/seasons/competitive/${uuid}`);
     }
 }
 

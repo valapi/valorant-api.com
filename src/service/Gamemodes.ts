@@ -1,6 +1,6 @@
 //import
 
-import type { AxiosClient } from "../client/AxiosClient";
+import type { ValRequestClient } from "@valapi/lib";
 import type { ValAPIClientService } from "../client/Client";
 
 //interface
@@ -38,30 +38,30 @@ interface ValAPIServiceGamemodeEquippables {
 //class
 
 class Gamemodes {
-    private AxiosClient: AxiosClient;
+    private RequestClient: ValRequestClient;
     private language: string;
 
-    constructor(AxiosClient: AxiosClient, language: string) {
-        this.AxiosClient = AxiosClient;
+    constructor(RequestClient: ValRequestClient, language: string) {
+        this.RequestClient = RequestClient;
         this.language = language;
     }
 
     //service
 
     public async get():Promise<ValAPIClientService<ValAPIServiceGamemodes[]>> {
-        return await this.AxiosClient.request('/gamemodes' + `?language=${this.language}`);
+        return await this.RequestClient.get('/gamemodes' + `?language=${this.language}`);
     }
 
     public async getEquippables():Promise<ValAPIClientService<ValAPIServiceGamemodeEquippables[]>> {
-        return await this.AxiosClient.request(`/gamemodes/equippables` + `?language=${this.language}`);
+        return await this.RequestClient.get(`/gamemodes/equippables` + `?language=${this.language}`);
     }
 
     public async getByUuid(uuid:string):Promise<ValAPIClientService<ValAPIServiceGamemodes>> {
-        return await this.AxiosClient.request(`/gamemodes/${uuid}` + `?language=${this.language}`);
+        return await this.RequestClient.get(`/gamemodes/${uuid}` + `?language=${this.language}`);
     }
 
     public async getEquippableByUuid(uuid:string):Promise<ValAPIClientService<ValAPIServiceGamemodeEquippables>> {
-        return await this.AxiosClient.request(`/gamemodes/equippables/${uuid}` + `?language=${this.language}`);
+        return await this.RequestClient.get(`/gamemodes/equippables/${uuid}` + `?language=${this.language}`);
     }
 }
 

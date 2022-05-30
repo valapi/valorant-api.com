@@ -1,6 +1,6 @@
 //import
 
-import type { AxiosClient } from "../client/AxiosClient";
+import type { ValRequestClient } from "@valapi/lib";
 import type { ValAPIClientService } from "../client/Client";
 
 //interface
@@ -18,16 +18,16 @@ interface ValAPIServiceVersion {
 //class
 
 class Version {
-    private AxiosClient: AxiosClient;
+    private RequestClient: ValRequestClient;
 
-    constructor(AxiosClient: AxiosClient) {
-        this.AxiosClient = AxiosClient;
+    constructor(RequestClient: ValRequestClient) {
+        this.RequestClient = RequestClient;
     }
 
     //service
 
     public async get(): Promise<ValAPIClientService<ValAPIServiceVersion>> {
-        return await this.AxiosClient.request('/version');
+        return await this.RequestClient.get('/version');
     }
 }
 

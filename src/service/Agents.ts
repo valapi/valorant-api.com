@@ -1,6 +1,6 @@
 //import
 
-import type { AxiosClient } from "../client/AxiosClient";
+import type { ValRequestClient } from "@valapi/lib";
 import type { ValAPIClientService } from "../client/Client";
 
 //interface
@@ -51,11 +51,11 @@ interface ValAPIServiceAgents {
 //class
 
 class Agents {
-    private AxiosClient: AxiosClient;
+    private RequestClient: ValRequestClient;
     private language: string;
 
-    constructor(AxiosClient: AxiosClient, language: string) {
-        this.AxiosClient = AxiosClient;
+    constructor(RequestClient: ValRequestClient, language: string) {
+        this.RequestClient = RequestClient;
         this.language = language;
     }
 
@@ -70,11 +70,11 @@ class Agents {
             url += `&isPlayableCharacter=true`;
         }
 
-        return await this.AxiosClient.request(url);
+        return await this.RequestClient.get(url);
     }
 
     public async getByUuid(uuid:string):Promise<ValAPIClientService<ValAPIServiceAgents>> {
-        return await this.AxiosClient.request(`/agents/${uuid}` + `?language=${this.language}`);
+        return await this.RequestClient.get(`/agents/${uuid}` + `?language=${this.language}`);
     }
 }
 

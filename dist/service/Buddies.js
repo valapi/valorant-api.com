@@ -13,29 +13,29 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Buddies = void 0;
 //class
 class Buddies {
-    constructor(AxiosClient, language) {
-        this.AxiosClient = AxiosClient;
+    constructor(RequestClient, language) {
+        this.RequestClient = RequestClient;
         this.language = language;
     }
     //service
     get() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request('/buddies' + `?language=${this.language}`);
+            return yield this.RequestClient.get('/buddies' + `?language=${this.language}`);
         });
     }
     getLevels() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/buddies/levels` + `?language=${this.language}`);
+            return yield this.RequestClient.get(`/buddies/levels` + `?language=${this.language}`);
         });
     }
     getByUuid(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/buddies/${uuid}` + `?language=${this.language}`);
+            return yield this.RequestClient.get(`/buddies/${uuid}` + `?language=${this.language}`);
         });
     }
     getLevelByUuid(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.AxiosClient.request(`/buddies/levels/${uuid}` + `?language=${this.language}`);
+            return yield this.RequestClient.get(`/buddies/levels/${uuid}` + `?language=${this.language}`);
         });
     }
 }

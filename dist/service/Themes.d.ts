@@ -1,4 +1,4 @@
-import type { AxiosClient } from "../client/AxiosClient";
+import type { ValRequestClient } from "@valapi/lib";
 import type { ValAPIClientService } from "../client/Client";
 interface ValAPIServiceThemes {
     uuid: string;
@@ -8,9 +8,9 @@ interface ValAPIServiceThemes {
     assetPath: string;
 }
 declare class Themes {
-    private AxiosClient;
+    private RequestClient;
     private language;
-    constructor(AxiosClient: AxiosClient, language: string);
+    constructor(RequestClient: ValRequestClient, language: string);
     get(): Promise<ValAPIClientService<ValAPIServiceThemes[]>>;
     getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceThemes>>;
 }
