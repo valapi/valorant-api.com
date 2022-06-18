@@ -1,8 +1,8 @@
 //import
-import { ValEvent, type ValorantApiError, ValRequestClient, ValorantApiRequestResponse, ValorantApiRequestData } from "@valapi/lib";
-
-import { Locale } from "@valapi/lib";
-import { Region as _Region } from "@valapi/lib";
+import {
+    ValEvent, type ValorantApiError, ValRequestClient, ValorantApiRequestResponse, ValorantApiRequestData,
+    Locale, Region as _Region
+} from "@valapi/lib";
 
 import type { AxiosRequestConfig } from "axios";
 
@@ -37,14 +37,35 @@ type ValAPIClientService<ValAPIClientServiceReturn> = ValorantApiRequestResponse
     data?: ValAPIClientServiceReturn;
 }>;
 
-type ValAPIConfigLanguage = keyof typeof Locale.from;
+type ValAPIConfigLanguage = keyof typeof Locale.from | "all";
 
 interface ValAPIConfig {
     language?: ValAPIConfigLanguage; //can use 'all' but not supported yet
     axiosConfig?: AxiosRequestConfig;
 }
 
-const _defaultConfig:ValAPIConfig = {
+type ValAPIResponse<MyType> = {
+    "ar-AE": MyType;
+    "de-DE": MyType;
+    "en-US": MyType;
+    "es-ES": MyType;
+    "es-MX": MyType;
+    "fr-FR": MyType;
+    "id-ID": MyType;
+    "it-IT": MyType;
+    "ja-JP": MyType;
+    "ko-KR": MyType;
+    "pl-PL": MyType;
+    "pt-BR": MyType;
+    "ru-RU": MyType;
+    "th-TH": MyType;
+    "tr-TR": MyType;
+    "vi-VN": MyType;
+    "zh-CN": MyType;
+    "zh-TW": MyType;
+} | MyType;
+
+const _defaultConfig: ValAPIConfig = {
     language: 'en-US',
     axiosConfig: {
         baseURL: 'https://valorant-api.com/v1',
@@ -178,4 +199,4 @@ declare interface APIClient {
 
 //export
 export { APIClient };
-export type { ValAPIConfig, ValAPIClientEvent, ValAPIClientService };
+export type { ValAPIClientService, ValAPIConfigLanguage, ValAPIConfig, ValAPIResponse, ValAPIClientEvent };

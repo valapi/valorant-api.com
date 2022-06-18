@@ -7,10 +7,10 @@
   "resolved" "https://registry.npmjs.org/@types/node/-/node-17.0.45.tgz"
   "version" "17.0.45"
 
-"@valapi/lib@latest":
-  "integrity" "sha512-lmAoG3nkC76rQgbzq9WZmrSYlSp3HO4J/MLTuzcOgobxwJfSva6vy+eaHWDd1XtYt0PqcT3/NjPQhFxuoYeMcQ=="
-  "resolved" "https://registry.npmjs.org/@valapi/lib/-/lib-1.2.0-beta.1.tgz"
-  "version" "1.2.0-beta.1"
+"@valapi/lib@^1.2.0":
+  "integrity" "sha512-NOtlcfJOJZbtvpeM9V9sTohW05Wq0aAc6v7L5Mf9g0U/eKenc393+QLGHafu5RLSrftyuQ+qTZicwHb6iX2w3g=="
+  "resolved" "https://registry.npmjs.org/@valapi/lib/-/lib-1.2.0.tgz"
+  "version" "1.2.0"
   dependencies:
     "axios" "^0.27.2"
 

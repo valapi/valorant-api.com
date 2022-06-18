@@ -1,14 +1,14 @@
 //import
 
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService } from "../client/Client";
+import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
 
 //interface
 
 interface ValAPIServiceMaps {
     uuid: string;
-    displayName: string; //localized
-    coordinates: string; //localized
+    displayName: ValAPIResponse<string>; //localized
+    coordinates: ValAPIResponse<string>; //localized
     displayIcon: string;
     listViewIcon: string;
     splash: string;
@@ -19,8 +19,8 @@ interface ValAPIServiceMaps {
     xScalarToAdd: number;
     yScalarToAdd: number;
     callouts: Array<{
-        regionName: string; //localized
-        superRegionName: string; //localized
+        regionName: ValAPIResponse<string>; //localized
+        superRegionName: ValAPIResponse<string>; //localized
         location: {
             x: number;
             y: number;

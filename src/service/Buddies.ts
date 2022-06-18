@@ -1,21 +1,21 @@
 //import
 
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService } from "../client/Client";
+import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
 
 //interface
 
 interface ValAPIServiceBuddyLevels {
     uuid: string;
     charmLevel: number;
-    displayName: string; //localized
+    displayName: ValAPIResponse<string>; //localized
     displayIcon: string;
     assetPath: string;
 }
 
 interface ValAPIServiceBuddies {
     uuid: string;
-    displayName: string; //localized
+    displayName: ValAPIResponse<string>; //localized
     isHiddenIfNotOwned: boolean;
     themeUuid: string;
     displayIcon: string;

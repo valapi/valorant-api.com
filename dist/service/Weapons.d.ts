@@ -1,8 +1,8 @@
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService } from "../client/Client";
+import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
 interface ValAPIServiceWeaponSkinChromas {
     uuid: string;
-    displayName: string;
+    displayName: ValAPIResponse<string>;
     displayIcon: string;
     fullRender: string;
     swatch: string;
@@ -11,7 +11,7 @@ interface ValAPIServiceWeaponSkinChromas {
 }
 interface ValAPIServiceWeaponSkinLevels {
     uuid: string;
-    displayName: string;
+    displayName: ValAPIResponse<string>;
     levelItem: string;
     displayIcon: string;
     streamedVideo: string;
@@ -19,7 +19,7 @@ interface ValAPIServiceWeaponSkinLevels {
 }
 interface ValAPIServiceWeaponSkins {
     uuid: string;
-    displayName: string;
+    displayName: ValAPIResponse<string>;
     themeUuid: string;
     contentTierUuid: string;
     displayIcon: string;
@@ -30,7 +30,7 @@ interface ValAPIServiceWeaponSkins {
 }
 interface ValAPIServiceWeapons {
     uuid: string;
-    displayName: string;
+    displayName: ValAPIResponse<string>;
     category: string;
     defaultSkinUuid: string;
     displayIcon: string;
@@ -74,7 +74,7 @@ interface ValAPIServiceWeapons {
     shopData: {
         cost: number;
         category: string;
-        categoryText: string;
+        categoryText: ValAPIResponse<string>;
         gridPosition: {
             row: number;
             column: number;

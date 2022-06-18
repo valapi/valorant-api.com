@@ -1,8 +1,8 @@
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService } from "../client/Client";
+import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
 interface ValAPIServiceCeremonies {
     uuid: string;
-    displayName: string;
+    displayName: ValAPIResponse<string>;
     assetPath: string;
 }
 declare class Ceremonies {

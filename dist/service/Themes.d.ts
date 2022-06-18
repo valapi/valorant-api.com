@@ -1,8 +1,8 @@
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService } from "../client/Client";
+import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
 interface ValAPIServiceThemes {
     uuid: string;
-    displayName: string;
+    displayName: ValAPIResponse<string>;
     displayIcon: string;
     storeFeaturedImage: string;
     assetPath: string;

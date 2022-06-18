@@ -1,14 +1,14 @@
 //import
 
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService } from "../client/Client";
+import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
 
 //interface
 
 interface ValAPIServiceEvents {
     uuid: string;
-    displayName: string; //localized
-    shortDisplayName: string; //localized
+    displayName: ValAPIResponse<string>; //localized
+    shortDisplayName: ValAPIResponse<string>; //localized
     startTime: string | Date;
     endTime: string | Date;
     assetPath: string;

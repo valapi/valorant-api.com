@@ -1,9 +1,9 @@
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService } from "../client/Client";
+import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
 interface ValAPIServiceCurrencies {
     uuid: string;
-    displayName: string;
-    displayNameSingular: string;
+    displayName: ValAPIResponse<string>;
+    displayNameSingular: ValAPIResponse<string>;
     displayIcon: string;
     largeIcon: string;
     assetPath: string;

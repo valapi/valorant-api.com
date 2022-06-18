@@ -1,17 +1,17 @@
 //import
 
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService } from "../client/Client";
+import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
 
 //interface
 
 interface ValAPIServiceBundles {
     uuid: string;
-    displayName: string; //localized
-    displayNameSubText: string; //localized
-    description: string; //localized
-    extraDescription: string; //localized
-    promoDescription: string; //localized
+    displayName: ValAPIResponse<string>; //localized
+    displayNameSubText: ValAPIResponse<string>; //localized
+    description: ValAPIResponse<string>; //localized
+    extraDescription: ValAPIResponse<string>; //localized
+    promoDescription: ValAPIResponse<string>; //localized
     useAdditionalContext: boolean;
     displayIcon: string;
     displayIcon2: string;

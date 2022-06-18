@@ -1,9 +1,9 @@
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService } from "../client/Client";
+import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
 interface ValAPIServiceGamemodes {
     uuid: string;
-    displayName: string;
-    duration: number;
+    displayName: ValAPIResponse<string>;
+    duration: ValAPIResponse<number>;
     allowsMatchTimeouts: boolean;
     isTeamVoiceAllowed: boolean;
     isMinimapHidden: boolean;
@@ -22,7 +22,7 @@ interface ValAPIServiceGamemodes {
 }
 interface ValAPIServiceGamemodeEquippables {
     uuid: string;
-    displayName: string;
+    displayName: ValAPIResponse<string>;
     category: string;
     displayIcon: string;
     killStreamIcon: string;

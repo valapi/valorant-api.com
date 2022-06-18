@@ -1,21 +1,21 @@
 //import
 
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService } from "../client/Client";
+import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
 
 //interface
 
 interface ValAPIServiceSprayLevels {
     uuid: string;
     sprayLevel: number;
-    displayName: string; //localized
+    displayName: ValAPIResponse<string>; //localized
     displayIcon: string;
     assetPath: string;
 }
 
 interface ValAPIServiceSprays {
     uuid: string;
-    displayName: string; //localized
+    displayName: ValAPIResponse<string>; //localized
     category: string;
     themeUuid: string;
     displayIcon: string;

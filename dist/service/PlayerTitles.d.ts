@@ -1,9 +1,9 @@
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService } from "../client/Client";
+import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
 interface ValAPIServicePlayerTitles {
     uuid: string;
-    displayName: string;
-    titleText: string;
+    displayName: ValAPIResponse<string>;
+    titleText: ValAPIResponse<string>;
     isHiddenIfNotOwned: boolean;
     assetPath: string;
 }

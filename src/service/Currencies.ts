@@ -1,14 +1,14 @@
 //import
 
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService } from "../client/Client";
+import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
 
 //interface
 
 interface ValAPIServiceCurrencies {
     uuid: string;
-    displayName: string; //localized
-    displayNameSingular: string; //localized
+    displayName: ValAPIResponse<string>; //localized
+    displayNameSingular: ValAPIResponse<string>; //localized
     displayIcon: string;
     largeIcon: string;
     assetPath: string;

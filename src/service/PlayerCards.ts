@@ -1,14 +1,14 @@
 //import
 
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService } from "../client/Client";
+import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
 
 //interface
 //unknown from website
 
 interface ValAPIServicePlayerCards {
     uuid: string;
-    displayName: string;
+    displayName: ValAPIResponse<string>; //localized
     isHiddenIfNotOwned: boolean;
     themeUuid: string;
     displayIcon: string;

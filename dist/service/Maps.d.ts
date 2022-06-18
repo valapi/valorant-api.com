@@ -1,9 +1,9 @@
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService } from "../client/Client";
+import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
 interface ValAPIServiceMaps {
     uuid: string;
-    displayName: string;
-    coordinates: string;
+    displayName: ValAPIResponse<string>;
+    coordinates: ValAPIResponse<string>;
     displayIcon: string;
     listViewIcon: string;
     splash: string;
@@ -14,8 +14,8 @@ interface ValAPIServiceMaps {
     xScalarToAdd: number;
     yScalarToAdd: number;
     callouts: Array<{
-        regionName: string;
-        superRegionName: string;
+        regionName: ValAPIResponse<string>;
+        superRegionName: ValAPIResponse<string>;
         location: {
             x: number;
             y: number;

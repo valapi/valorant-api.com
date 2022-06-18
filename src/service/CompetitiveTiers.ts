@@ -1,7 +1,7 @@
 //import
 
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService } from "../client/Client";
+import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
 
 //interface
 
@@ -10,9 +10,9 @@ interface ValAPIServiceCompetitiveTiers {
     assetObjectName: string;
     tiers: Array<{
         tier: number;
-        tierName: string; //localized
+        tierName: ValAPIResponse<string>; //localized
         division: string;
-        divisionName: string; //localized
+        divisionName: ValAPIResponse<string>; //localized
         color: string;
         backgroundColor: string;
         smallIcon: string;

@@ -1,7 +1,8 @@
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService } from "../client/Client";
+import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
 interface ValAPIServiceContentTiers {
     uuid: string;
+    displayName: ValAPIResponse<string>;
     devName: string;
     rank: number;
     juiceValue: number;

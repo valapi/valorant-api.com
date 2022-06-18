@@ -1,16 +1,16 @@
 //import
 
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService } from "../client/Client";
+import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
 
 //interface
 
 interface ValAPIServiceAgents {
     uuid: string;
-    displayName: string; //localized
-    description: string; //localized
+    displayName: ValAPIResponse<string>; //localized
+    description: ValAPIResponse<string>; //localized
     developerName: string;
-    characterTags: Array<string>; //localized
+    characterTags: ValAPIResponse<Array<string>>; //localized
     displayIcon: string;
     displayIconSmall: string;
     bustPortrait: string;
@@ -26,15 +26,15 @@ interface ValAPIServiceAgents {
     isBaseContent: boolean;
     role: {
         uuid: string;
-        displayName: string; //localized
-        description: string; //localized
+        displayName: ValAPIResponse<string>; //localized
+        description: ValAPIResponse<string>; //localized
         displayIcon: string;
         assetPath: string;
     };
     abilities: Array<{
         slot: string;
-        displayName: string; //localized
-        description: string; //localized
+        displayName: ValAPIResponse<string>; //localized
+        description: ValAPIResponse<string>; //localized
         displayIcon: string;
     }>;
     voiceLines: {

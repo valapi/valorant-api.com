@@ -1,12 +1,12 @@
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService } from "../client/Client";
+import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
 interface ValAPIServiceBundles {
     uuid: string;
-    displayName: string;
-    displayNameSubText: string;
-    description: string;
-    extraDescription: string;
-    promoDescription: string;
+    displayName: ValAPIResponse<string>;
+    displayNameSubText: ValAPIResponse<string>;
+    description: ValAPIResponse<string>;
+    extraDescription: ValAPIResponse<string>;
+    promoDescription: ValAPIResponse<string>;
     useAdditionalContext: boolean;
     displayIcon: string;
     displayIcon2: string;

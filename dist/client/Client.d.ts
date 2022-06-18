@@ -1,5 +1,4 @@
-import { ValEvent, type ValorantApiError, ValorantApiRequestResponse, ValorantApiRequestData } from "@valapi/lib";
-import { Locale } from "@valapi/lib";
+import { ValEvent, type ValorantApiError, ValorantApiRequestResponse, ValorantApiRequestData, Locale } from "@valapi/lib";
 import type { AxiosRequestConfig } from "axios";
 import { Agents } from "../service/Agents";
 import { Buddies } from "../service/Buddies";
@@ -25,11 +24,31 @@ declare type ValAPIClientService<ValAPIClientServiceReturn> = ValorantApiRequest
     error?: string;
     data?: ValAPIClientServiceReturn;
 }>;
-declare type ValAPIConfigLanguage = keyof typeof Locale.from;
+declare type ValAPIConfigLanguage = keyof typeof Locale.from | "all";
 interface ValAPIConfig {
     language?: ValAPIConfigLanguage;
     axiosConfig?: AxiosRequestConfig;
 }
+declare type ValAPIResponse<MyType> = {
+    "ar-AE": MyType;
+    "de-DE": MyType;
+    "en-US": MyType;
+    "es-ES": MyType;
+    "es-MX": MyType;
+    "fr-FR": MyType;
+    "id-ID": MyType;
+    "it-IT": MyType;
+    "ja-JP": MyType;
+    "ko-KR": MyType;
+    "pl-PL": MyType;
+    "pt-BR": MyType;
+    "ru-RU": MyType;
+    "th-TH": MyType;
+    "tr-TR": MyType;
+    "vi-VN": MyType;
+    "zh-CN": MyType;
+    "zh-TW": MyType;
+} | MyType;
 declare class APIClient extends ValEvent {
     protected config: ValAPIConfig;
     private RequestClient;
@@ -72,5 +91,5 @@ declare interface APIClient {
     off<EventName extends keyof ValAPIClientEvent>(name: EventName, callback?: ValAPIClientEvent[EventName]): void;
 }
 export { APIClient };
-export type { ValAPIConfig, ValAPIClientEvent, ValAPIClientService };
+export type { ValAPIClientService, ValAPIConfigLanguage, ValAPIConfig, ValAPIResponse, ValAPIClientEvent };
 //# sourceMappingURL=Client.d.ts.map

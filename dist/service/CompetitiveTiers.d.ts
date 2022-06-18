@@ -1,13 +1,13 @@
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService } from "../client/Client";
+import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
 interface ValAPIServiceCompetitiveTiers {
     uuid: string;
     assetObjectName: string;
     tiers: Array<{
         tier: number;
-        tierName: string;
+        tierName: ValAPIResponse<string>;
         division: string;
-        divisionName: string;
+        divisionName: ValAPIResponse<string>;
         color: string;
         backgroundColor: string;
         smallIcon: string;

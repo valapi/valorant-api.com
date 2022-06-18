@@ -1,15 +1,15 @@
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService } from "../client/Client";
+import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
 interface ValAPIServiceGear {
     uuid: string;
-    displayName: string;
-    description: string;
+    displayName: ValAPIResponse<string>;
+    description: ValAPIResponse<string>;
     displayIcon: string;
     assetPath: string;
     shopData: {
         cost: number;
         category: string;
-        categoryText: string;
+        categoryText: ValAPIResponse<string>;
         gridPosition: {
             row: number;
             column: number;
