@@ -7,10 +7,10 @@
   "resolved" "https://registry.npmjs.org/@types/node/-/node-17.0.45.tgz"
   "version" "17.0.45"
 
-"@valapi/lib@^1.2.0":
-  "integrity" "sha512-NOtlcfJOJZbtvpeM9V9sTohW05Wq0aAc6v7L5Mf9g0U/eKenc393+QLGHafu5RLSrftyuQ+qTZicwHb6iX2w3g=="
-  "resolved" "https://registry.npmjs.org/@valapi/lib/-/lib-1.2.0.tgz"
-  "version" "1.2.0"
+"@valapi/lib@^1.3.0":
+  "integrity" "sha512-XpfDW6n43rbDg4cYUl8fYhkUgBZfXgWHh0ZBCE4UeA+1zxRYQKbiff8tuLryev2fq2xPwBM4dtnmbZ129s90Tw=="
+  "resolved" "https://registry.npmjs.org/@valapi/lib/-/lib-1.3.0.tgz"
+  "version" "1.3.0"
   dependencies:
     "axios" "^0.27.2"
 
@@ -64,6 +64,11 @@
   "version" "2.1.35"
   dependencies:
     "mime-db" "1.52.0"
+
+"tslib@^2.4.0":
+  "integrity" "sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ=="
+  "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.4.0.tgz"
+  "version" "2.4.0"
 
 "typescript@^4.7.4":
   "integrity" "sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ=="
