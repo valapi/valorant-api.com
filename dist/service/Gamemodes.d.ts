@@ -3,7 +3,7 @@ import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
 interface ValAPIServiceGamemodes {
     uuid: string;
     displayName: ValAPIResponse<string>;
-    duration: ValAPIResponse<number>;
+    duration: ValAPIResponse<string>;
     allowsMatchTimeouts: boolean;
     isTeamVoiceAllowed: boolean;
     isMinimapHidden: boolean;

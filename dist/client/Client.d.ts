@@ -11,6 +11,7 @@ import { Currencies } from "../service/Currencies";
 import { Events } from "../service/Events";
 import { Gamemodes } from "../service/Gamemodes";
 import { Gear } from "../service/Gear";
+import { LevelBorders } from "../service/LevelBorders";
 import { Maps } from "../service/Maps";
 import { PlayerCards } from "../service/PlayerCards";
 import { PlayerTitles } from "../service/PlayerTitles";
@@ -63,6 +64,7 @@ declare class APIClient extends ValEvent {
     Events: Events;
     Gamemodes: Gamemodes;
     Gear: Gear;
+    LevelBorders: LevelBorders;
     Maps: Maps;
     PlayerCards: PlayerCards;
     PlayerTitles: PlayerTitles;

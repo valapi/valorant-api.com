@@ -23,7 +23,7 @@ class ContentTiers {
     private RequestClient: ValRequestClient;
     private language: string;
 
-    constructor(RequestClient: ValRequestClient, language: string) {
+    public constructor(RequestClient: ValRequestClient, language: string) {
         this.RequestClient = RequestClient;
         this.language = language;
     }

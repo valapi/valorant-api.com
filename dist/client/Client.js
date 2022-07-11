@@ -15,6 +15,7 @@ const Currencies_1 = require("../service/Currencies");
 const Events_1 = require("../service/Events");
 const Gamemodes_1 = require("../service/Gamemodes");
 const Gear_1 = require("../service/Gear");
+const LevelBorders_1 = require("../service/LevelBorders");
 const Maps_1 = require("../service/Maps");
 const PlayerCards_1 = require("../service/PlayerCards");
 const PlayerTitles_1 = require("../service/PlayerTitles");
@@ -54,6 +55,7 @@ class APIClient extends lib_1.ValEvent {
         this.Events = new Events_1.Events(this.RequestClient, String(this.config.language));
         this.Gamemodes = new Gamemodes_1.Gamemodes(this.RequestClient, String(this.config.language));
         this.Gear = new Gear_1.Gear(this.RequestClient, String(this.config.language));
+        this.LevelBorders = new LevelBorders_1.LevelBorders(this.RequestClient, String(this.config.language));
         this.Maps = new Maps_1.Maps(this.RequestClient, String(this.config.language));
         this.PlayerCards = new PlayerCards_1.PlayerCards(this.RequestClient, String(this.config.language));
         this.PlayerTitles = new PlayerTitles_1.PlayerTitles(this.RequestClient, String(this.config.language));
@@ -82,6 +84,7 @@ class APIClient extends lib_1.ValEvent {
         this.Events = new Events_1.Events(this.RequestClient, String(this.config.language));
         this.Gamemodes = new Gamemodes_1.Gamemodes(this.RequestClient, String(this.config.language));
         this.Gear = new Gear_1.Gear(this.RequestClient, String(this.config.language));
+        this.LevelBorders = new LevelBorders_1.LevelBorders(this.RequestClient, String(this.config.language));
         this.Maps = new Maps_1.Maps(this.RequestClient, String(this.config.language));
         this.PlayerCards = new PlayerCards_1.PlayerCards(this.RequestClient, String(this.config.language));
         this.PlayerTitles = new PlayerTitles_1.PlayerTitles(this.RequestClient, String(this.config.language));

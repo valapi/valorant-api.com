@@ -8,7 +8,7 @@ import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
 interface ValAPIServiceGamemodes {
     uuid: string;
     displayName: ValAPIResponse<string>; //localized
-    duration: ValAPIResponse<number>; //localized
+    duration: ValAPIResponse<string>; //localized
     allowsMatchTimeouts: boolean;
     isTeamVoiceAllowed: boolean;
     isMinimapHidden: boolean;
@@ -41,7 +41,7 @@ class Gamemodes {
     private RequestClient: ValRequestClient;
     private language: string;
 
-    constructor(RequestClient: ValRequestClient, language: string) {
+    public constructor(RequestClient: ValRequestClient, language: string) {
         this.RequestClient = RequestClient;
         this.language = language;
     }

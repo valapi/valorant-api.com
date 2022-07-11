@@ -20,7 +20,7 @@ interface ValAPIServiceVersion {
 class Version {
     private RequestClient: ValRequestClient;
 
-    constructor(RequestClient: ValRequestClient) {
+    public constructor(RequestClient: ValRequestClient) {
         this.RequestClient = RequestClient;
     }
 

@@ -19,6 +19,7 @@ import { Currencies } from "../service/Currencies";
 import { Events } from "../service/Events";
 import { Gamemodes } from "../service/Gamemodes";
 import { Gear } from "../service/Gear";
+import { LevelBorders } from "../service/LevelBorders";
 import { Maps } from "../service/Maps";
 import { PlayerCards } from "../service/PlayerCards";
 import { PlayerTitles } from "../service/PlayerTitles";
@@ -90,6 +91,7 @@ class APIClient extends ValEvent {
     public Events: Events;
     public Gamemodes: Gamemodes;
     public Gear: Gear;
+    public LevelBorders: LevelBorders;
     public Maps: Maps;
     public PlayerCards: PlayerCards;
     public PlayerTitles: PlayerTitles;
@@ -127,6 +129,7 @@ class APIClient extends ValEvent {
         this.Events = new Events(this.RequestClient, String(this.config.language));
         this.Gamemodes = new Gamemodes(this.RequestClient, String(this.config.language));
         this.Gear = new Gear(this.RequestClient, String(this.config.language));
+        this.LevelBorders = new LevelBorders(this.RequestClient, String(this.config.language));
         this.Maps = new Maps(this.RequestClient, String(this.config.language));
         this.PlayerCards = new PlayerCards(this.RequestClient, String(this.config.language));
         this.PlayerTitles = new PlayerTitles(this.RequestClient, String(this.config.language));
@@ -159,6 +162,7 @@ class APIClient extends ValEvent {
         this.Events = new Events(this.RequestClient, String(this.config.language));
         this.Gamemodes = new Gamemodes(this.RequestClient, String(this.config.language));
         this.Gear = new Gear(this.RequestClient, String(this.config.language));
+        this.LevelBorders = new LevelBorders(this.RequestClient, String(this.config.language));
         this.Maps = new Maps(this.RequestClient, String(this.config.language));
         this.PlayerCards = new PlayerCards(this.RequestClient, String(this.config.language));
         this.PlayerTitles = new PlayerTitles(this.RequestClient, String(this.config.language));
