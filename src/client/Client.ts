@@ -1,4 +1,5 @@
 //import
+
 import {
     ValEvent, type ValorantApiError, ValRequestClient, ValorantApiRequestResponse, ValorantApiRequestData,
     Locale, Region as _Region
@@ -32,19 +33,6 @@ import { Weapons } from "../service/Weapons";
 
 //interface
 
-type ValAPIClientService<ValAPIClientServiceReturn> = ValorantApiRequestResponse<{
-    status: number;
-    error?: string;
-    data?: ValAPIClientServiceReturn;
-}>;
-
-type ValAPIConfigLanguage = keyof typeof Locale.from | "all";
-
-interface ValAPIConfig {
-    language?: ValAPIConfigLanguage; //can use 'all' but not supported yet
-    axiosConfig?: AxiosRequestConfig;
-}
-
 type ValAPIResponse<MyType> = {
     "ar-AE": MyType;
     "de-DE": MyType;
@@ -66,16 +54,69 @@ type ValAPIResponse<MyType> = {
     "zh-TW": MyType;
 } | MyType;
 
-const _defaultConfig: ValAPIConfig = {
+type ValAPIClientService<Return> = ValorantApiRequestResponse<{
+    status: number;
+    error?: string;
+    data?: Return;
+}>;
+
+namespace ValAPIClient {
+
+    /**
+     * All Language Available
+     */
+    export type Language = keyof typeof Locale.from | "all";
+
+    /**
+     * Client Config
+     */
+    export interface Config {
+        /**
+         * Language
+         */
+        language?: ValAPIClient.Language;
+        /**
+         * Request Config
+         */
+        axiosConfig?: AxiosRequestConfig;
+    }
+
+    /**
+     * Client Event
+     */
+    export interface Event {
+        'ready': () => void,
+        'request': (data:ValorantApiRequestData) => void,
+        'changeSettings': (data: { name: string, data: any }) => void,
+        'error': (data: ValorantApiError) => void;
+    }
+}
+
+const _defaultConfig: ValAPIClient.Config = {
     language: 'en-US',
     axiosConfig: {
         baseURL: 'https://valorant-api.com/v1',
     },
 }
 
+//event
+
+declare interface ValAPIClient {
+    emit<EventName extends keyof ValAPIClient.Event>(name: EventName, ...args: Parameters<ValAPIClient.Event[EventName]>): void;
+    on<EventName extends keyof ValAPIClient.Event>(name: EventName, callback: ValAPIClient.Event[EventName]): void;
+    once<EventName extends keyof ValAPIClient.Event>(name: EventName, callback: ValAPIClient.Event[EventName]): void;
+    off<EventName extends keyof ValAPIClient.Event>(name: EventName, callback?: ValAPIClient.Event[EventName]): void;
+}
+
 //class
-class APIClient extends ValEvent {
-    protected config: ValAPIConfig;
+
+/**
+ * Third-Party API by Officer
+ * 
+ * https://valorant-api.com/
+ */
+class ValAPIClient extends ValEvent {
+    protected config: ValAPIClient.Config;
     private RequestClient: ValRequestClient;
 
     //service
@@ -101,7 +142,11 @@ class APIClient extends ValEvent {
     public Version: Version;
     public Weapons: Weapons;
 
-    constructor(config: ValAPIConfig = {}) {
+    /**
+     * Class Constructor
+     * @param {ValAPIClient.Config} config Client Config
+     */
+    public constructor(config: ValAPIClient.Config = {}) {
         super();
 
         this.config = new Object({ ..._defaultConfig, ...config });
@@ -144,6 +189,10 @@ class APIClient extends ValEvent {
     }
 
     //reload
+
+    /**
+     * @returns {void}
+     */
     private reload(): void {
         this.RequestClient = new ValRequestClient(this.config.axiosConfig);
         this.RequestClient.on('error', ((data: ValorantApiError) => { this.emit('error', data); }));
@@ -178,7 +227,11 @@ class APIClient extends ValEvent {
 
     //settings
     
-    public setLanguage(language: ValAPIConfigLanguage): void {
+    /**
+     * @param {ValAPIClient.Language} language Language
+     * @returns {void}
+     */
+    public setLanguage(language: ValAPIClient.Language): void {
         this.config.language = language;
         this.emit('changeSettings', { name: 'language', data: language });
 
@@ -186,21 +239,7 @@ class APIClient extends ValEvent {
     }
 }
 
-//event
-interface ValAPIClientEvent {
-    'ready': () => void,
-    'request': (data:ValorantApiRequestData) => void,
-    'changeSettings': (data: { name: string, data: any }) => void,
-    'error': (data: ValorantApiError) => void;
-}
-
-declare interface APIClient {
-    emit<EventName extends keyof ValAPIClientEvent>(name: EventName, ...args: Parameters<ValAPIClientEvent[EventName]>): void;
-    on<EventName extends keyof ValAPIClientEvent>(name: EventName, callback: ValAPIClientEvent[EventName]): void;
-    once<EventName extends keyof ValAPIClientEvent>(name: EventName, callback: ValAPIClientEvent[EventName]): void;
-    off<EventName extends keyof ValAPIClientEvent>(name: EventName, callback?: ValAPIClientEvent[EventName]): void;
-}
-
 //export
-export { APIClient };
-export type { ValAPIClientService, ValAPIConfigLanguage, ValAPIConfig, ValAPIResponse, ValAPIClientEvent };
+
+export { ValAPIClient };
+export type { ValAPIResponse, ValAPIClientService };

@@ -1,4 +1,15 @@
-export {
-    APIClient as Client,
-    type ValAPIClientService, type ValAPIConfigLanguage, type ValAPIConfig, type ValAPIResponse, type ValAPIClientEvent
+//import
+
+import {
+    ValAPIClient as ValAPI,
+    type ValAPIResponse, type ValAPIClientService
 } from "./client/Client";
+
+//export
+
+export {
+    ValAPI as Client,
+    type ValAPIResponse, type ValAPIClientService,
+};
+
+export default ValAPI;
