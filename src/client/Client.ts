@@ -54,10 +54,10 @@ type ValAPIResponse<MyType> = {
     "zh-TW": MyType;
 } | MyType;
 
-type ValAPIClientService<Return> = ValorantApiRequestResponse<{
+type ValAPIClientService<ValAPIClientServiceReturn> = ValorantApiRequestResponse<{
     status: number;
     error?: string;
-    data?: Return;
+    data?: ValAPIClientServiceReturn;
 }>;
 
 namespace ValAPIClient {
@@ -149,7 +149,7 @@ class ValAPIClient extends ValEvent {
     public constructor(config: ValAPIClient.Config = {}) {
         super();
 
-        this.config = new Object({ ..._defaultConfig, ...config });
+        this.config = { ..._defaultConfig, ...config };
 
         //config
         if (this.config.language === 'en-GB') {

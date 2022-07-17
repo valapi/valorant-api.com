@@ -43,7 +43,7 @@ class ValAPIClient extends lib_1.ValEvent {
      */
     constructor(config = {}) {
         super();
-        this.config = new Object(Object.assign(Object.assign({}, _defaultConfig), config));
+        this.config = Object.assign(Object.assign({}, _defaultConfig), config);
         //config
         if (this.config.language === 'en-GB') {
             throw new Error("Language '" + this.config.language + "' is not supported");

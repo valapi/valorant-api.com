@@ -40,10 +40,10 @@ declare type ValAPIResponse<MyType> = {
     "zh-CN": MyType;
     "zh-TW": MyType;
 } | MyType;
-declare type ValAPIClientService<Return> = ValorantApiRequestResponse<{
+declare type ValAPIClientService<ValAPIClientServiceReturn> = ValorantApiRequestResponse<{
     status: number;
     error?: string;
-    data?: Return;
+    data?: ValAPIClientServiceReturn;
 }>;
 declare namespace ValAPIClient {
     /**
