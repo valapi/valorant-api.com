@@ -2,7 +2,7 @@
 
 import {
     ValEvent, type ValorantApiError, ValRequestClient, ValorantApiRequestResponse, ValorantApiRequestData,
-    Locale, Region as _Region
+    Locale
 } from "@valapi/lib";
 
 import type { AxiosRequestConfig } from "axios";
@@ -97,7 +97,7 @@ const _defaultConfig: ValAPIClient.Config = {
     axiosConfig: {
         baseURL: 'https://valorant-api.com/v1',
     },
-}
+};
 
 //event
 
@@ -153,7 +153,7 @@ class ValAPIClient extends ValEvent {
 
         //config
         if (this.config.language === 'en-GB') {
-            throw new Error("Language '" + this.config.language + "' is not supported");
+            throw new Error(`Language '${this.config.language}' is not supported`);
         }
 
         //first reload
