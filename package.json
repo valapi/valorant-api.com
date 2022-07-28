@@ -2,7 +2,6 @@
   "name": "@valapi/valorant-api.com",
   "version": "1.3.2",
   "description": "Valorant API - valorant-api.com",
-  "type": "module",
   "main": "dist/index.js",
   "types": "./dist/index.d.ts",
   "publishConfig": {
