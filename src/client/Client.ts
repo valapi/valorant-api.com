@@ -71,7 +71,7 @@ namespace ValAPIClient {
     /**
      * All Language Available
      */
-    export type Language = keyof typeof Locale.from | "all";
+    export type Language = Exclude<Locale.String, 'en-GB'> | "all";
 
     /**
      * Client Config
@@ -155,13 +155,6 @@ class ValAPIClient extends ValEvent {
                 },
             }, ...config
         };
-
-        //config
-        if (this.config.language === 'en-GB') {
-            throw new Error(
-                `Language '${this.config.language}' is not supported`
-            );
-        }
 
         //first reload
         this.RequestClient = new ValRequestClient(this.config.axiosConfig);

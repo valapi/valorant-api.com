@@ -55,7 +55,7 @@ declare namespace ValAPIClient {
     /**
      * All Language Available
      */
-    type Language = keyof typeof Locale.from | "all";
+    type Language = Exclude<Locale.String, 'en-GB'> | "all";
     /**
      * Client Config
      */

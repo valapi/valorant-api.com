@@ -43,10 +43,6 @@ class ValAPIClient extends lib_1.ValEvent {
                 baseURL: 'https://valorant-api.com/v1',
             },
         }, config);
-        //config
-        if (this.config.language === 'en-GB') {
-            throw new Error(`Language '${this.config.language}' is not supported`);
-        }
         //first reload
         this.RequestClient = new lib_1.ValRequestClient(this.config.axiosConfig);
         this.RequestClient.on('error', ((data) => { this.emit('error', data); }));
