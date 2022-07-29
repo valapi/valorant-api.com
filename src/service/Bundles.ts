@@ -1,22 +1,24 @@
 //import
 
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
+import type { ValAPIClient } from "../client/Client";
 
 //interface
 
-interface ValAPIServiceBundles {
-    uuid: string;
-    displayName: ValAPIResponse<string>; //localized
-    displayNameSubText: ValAPIResponse<string>; //localized
-    description: ValAPIResponse<string>; //localized
-    extraDescription: ValAPIResponse<string>; //localized
-    promoDescription: ValAPIResponse<string>; //localized
-    useAdditionalContext: boolean;
-    displayIcon: string;
-    displayIcon2: string;
-    verticalPromoImage: string;
-    assetPath: string;
+namespace Bundles {
+    export interface Bundles {
+        uuid: string;
+        displayName: ValAPIClient.Response<string>; //localized
+        displayNameSubText: ValAPIClient.Response<string>; //localized
+        description: ValAPIClient.Response<string>; //localized
+        extraDescription: ValAPIClient.Response<string>; //localized
+        promoDescription: ValAPIClient.Response<string>; //localized
+        useAdditionalContext: boolean;
+        displayIcon: string;
+        displayIcon2: string;
+        verticalPromoImage: string;
+        assetPath: string;
+    }
 }
 
 //class
@@ -32,11 +34,11 @@ class Bundles {
 
     //service
 
-    public async get(): Promise<ValAPIClientService<ValAPIServiceBundles[]>> {
+    public async get(): Promise<ValAPIClient.Service<Bundles.Bundles[]>> {
         return await this.RequestClient.get('/bundles' + `?language=${this.language}`);
     }
 
-    public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceBundles>> {
+    public async getByUuid(uuid: string): Promise<ValAPIClient.Service<Bundles.Bundles>> {
         return await this.RequestClient.get(`/bundles/${uuid}` + `?language=${this.language}`);
     }
 }
@@ -44,4 +46,3 @@ class Bundles {
 //export
 
 export { Bundles };
-export type { ValAPIServiceBundles };

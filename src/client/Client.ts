@@ -1,7 +1,7 @@
 //import
 
 import {
-    ValEvent, type ValorantApiError, ValRequestClient, ValorantApiRequestResponse, ValorantApiRequestData,
+    ValEvent, ValRequestClient,
     Locale
 } from "@valapi/lib";
 
@@ -33,34 +33,40 @@ import { Weapons } from "../service/Weapons";
 
 //interface
 
-type ValAPIResponse<MyType> = {
-    "ar-AE": MyType;
-    "de-DE": MyType;
-    "en-US": MyType;
-    "es-ES": MyType;
-    "es-MX": MyType;
-    "fr-FR": MyType;
-    "id-ID": MyType;
-    "it-IT": MyType;
-    "ja-JP": MyType;
-    "ko-KR": MyType;
-    "pl-PL": MyType;
-    "pt-BR": MyType;
-    "ru-RU": MyType;
-    "th-TH": MyType;
-    "tr-TR": MyType;
-    "vi-VN": MyType;
-    "zh-CN": MyType;
-    "zh-TW": MyType;
-} | MyType;
-
-type ValAPIClientService<ValAPIClientServiceReturn> = ValorantApiRequestResponse<{
-    status: number;
-    error?: string;
-    data?: ValAPIClientServiceReturn;
-}>;
-
 namespace ValAPIClient {
+
+    /**
+     * localized response
+     */
+    export type Response<MyType> = {
+        "ar-AE": MyType;
+        "de-DE": MyType;
+        "en-US": MyType;
+        "es-ES": MyType;
+        "es-MX": MyType;
+        "fr-FR": MyType;
+        "id-ID": MyType;
+        "it-IT": MyType;
+        "ja-JP": MyType;
+        "ko-KR": MyType;
+        "pl-PL": MyType;
+        "pt-BR": MyType;
+        "ru-RU": MyType;
+        "th-TH": MyType;
+        "tr-TR": MyType;
+        "vi-VN": MyType;
+        "zh-CN": MyType;
+        "zh-TW": MyType;
+    } | MyType;
+
+    /**
+     * API Return
+     */
+    export type Service<Return> = ValRequestClient.Response<{
+        status: number;
+        error?: string;
+        data?: Return;
+    }>;
 
     /**
      * All Language Available
@@ -82,22 +88,14 @@ namespace ValAPIClient {
     }
 
     /**
-     * Client Event
+     * Client Events
      */
     export interface Event {
         'ready': () => void,
-        'request': (data:ValorantApiRequestData) => void,
-        'changeSettings': (data: { name: string, data: any }) => void,
-        'error': (data: ValorantApiError) => void;
+        'request': (data: ValRequestClient.Request) => void,
+        'error': (data: ValEvent.Error) => void;
     }
 }
-
-const _defaultConfig: ValAPIClient.Config = {
-    language: 'en-US',
-    axiosConfig: {
-        baseURL: 'https://valorant-api.com/v1',
-    },
-};
 
 //event
 
@@ -143,26 +141,35 @@ class ValAPIClient extends ValEvent {
     public Weapons: Weapons;
 
     /**
-     * Class Constructor
+     * 
      * @param {ValAPIClient.Config} config Client Config
      */
     public constructor(config: ValAPIClient.Config = {}) {
         super();
 
-        this.config = { ..._defaultConfig, ...config };
+        this.config = {
+            ...{
+                language: 'en-US',
+                axiosConfig: {
+                    baseURL: 'https://valorant-api.com/v1',
+                },
+            }, ...config
+        };
 
         //config
         if (this.config.language === 'en-GB') {
-            throw new Error(`Language '${this.config.language}' is not supported`);
+            throw new Error(
+                `Language '${this.config.language}' is not supported`
+            );
         }
 
         //first reload
         this.RequestClient = new ValRequestClient(this.config.axiosConfig);
-        this.RequestClient.on('error', ((data: ValorantApiError) => { this.emit('error', data); }));
-        this.RequestClient.on('request', ((data: ValorantApiRequestData) => { this.emit('request', data); }));
+        this.RequestClient.on('error', ((data: ValEvent.Error) => { this.emit('error', data); }));
+        this.RequestClient.on('request', ((data: ValRequestClient.Request) => { this.emit('request', data); }));
 
         //service
-        
+
         this.Agents = new Agents(this.RequestClient, String(this.config.language));
         this.Buddies = new Buddies(this.RequestClient, String(this.config.language));
         this.Bundles = new Bundles(this.RequestClient, String(this.config.language));
@@ -195,11 +202,11 @@ class ValAPIClient extends ValEvent {
      */
     private reload(): void {
         this.RequestClient = new ValRequestClient(this.config.axiosConfig);
-        this.RequestClient.on('error', ((data: ValorantApiError) => { this.emit('error', data); }));
-        this.RequestClient.on('request', ((data: ValorantApiRequestData) => { this.emit('request', data); }));
+        this.RequestClient.on('error', ((data: ValEvent.Error) => { this.emit('error', data); }));
+        this.RequestClient.on('request', ((data: ValRequestClient.Request) => { this.emit('request', data); }));
 
         //service
-        
+
         this.Agents = new Agents(this.RequestClient, String(this.config.language));
         this.Buddies = new Buddies(this.RequestClient, String(this.config.language));
         this.Bundles = new Bundles(this.RequestClient, String(this.config.language));
@@ -226,14 +233,13 @@ class ValAPIClient extends ValEvent {
     }
 
     //settings
-    
+
     /**
      * @param {ValAPIClient.Language} language Language
      * @returns {void}
      */
     public setLanguage(language: ValAPIClient.Language): void {
         this.config.language = language;
-        this.emit('changeSettings', { name: 'language', data: language });
 
         this.reload();
     }
@@ -242,4 +248,3 @@ class ValAPIClient extends ValEvent {
 //export
 
 export { ValAPIClient };
-export type { ValAPIResponse, ValAPIClientService };

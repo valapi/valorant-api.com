@@ -1,17 +1,19 @@
 //import
 
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
+import type { ValAPIClient } from "../client/Client";
 
 //interface
 //unknown from website
 
-interface ValAPIServicePlayerTitles {
-    uuid: string;
-    displayName: ValAPIResponse<string>; //localized
-    titleText: ValAPIResponse<string>; //localized
-    isHiddenIfNotOwned: boolean;
-    assetPath: string;
+namespace PlayerTitles {
+    export interface PlayerTitles {
+        uuid: string;
+        displayName: ValAPIClient.Response<string>; //localized
+        titleText: ValAPIClient.Response<string>; //localized
+        isHiddenIfNotOwned: boolean;
+        assetPath: string;
+    }
 }
 
 //class
@@ -27,11 +29,11 @@ class PlayerTitles {
 
     //service
 
-    public async get(): Promise<ValAPIClientService<ValAPIServicePlayerTitles[]>> {
+    public async get(): Promise<ValAPIClient.Service<PlayerTitles.PlayerTitles[]>> {
         return await this.RequestClient.get('/playertitles' + `?language=${this.language}`);
     }
 
-    public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServicePlayerTitles>> {
+    public async getByUuid(uuid: string): Promise<ValAPIClient.Service<PlayerTitles.PlayerTitles>> {
         return await this.RequestClient.get(`/playertitles/${uuid}` + `?language=${this.language}`);
     }
 }
@@ -39,4 +41,3 @@ class PlayerTitles {
 //export
 
 export { PlayerTitles };
-export type { ValAPIServicePlayerTitles };

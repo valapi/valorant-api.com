@@ -1,4 +1,4 @@
-import { ValEvent, type ValorantApiError, ValorantApiRequestResponse, ValorantApiRequestData, Locale } from "@valapi/lib";
+import { ValEvent, ValRequestClient, Locale } from "@valapi/lib";
 import type { AxiosRequestConfig } from "axios";
 import { Agents } from "../service/Agents";
 import { Buddies } from "../service/Buddies";
@@ -20,32 +20,38 @@ import { Sprays } from "../service/Sprays";
 import { Themes } from "../service/Themes";
 import { Version } from "../service/Version";
 import { Weapons } from "../service/Weapons";
-declare type ValAPIResponse<MyType> = {
-    "ar-AE": MyType;
-    "de-DE": MyType;
-    "en-US": MyType;
-    "es-ES": MyType;
-    "es-MX": MyType;
-    "fr-FR": MyType;
-    "id-ID": MyType;
-    "it-IT": MyType;
-    "ja-JP": MyType;
-    "ko-KR": MyType;
-    "pl-PL": MyType;
-    "pt-BR": MyType;
-    "ru-RU": MyType;
-    "th-TH": MyType;
-    "tr-TR": MyType;
-    "vi-VN": MyType;
-    "zh-CN": MyType;
-    "zh-TW": MyType;
-} | MyType;
-declare type ValAPIClientService<ValAPIClientServiceReturn> = ValorantApiRequestResponse<{
-    status: number;
-    error?: string;
-    data?: ValAPIClientServiceReturn;
-}>;
 declare namespace ValAPIClient {
+    /**
+     * localized response
+     */
+    type Response<MyType> = {
+        "ar-AE": MyType;
+        "de-DE": MyType;
+        "en-US": MyType;
+        "es-ES": MyType;
+        "es-MX": MyType;
+        "fr-FR": MyType;
+        "id-ID": MyType;
+        "it-IT": MyType;
+        "ja-JP": MyType;
+        "ko-KR": MyType;
+        "pl-PL": MyType;
+        "pt-BR": MyType;
+        "ru-RU": MyType;
+        "th-TH": MyType;
+        "tr-TR": MyType;
+        "vi-VN": MyType;
+        "zh-CN": MyType;
+        "zh-TW": MyType;
+    } | MyType;
+    /**
+     * API Return
+     */
+    type Service<Return> = ValRequestClient.Response<{
+        status: number;
+        error?: string;
+        data?: Return;
+    }>;
     /**
      * All Language Available
      */
@@ -64,16 +70,12 @@ declare namespace ValAPIClient {
         axiosConfig?: AxiosRequestConfig;
     }
     /**
-     * Client Event
+     * Client Events
      */
     interface Event {
         'ready': () => void;
-        'request': (data: ValorantApiRequestData) => void;
-        'changeSettings': (data: {
-            name: string;
-            data: any;
-        }) => void;
-        'error': (data: ValorantApiError) => void;
+        'request': (data: ValRequestClient.Request) => void;
+        'error': (data: ValEvent.Error) => void;
     }
 }
 declare interface ValAPIClient {
@@ -111,7 +113,7 @@ declare class ValAPIClient extends ValEvent {
     Version: Version;
     Weapons: Weapons;
     /**
-     * Class Constructor
+     *
      * @param {ValAPIClient.Config} config Client Config
      */
     constructor(config?: ValAPIClient.Config);
@@ -126,4 +128,3 @@ declare class ValAPIClient extends ValEvent {
     setLanguage(language: ValAPIClient.Language): void;
 }
 export { ValAPIClient };
-export type { ValAPIResponse, ValAPIClientService };

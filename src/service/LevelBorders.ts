@@ -1,16 +1,18 @@
 //import
 
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService } from "../client/Client";
+import type { ValAPIClient } from "../client/Client";
 
 //interface
 
-interface ValAPIServiceLevelBorders {
-    uuid: string;
-    startingLevel: number;
-    levelNumberAppearance: string;
-    smallPlayerCardAppearance: string;
-    assetPath: string;
+namespace LevelBorders {
+    export interface LevelBorders {
+        uuid: string;
+        startingLevel: number;
+        levelNumberAppearance: string;
+        smallPlayerCardAppearance: string;
+        assetPath: string;
+    }
 }
 
 //class
@@ -26,11 +28,11 @@ class LevelBorders {
 
     //service
 
-    public async get(): Promise<ValAPIClientService<ValAPIServiceLevelBorders[]>> {
+    public async get(): Promise<ValAPIClient.Service<LevelBorders.LevelBorders[]>> {
         return await this.RequestClient.get('/levelborders' + `?language=${this.language}`);
     }
 
-    public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceLevelBorders>> {
+    public async getByUuid(uuid: string): Promise<ValAPIClient.Service<LevelBorders.LevelBorders>> {
         return await this.RequestClient.get(`/levelborders/${uuid}` + `?language=${this.language}`);
     }
 }
@@ -38,4 +40,3 @@ class LevelBorders {
 //export
 
 export { LevelBorders };
-export type { ValAPIServiceLevelBorders };

@@ -1,18 +1,20 @@
 //import
 
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService } from "../client/Client";
+import type { ValAPIClient } from "../client/Client";
 
 //interface
 
-interface ValAPIServiceVersion {
-    manifestId: string;
-    branch: string;
-    version: string;
-    buildVersion: string;
-    engineVersion: string;
-    riotClientVersion: string;
-    buildDate: string | Date;
+namespace Version {
+    export interface Version {
+        manifestId: string;
+        branch: string;
+        version: string;
+        buildVersion: string;
+        engineVersion: string;
+        riotClientVersion: string;
+        buildDate: string | Date;
+    }
 }
 
 //class
@@ -26,7 +28,7 @@ class Version {
 
     //service
 
-    public async get(): Promise<ValAPIClientService<ValAPIServiceVersion>> {
+    public async get(): Promise<ValAPIClient.Service<Version.Version>> {
         return await this.RequestClient.get('/version');
     }
 }
@@ -34,4 +36,3 @@ class Version {
 //export 
 
 export { Version };
-export type { ValAPIServiceVersion };

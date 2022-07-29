@@ -1,35 +1,37 @@
 //import
 
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
+import type { ValAPIClient } from "../client/Client";
 
 //interface
 
-interface ValAPIServiceSeasons {
-    uuid: string;
-    displayName: ValAPIResponse<string>; //localized
-    type: string;
-    startTime: string | Date;
-    endTime: string | Date;
-    parentUuid: string;
-    assetPath: string;
-}
-
-interface ValAPIServiceCompetitiveSeasons {
-    uuid: string;
-    startTime: string | Date;
-    endTime: string | Date;
-    seasonUuid: string;
-    competitiveTiersUuid: string;
-    borders: Array<{
+namespace Seasons {
+    export interface Seasons {
         uuid: string;
-        level: number;
-        winsRequired: number;
-        displayIcon: string;
-        smallIcon: string;
+        displayName: ValAPIClient.Response<string>; //localized
+        type: string;
+        startTime: string | Date;
+        endTime: string | Date;
+        parentUuid: string;
         assetPath: string;
-    }>;
-    assetPath: string;
+    }
+
+    export interface CompetitiveSeasons {
+        uuid: string;
+        startTime: string | Date;
+        endTime: string | Date;
+        seasonUuid: string;
+        competitiveTiersUuid: string;
+        borders: Array<{
+            uuid: string;
+            level: number;
+            winsRequired: number;
+            displayIcon: string;
+            smallIcon: string;
+            assetPath: string;
+        }>;
+        assetPath: string;
+    }
 }
 
 //class
@@ -45,19 +47,19 @@ class Seasons {
 
     //service
 
-    public async get(): Promise<ValAPIClientService<ValAPIServiceSeasons[]>> {
+    public async get(): Promise<ValAPIClient.Service<Seasons.Seasons[]>> {
         return await this.RequestClient.get('/seasons' + `?language=${this.language}`);
     }
 
-    public async getCompetitiveSeasons(): Promise<ValAPIClientService<ValAPIServiceCompetitiveSeasons[]>> {
+    public async getCompetitiveSeasons(): Promise<ValAPIClient.Service<Seasons.CompetitiveSeasons[]>> {
         return await this.RequestClient.get('/seasons/competitive');
     }
 
-    public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceSeasons>> {
+    public async getByUuid(uuid: string): Promise<ValAPIClient.Service<Seasons.Seasons>> {
         return await this.RequestClient.get(`/seasons/${uuid}` + `?language=${this.language}`);
     }
 
-    public async getCompetitiveSeasonByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceCompetitiveSeasons>> {
+    public async getCompetitiveSeasonByUuid(uuid: string): Promise<ValAPIClient.Service<Seasons.CompetitiveSeasons>> {
         return await this.RequestClient.get(`/seasons/competitive/${uuid}`);
     }
 }
@@ -65,4 +67,3 @@ class Seasons {
 //export 
 
 export { Seasons };
-export type { ValAPIServiceSeasons, ValAPIServiceCompetitiveSeasons };

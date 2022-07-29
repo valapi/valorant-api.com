@@ -1,43 +1,45 @@
 //import
 
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
+import type { ValAPIClient } from "../client/Client";
 
 //interface
 
-interface ValAPIServiceContracts {
-    uuid: string;
-    displayName: ValAPIResponse<string>; //localized
-    displayIcon: string;
-    shipIt: boolean;
-    freeRewardScheduleUuid: string;
-    content: {
-        relationType: string;
-        relationUuid: string;
-        chapters:Array<{
-            isEpilogue: boolean;
-            levels: Array<{
-                reward: {
+namespace Contracts {
+    export interface Contracts {
+        uuid: string;
+        displayName: ValAPIClient.Response<string>; //localized
+        displayIcon: string;
+        shipIt: boolean;
+        freeRewardScheduleUuid: string;
+        content: {
+            relationType: string;
+            relationUuid: string;
+            chapters: Array<{
+                isEpilogue: boolean;
+                levels: Array<{
+                    reward: {
+                        type: string;
+                        uuid: string;
+                        amount: number;
+                        isHighlighted: boolean;
+                    };
+                    xp: number;
+                    vpCost: number;
+                    isPurchasableWithVP: boolean;
+                }>;
+                freeRewards: Array<{
                     type: string;
                     uuid: string;
                     amount: number;
                     isHighlighted: boolean;
-                };
-                xp: number;
-                vpCost: number;
-                isPurchasableWithVP: boolean;
+                }>;
             }>;
-            freeRewards: Array<{
-                type: string;
-                uuid: string;
-                amount: number;
-                isHighlighted: boolean;
-            }>;
-        }>;
-        premiumRewardScheduleUuid: string;
-        premiumVPCost: number;
-    };
-    assetPath: string;
+            premiumRewardScheduleUuid: string;
+            premiumVPCost: number;
+        };
+        assetPath: string;
+    }
 }
 
 //class
@@ -52,11 +54,11 @@ class Contracts {
     }
     //service
 
-    public async get():Promise<ValAPIClientService<ValAPIServiceContracts[]>> {
+    public async get(): Promise<ValAPIClient.Service<Contracts.Contracts[]>> {
         return await this.RequestClient.get('/contracts' + `?language=${this.language}`);
     }
 
-    public async getByUuid(uuid:string):Promise<ValAPIClientService<ValAPIServiceContracts>> {
+    public async getByUuid(uuid: string): Promise<ValAPIClient.Service<Contracts.Contracts>> {
         return await this.RequestClient.get(`/contracts/${uuid}` + `?language=${this.language}`);
     }
 }
@@ -64,4 +66,3 @@ class Contracts {
 //export
 
 export { Contracts };
-export type { ValAPIServiceContracts };

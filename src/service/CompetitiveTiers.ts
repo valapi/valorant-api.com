@@ -1,26 +1,28 @@
 //import
 
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
+import type { ValAPIClient } from "../client/Client";
 
 //interface
 
-interface ValAPIServiceCompetitiveTiers {
-    uuid: string;
-    assetObjectName: string;
-    tiers: Array<{
-        tier: number;
-        tierName: ValAPIResponse<string>; //localized
-        division: string;
-        divisionName: ValAPIResponse<string>; //localized
-        color: string;
-        backgroundColor: string;
-        smallIcon: string;
-        largeIcon: string;
-        rankTriangleDownIcon: string;
-        rankTriangleUpIcon: string;
-    }>;
-    assetPath: string;
+namespace CompetitiveTiers {
+    export interface CompetitiveTiers {
+        uuid: string;
+        assetObjectName: string;
+        tiers: Array<{
+            tier: number;
+            tierName: ValAPIClient.Response<string>; //localized
+            division: string;
+            divisionName: ValAPIClient.Response<string>; //localized
+            color: string;
+            backgroundColor: string;
+            smallIcon: string;
+            largeIcon: string;
+            rankTriangleDownIcon: string;
+            rankTriangleUpIcon: string;
+        }>;
+        assetPath: string;
+    }
 }
 
 //class
@@ -36,11 +38,11 @@ class CompetitiveTiers {
 
     //service
 
-    public async get(): Promise<ValAPIClientService<ValAPIServiceCompetitiveTiers[]>> {
+    public async get(): Promise<ValAPIClient.Service<CompetitiveTiers.CompetitiveTiers[]>> {
         return await this.RequestClient.get('/competitivetiers' + `?language=${this.language}`);
     }
 
-    public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceCompetitiveTiers>> {
+    public async getByUuid(uuid: string): Promise<ValAPIClient.Service<CompetitiveTiers.CompetitiveTiers>> {
         return await this.RequestClient.get(`/competitivetiers/${uuid}` + `?language=${this.language}`);
     }
 }
@@ -48,4 +50,3 @@ class CompetitiveTiers {
 //export
 
 export { CompetitiveTiers };
-export type { ValAPIServiceCompetitiveTiers };

@@ -1,26 +1,28 @@
 //import
 
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
+import type { ValAPIClient } from "../client/Client";
 
 //interface
 
-interface ValAPIServiceBuddyLevels {
-    uuid: string;
-    charmLevel: number;
-    displayName: ValAPIResponse<string>; //localized
-    displayIcon: string;
-    assetPath: string;
-}
+namespace Buddies {
+    export interface BuddyLevels {
+        uuid: string;
+        charmLevel: number;
+        displayName: ValAPIClient.Response<string>; //localized
+        displayIcon: string;
+        assetPath: string;
+    }
 
-interface ValAPIServiceBuddies {
-    uuid: string;
-    displayName: ValAPIResponse<string>; //localized
-    isHiddenIfNotOwned: boolean;
-    themeUuid: string;
-    displayIcon: string;
-    assetPath: string;
-    levels: Array<ValAPIServiceBuddyLevels>;
+    export interface Buddies {
+        uuid: string;
+        displayName: ValAPIClient.Response<string>; //localized
+        isHiddenIfNotOwned: boolean;
+        themeUuid: string;
+        displayIcon: string;
+        assetPath: string;
+        levels: Array<Buddies.BuddyLevels>;
+    }
 }
 
 //class
@@ -36,19 +38,19 @@ class Buddies {
 
     //service
 
-    public async get():Promise<ValAPIClientService<ValAPIServiceBuddies[]>> {
+    public async get(): Promise<ValAPIClient.Service<Buddies.Buddies[]>> {
         return await this.RequestClient.get('/buddies' + `?language=${this.language}`);
     }
 
-    public async getLevels():Promise<ValAPIClientService<ValAPIServiceBuddyLevels[]>> {
+    public async getLevels(): Promise<ValAPIClient.Service<Buddies.BuddyLevels[]>> {
         return await this.RequestClient.get(`/buddies/levels` + `?language=${this.language}`);
     }
 
-    public async getByUuid(uuid:string):Promise<ValAPIClientService<ValAPIServiceBuddies>> {
+    public async getByUuid(uuid: string): Promise<ValAPIClient.Service<Buddies.Buddies>> {
         return await this.RequestClient.get(`/buddies/${uuid}` + `?language=${this.language}`);
     }
 
-    public async getLevelByUuid(uuid:string):Promise<ValAPIClientService<ValAPIServiceBuddyLevels>> {
+    public async getLevelByUuid(uuid: string): Promise<ValAPIClient.Service<Buddies.BuddyLevels>> {
         return await this.RequestClient.get(`/buddies/levels/${uuid}` + `?language=${this.language}`);
     }
 }
@@ -56,4 +58,3 @@ class Buddies {
 //export
 
 export { Buddies };
-export type { ValAPIServiceBuddies, ValAPIServiceBuddyLevels };

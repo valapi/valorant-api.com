@@ -1,17 +1,19 @@
 //import
 
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
+import type { ValAPIClient } from "../client/Client";
 
 //interface
 
-interface ValAPIServiceEvents {
-    uuid: string;
-    displayName: ValAPIResponse<string>; //localized
-    shortDisplayName: ValAPIResponse<string>; //localized
-    startTime: string | Date;
-    endTime: string | Date;
-    assetPath: string;
+namespace Events {
+    export interface Events {
+        uuid: string;
+        displayName: ValAPIClient.Response<string>; //localized
+        shortDisplayName: ValAPIClient.Response<string>; //localized
+        startTime: string | Date;
+        endTime: string | Date;
+        assetPath: string;
+    }
 }
 
 //class
@@ -27,11 +29,11 @@ class Events {
 
     //service
 
-    public async get(): Promise<ValAPIClientService<ValAPIServiceEvents[]>> {
+    public async get(): Promise<ValAPIClient.Service<Events.Events[]>> {
         return await this.RequestClient.get('/events' + `?language=${this.language}`);
     }
 
-    public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceEvents>> {
+    public async getByUuid(uuid: string): Promise<ValAPIClient.Service<Events.Events>> {
         return await this.RequestClient.get(`/events/${uuid}` + `?language=${this.language}`);
     }
 }
@@ -39,4 +41,3 @@ class Events {
 //export
 
 export { Events };
-export type { ValAPIServiceEvents };

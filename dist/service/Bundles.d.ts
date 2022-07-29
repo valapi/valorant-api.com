@@ -1,24 +1,25 @@
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
-interface ValAPIServiceBundles {
-    uuid: string;
-    displayName: ValAPIResponse<string>;
-    displayNameSubText: ValAPIResponse<string>;
-    description: ValAPIResponse<string>;
-    extraDescription: ValAPIResponse<string>;
-    promoDescription: ValAPIResponse<string>;
-    useAdditionalContext: boolean;
-    displayIcon: string;
-    displayIcon2: string;
-    verticalPromoImage: string;
-    assetPath: string;
+import type { ValAPIClient } from "../client/Client";
+declare namespace Bundles {
+    interface Bundles {
+        uuid: string;
+        displayName: ValAPIClient.Response<string>;
+        displayNameSubText: ValAPIClient.Response<string>;
+        description: ValAPIClient.Response<string>;
+        extraDescription: ValAPIClient.Response<string>;
+        promoDescription: ValAPIClient.Response<string>;
+        useAdditionalContext: boolean;
+        displayIcon: string;
+        displayIcon2: string;
+        verticalPromoImage: string;
+        assetPath: string;
+    }
 }
 declare class Bundles {
     private RequestClient;
     private language;
     constructor(RequestClient: ValRequestClient, language: string);
-    get(): Promise<ValAPIClientService<ValAPIServiceBundles[]>>;
-    getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceBundles>>;
+    get(): Promise<ValAPIClient.Service<Bundles.Bundles[]>>;
+    getByUuid(uuid: string): Promise<ValAPIClient.Service<Bundles.Bundles>>;
 }
 export { Bundles };
-export type { ValAPIServiceBundles };

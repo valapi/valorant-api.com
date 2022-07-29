@@ -1,17 +1,19 @@
 //import
 
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
+import type { ValAPIClient } from "../client/Client";
 
 //interface
 
-interface ValAPIServiceCurrencies {
-    uuid: string;
-    displayName: ValAPIResponse<string>; //localized
-    displayNameSingular: ValAPIResponse<string>; //localized
-    displayIcon: string;
-    largeIcon: string;
-    assetPath: string;
+namespace Currencies {
+    export interface Currencies {
+        uuid: string;
+        displayName: ValAPIClient.Response<string>; //localized
+        displayNameSingular: ValAPIClient.Response<string>; //localized
+        displayIcon: string;
+        largeIcon: string;
+        assetPath: string;
+    }
 }
 
 //class
@@ -27,11 +29,11 @@ class Currencies {
 
     //service
 
-    public async get(): Promise<ValAPIClientService<ValAPIServiceCurrencies[]>> {
+    public async get(): Promise<ValAPIClient.Service<Currencies.Currencies[]>> {
         return await this.RequestClient.get('/currencies' + `?language=${this.language}`);
     }
 
-    public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceCurrencies>> {
+    public async getByUuid(uuid: string): Promise<ValAPIClient.Service<Currencies.Currencies>> {
         return await this.RequestClient.get(`/currencies/${uuid}` + `?language=${this.language}`);
     }
 }
@@ -39,4 +41,3 @@ class Currencies {
 //export
 
 export { Currencies };
-export type { ValAPIServiceCurrencies };

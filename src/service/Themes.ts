@@ -1,16 +1,18 @@
 //import
 
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
+import type { ValAPIClient } from "../client/Client";
 
 //interface
 
-interface ValAPIServiceThemes {
-    uuid: string;
-    displayName: ValAPIResponse<string>; //localized
-    displayIcon: string;
-    storeFeaturedImage: string;
-    assetPath: string;
+namespace Themes {
+    export interface Themes {
+        uuid: string;
+        displayName: ValAPIClient.Response<string>; //localized
+        displayIcon: string;
+        storeFeaturedImage: string;
+        assetPath: string;
+    }
 }
 
 //class
@@ -26,11 +28,11 @@ class Themes {
 
     //service
 
-    public async get(): Promise<ValAPIClientService<ValAPIServiceThemes[]>> {
+    public async get(): Promise<ValAPIClient.Service<Themes.Themes[]>> {
         return await this.RequestClient.get('/themes' + `?language=${this.language}`);
     }
 
-    public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceThemes>> {
+    public async getByUuid(uuid: string): Promise<ValAPIClient.Service<Themes.Themes>> {
         return await this.RequestClient.get(`/themes/${uuid}` + `?language=${this.language}`);
     }
 }
@@ -38,4 +40,3 @@ class Themes {
 //export
 
 export { Themes };
-export type { ValAPIServiceThemes };

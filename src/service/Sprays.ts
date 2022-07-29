@@ -1,30 +1,32 @@
 //import
 
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
+import type { ValAPIClient } from "../client/Client";
 
 //interface
 
-interface ValAPIServiceSprayLevels {
-    uuid: string;
-    sprayLevel: number;
-    displayName: ValAPIResponse<string>; //localized
-    displayIcon: string;
-    assetPath: string;
-}
+namespace Sprays {
+    export interface SprayLevels {
+        uuid: string;
+        sprayLevel: number;
+        displayName: ValAPIClient.Response<string>; //localized
+        displayIcon: string;
+        assetPath: string;
+    }
 
-interface ValAPIServiceSprays {
-    uuid: string;
-    displayName: ValAPIResponse<string>; //localized
-    category: string;
-    themeUuid: string;
-    displayIcon: string;
-    fullIcon: string;
-    fullTransparentIcon: string;
-    animationPng: string;
-    animationGif: string;
-    assetPath: string;
-    levels: Array<ValAPIServiceSprayLevels>;
+    export interface Sprays {
+        uuid: string;
+        displayName: ValAPIClient.Response<string>; //localized
+        category: string;
+        themeUuid: string;
+        displayIcon: string;
+        fullIcon: string;
+        fullTransparentIcon: string;
+        animationPng: string;
+        animationGif: string;
+        assetPath: string;
+        levels: Array<Sprays.SprayLevels>;
+    }
 }
 
 //class
@@ -40,19 +42,19 @@ class Sprays {
 
     //service
 
-    public async get():Promise<ValAPIClientService<ValAPIServiceSprays[]>> {
+    public async get(): Promise<ValAPIClient.Service<Sprays.Sprays[]>> {
         return await this.RequestClient.get('/sprays' + `?language=${this.language}`);
     }
 
-    public async getLevels():Promise<ValAPIClientService<ValAPIServiceSprayLevels[]>> {
+    public async getLevels(): Promise<ValAPIClient.Service<Sprays.SprayLevels[]>> {
         return await this.RequestClient.get(`/sprays/levels` + `?language=${this.language}`);
     }
 
-    public async getByUuid(uuid:string):Promise<ValAPIClientService<ValAPIServiceSprays>> {
+    public async getByUuid(uuid: string): Promise<ValAPIClient.Service<Sprays.Sprays>> {
         return await this.RequestClient.get(`/sprays/${uuid}` + `?language=${this.language}`);
     }
 
-    public async getLevelByUuid(uuid:string):Promise<ValAPIClientService<ValAPIServiceSprayLevels>> {
+    public async getLevelByUuid(uuid: string): Promise<ValAPIClient.Service<Sprays.SprayLevels>> {
         return await this.RequestClient.get(`/sprays/levels/${uuid}` + `?language=${this.language}`);
     }
 }
@@ -60,4 +62,3 @@ class Sprays {
 //export
 
 export { Sprays };
-export type { ValAPIServiceSprays, ValAPIServiceSprayLevels };

@@ -1,51 +1,53 @@
 //import
 
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
+import type { ValAPIClient } from "../client/Client";
 
 //interface
 
-interface ValAPIServiceAgents {
-    uuid: string;
-    displayName: ValAPIResponse<string>; //localized
-    description: ValAPIResponse<string>; //localized
-    developerName: string;
-    characterTags: ValAPIResponse<Array<string>>; //localized
-    displayIcon: string;
-    displayIconSmall: string;
-    bustPortrait: string;
-    fullPortrait: string;
-    fullPortraitV2: string;
-    killfeedPortrait: string;
-    background: string;
-    backgroundGradientColors: Array<string>;
-    assetPath: string;
-    isFullPortraitRightFacing: boolean;
-    isPlayableCharacter: boolean;
-    isAvailableForTest: boolean;
-    isBaseContent: boolean;
-    role: {
+namespace Agents {
+    export interface Agents {
         uuid: string;
-        displayName: ValAPIResponse<string>; //localized
-        description: ValAPIResponse<string>; //localized
+        displayName: ValAPIClient.Response<string>; //localized
+        description: ValAPIClient.Response<string>; //localized
+        developerName: string;
+        characterTags: ValAPIClient.Response<Array<string>>; //localized
         displayIcon: string;
+        displayIconSmall: string;
+        bustPortrait: string;
+        fullPortrait: string;
+        fullPortraitV2: string;
+        killfeedPortrait: string;
+        background: string;
+        backgroundGradientColors: Array<string>;
         assetPath: string;
-    };
-    abilities: Array<{
-        slot: string;
-        displayName: ValAPIResponse<string>; //localized
-        description: ValAPIResponse<string>; //localized
-        displayIcon: string;
-    }>;
-    voiceLines: {
-        minDuration: number;
-        maxDuration: number;
-        mediaList: Array<{
-            id: number;
-            wwise: string;
-            wave: string;
+        isFullPortraitRightFacing: boolean;
+        isPlayableCharacter: boolean;
+        isAvailableForTest: boolean;
+        isBaseContent: boolean;
+        role: {
+            uuid: string;
+            displayName: ValAPIClient.Response<string>; //localized
+            description: ValAPIClient.Response<string>; //localized
+            displayIcon: string;
+            assetPath: string;
+        };
+        abilities: Array<{
+            slot: string;
+            displayName: ValAPIClient.Response<string>; //localized
+            description: ValAPIClient.Response<string>; //localized
+            displayIcon: string;
         }>;
-    };
+        voiceLines: {
+            minDuration: number;
+            maxDuration: number;
+            mediaList: Array<{
+                id: number;
+                wwise: string;
+                wave: string;
+            }>;
+        };
+    }
 }
 
 //class
@@ -61,19 +63,19 @@ class Agents {
 
     //service
 
-    public async get(isPlayableCharacter?:boolean):Promise<ValAPIClientService<ValAPIServiceAgents[]>> {
+    public async get(isPlayableCharacter?: boolean): Promise<ValAPIClient.Service<Agents.Agents[]>> {
         let url = `/agents` + `?language=${this.language}`;
 
-        if(isPlayableCharacter === false){
+        if (isPlayableCharacter === false) {
             url += `&isPlayableCharacter=false`;
-        } else if(isPlayableCharacter === true) {
+        } else if (isPlayableCharacter === true) {
             url += `&isPlayableCharacter=true`;
         }
 
         return await this.RequestClient.get(url);
     }
 
-    public async getByUuid(uuid:string):Promise<ValAPIClientService<ValAPIServiceAgents>> {
+    public async getByUuid(uuid: string): Promise<ValAPIClient.Service<Agents.Agents>> {
         return await this.RequestClient.get(`/agents/${uuid}` + `?language=${this.language}`);
     }
 }
@@ -81,4 +83,3 @@ class Agents {
 //export
 
 export { Agents };
-export type { ValAPIServiceAgents };

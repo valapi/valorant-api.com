@@ -24,12 +24,6 @@ const Sprays_1 = require("../service/Sprays");
 const Themes_1 = require("../service/Themes");
 const Version_1 = require("../service/Version");
 const Weapons_1 = require("../service/Weapons");
-const _defaultConfig = {
-    language: 'en-US',
-    axiosConfig: {
-        baseURL: 'https://valorant-api.com/v1',
-    },
-};
 //class
 /**
  * Third-Party API by Officer
@@ -38,12 +32,17 @@ const _defaultConfig = {
  */
 class ValAPIClient extends lib_1.ValEvent {
     /**
-     * Class Constructor
+     *
      * @param {ValAPIClient.Config} config Client Config
      */
     constructor(config = {}) {
         super();
-        this.config = Object.assign(Object.assign({}, _defaultConfig), config);
+        this.config = Object.assign({
+            language: 'en-US',
+            axiosConfig: {
+                baseURL: 'https://valorant-api.com/v1',
+            },
+        }, config);
         //config
         if (this.config.language === 'en-GB') {
             throw new Error(`Language '${this.config.language}' is not supported`);
@@ -115,7 +114,6 @@ class ValAPIClient extends lib_1.ValEvent {
      */
     setLanguage(language) {
         this.config.language = language;
-        this.emit('changeSettings', { name: 'language', data: language });
         this.reload();
     }
 }

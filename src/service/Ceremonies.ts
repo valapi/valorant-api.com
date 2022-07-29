@@ -1,19 +1,21 @@
 //import
 
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
+import type { ValAPIClient } from "../client/Client";
 
 //interface
 
-interface ValAPIServiceCeremonies {
-    uuid: string;
-    displayName: ValAPIResponse<string>; //localized
-    assetPath: string;
+namespace Ceremonies {
+    export interface Ceremonies {
+        uuid: string;
+        displayName: ValAPIClient.Response<string>; //localized
+        assetPath: string;
+    }
 }
 
 //class
 
-class Ceremonies  {
+class Ceremonies {
     private RequestClient: ValRequestClient;
     private language: string;
 
@@ -24,11 +26,11 @@ class Ceremonies  {
 
     //service
 
-    public async get(): Promise<ValAPIClientService<ValAPIServiceCeremonies[]>> {
+    public async get(): Promise<ValAPIClient.Service<Ceremonies.Ceremonies[]>> {
         return await this.RequestClient.get('/ceremonies' + `?language=${this.language}`);
     }
 
-    public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceCeremonies>> {
+    public async getByUuid(uuid: string): Promise<ValAPIClient.Service<Ceremonies.Ceremonies>> {
         return await this.RequestClient.get(`/ceremonies/${uuid}` + `?language=${this.language}`);
     }
 }
@@ -36,4 +38,3 @@ class Ceremonies  {
 //export
 
 export { Ceremonies };
-export type { ValAPIServiceCeremonies };

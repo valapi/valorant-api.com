@@ -1,20 +1,22 @@
 //import
 
 import type { ValRequestClient } from "@valapi/lib";
-import type { ValAPIClientService, ValAPIResponse } from "../client/Client";
+import type { ValAPIClient } from "../client/Client";
 
 //interface
 
-interface ValAPIServiceContentTiers {
-    uuid: string;
-    displayName: ValAPIResponse<string>; //localized
-    devName: string;
-    rank: number;
-    juiceValue: number;
-    juiceCost: number;
-    highlightColor: string;
-    displayIcon: string;
-    assetPath: string;
+namespace ContentTiers {
+    export interface ContentTiers {
+        uuid: string;
+        displayName: ValAPIClient.Response<string>; //localized
+        devName: string;
+        rank: number;
+        juiceValue: number;
+        juiceCost: number;
+        highlightColor: string;
+        displayIcon: string;
+        assetPath: string;
+    }
 }
 
 //class
@@ -30,11 +32,11 @@ class ContentTiers {
 
     //service
 
-    public async get(): Promise<ValAPIClientService<ValAPIServiceContentTiers[]>> {
+    public async get(): Promise<ValAPIClient.Service<ContentTiers.ContentTiers[]>> {
         return await this.RequestClient.get('/contenttiers' + `?language=${this.language}`);
     }
 
-    public async getByUuid(uuid: string): Promise<ValAPIClientService<ValAPIServiceContentTiers>> {
+    public async getByUuid(uuid: string): Promise<ValAPIClient.Service<ContentTiers.ContentTiers>> {
         return await this.RequestClient.get(`/contenttiers/${uuid}` + `?language=${this.language}`);
     }
 }
@@ -42,4 +44,3 @@ class ContentTiers {
 //export
 
 export { ContentTiers };
-export type { ValAPIServiceContentTiers };
